@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     //button to test habit effect activity, not there in final project
     Button button;
+    Button goto_login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         // find button by id
         button = findViewById(R.id.button);
+        goto_login_button = findViewById(R.id.goto_login_button);
 
         // on click function
         button.setOnClickListener(new View.OnClickListener(){
@@ -27,11 +29,24 @@ public class MainActivity extends AppCompatActivity {
                 openHabitEffectActivity();
             }
         });
+
+        // on click function
+        goto_login_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openLoginActivity();
+            }
+        });
     }
 
     // open habit effect
     public void openHabitEffectActivity(){
         Intent intent = new Intent(this, HabitEffectActivity.class);
+        startActivity(intent);
+    }
+
+    public void openLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

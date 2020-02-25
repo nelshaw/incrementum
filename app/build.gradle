@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dependencies {
+        annotationProcessor 'com.jakewharton:butterknife:6.1.0'
+        implementation 'com.jakewharton:butterknife:6.1.0'
+
+    }
 }
 
 dependencies {
