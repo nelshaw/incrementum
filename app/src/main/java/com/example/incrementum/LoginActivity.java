@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        openViewHabitActicity();
         finish();
     }
 
@@ -130,5 +131,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+
+    public void openViewHabitActicity(){
+        Intent intent = new Intent(this, ViewHabitActivity.class);
+        startActivity(intent);
     }
 }

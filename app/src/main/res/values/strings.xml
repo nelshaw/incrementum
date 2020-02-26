@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Incrementum</string>
+    <string name="habits">Habits</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="tracking_length">Tracking Length</string>
+    <string name="save">Save</string>
+    <string name="trigger_selections_go_here">TRIGGER SELECTIONS GO HERE</string>
+    <string name="triggers">Triggers</string>
+    <string name="description">Description</string>
 </resources>
