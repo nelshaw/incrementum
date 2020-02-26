@@ -41,7 +41,7 @@ public class HabitEffectActivity extends AppCompatActivity {
 
     // open journal
     public void openJournalActivity(){
-        Intent intent = new Intent(this, JournalActivity.class);
+        Intent intent = new Intent(this, AddJournalActivity.class);
         startActivity(intent);
     }
 

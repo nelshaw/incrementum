@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddHabitActivity"></activity>
         <activity android:name=".ViewHabitActivity" />
-        <activity android:name=".JournalActivity" />
+        <activity android:name=".AddJournalActivity" />
         <activity android:name=".HabitEffectActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+      <activity android:name=".ViewJournalActivity" />
     </application>
 
 </manifest>
