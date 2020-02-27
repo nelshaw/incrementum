@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddHabit2Activity">
+
+    <Button
+        android:id="@+id/trigger2"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="#F1E286"
+        android:text="Afternoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger5"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="396dp"
+        android:backgroundTint="#F1E286"
+        android:text="Night"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger7"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="#F1E286"
+        android:text="Morning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger6"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="396dp"
+        android:backgroundTint="#F1E286"
+        android:text="Evening"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger3"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="224dp"
+        android:backgroundTint="#5AB7EB"
+        android:text="Trigger3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="36dp"
+        android:backgroundTint="#5AB7EB"
+        android:text="Trigger1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/trigger4"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="#5AB7EB"
+        android:text="Trigger4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:layout_width="173dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="424dp"
+        android:text="Add Your Own"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trigger4" />
+
+    <Button
+        android:id="@+id/Trigger2"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="#5AB7EB"
+        android:text="Trigger2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="380dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:hapticFeedbackEnabled="false"
+        android:text="What Triggers Your Habit?"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="380dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="336dp"
+        android:hapticFeedbackEnabled="false"
+        android:text="When Does it Happen?"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="21dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

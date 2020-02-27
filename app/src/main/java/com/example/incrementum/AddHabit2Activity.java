@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class AddHabitActivity extends AppCompatActivity {
+public class AddHabit2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_habit);
+        setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
+
         saveButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -23,15 +24,9 @@ public class AddHabitActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void openAddHabit2Activity(){
-        Intent intent = new Intent(this, AddHabit2Activity.class);
-        startActivity(intent);
-    }
-
     public void Continue(){
         if(Validate()) {
-            openAddHabit2Activity();
+            Back();
             //TO DO - ADD SAVE DB LOGIC
         }
         else{
@@ -44,6 +39,9 @@ public class AddHabitActivity extends AppCompatActivity {
         return true;
         //to do
     }
-
+    public void Back(){
+        Intent intent = new Intent(this, ViewHabitActivity.class);
+        startActivity(intent);
+    }
 
 }
