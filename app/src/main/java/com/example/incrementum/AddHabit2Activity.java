@@ -35,7 +35,6 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     public Boolean Validate(){
 
-
         return true;
         //to do
     }
