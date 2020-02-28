@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-<<<<<<< HEAD
+
     private void recoverPassword() {
 
         String email = _emailText.getText().toString();
@@ -194,8 +194,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-=======
->>>>>>> a795e75ea556230fb00519f9785f9714b42c68b9
+
     public void openViewHabitActicity(){
         Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
