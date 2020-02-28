@@ -24,8 +24,6 @@ public class AddHabit2Activity extends AppCompatActivity {
     private int optionsSelected = 0;
     private int timesSelected;
 
-
-
     //parameters of habit
     private EditText userIn;
     boolean triggerLocation = false;
@@ -38,7 +36,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     boolean timeEvening = false;
     boolean timeAfternoon = false;
     boolean timeNight = false;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
