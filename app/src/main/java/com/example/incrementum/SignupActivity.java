@@ -116,7 +116,6 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _passwordText.setError(null);
         }
-
         return valid;
     }
 }
