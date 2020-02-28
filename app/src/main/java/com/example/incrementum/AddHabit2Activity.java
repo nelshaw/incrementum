@@ -190,7 +190,11 @@ public class AddHabit2Activity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Please select at least one trigger.", Toast.LENGTH_LONG).show();
             return false;
         }
-
+        if(timesSelected==0)
+        {
+            Toast.makeText(getBaseContext(), "Please select when your habit occurs.", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
         //to do
