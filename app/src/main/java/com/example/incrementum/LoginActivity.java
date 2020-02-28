@@ -196,6 +196,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
+
+
     public void openViewHabitActivity(){
 
         Intent intent = new Intent(this, ViewHabitActivity.class);
