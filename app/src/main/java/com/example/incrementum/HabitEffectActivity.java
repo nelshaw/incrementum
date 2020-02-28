@@ -110,9 +110,10 @@ public class HabitEffectActivity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
-//        Document filterDoc = new Document().append("Type", "Positive");
+        Document filterDoc = new Document();
+//      .append("entry", new Document().append("$eq", true));
 
-        RemoteFindIterable results = coll.find(new Document());
+        RemoteFindIterable results = coll.find(filterDoc);
 
         Log.d("sjnd-------------", "start");
 
