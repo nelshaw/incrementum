@@ -15,6 +15,14 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.auth.StitchUser;
+import com.mongodb.stitch.core.auth.providers.userpassword.UserPasswordCredential;
+
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -66,17 +74,32 @@ public class LoginActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        UserPasswordCredential credential = new UserPasswordCredential(email, password);
+        Stitch.getDefaultAppClient().getAuth().loginWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<StitchUser>() {
+                                           @Override
+                                           public void onComplete(@NonNull final Task<StitchUser> task) {
+                                               if (task.isSuccessful()) {
+                                                   Log.d("stitch", "Successfully logged in as user " + task.getResult().getId());
+                                                   onLoginSuccess();
+                                               } else {
+                                                   Log.e("stitch", "Error logging in with email/password auth:", task.getException());
+                                                   progressDialog.dismiss();
+                                                   _passwordText.setText("");
+                                                   onLoginFailed();
+                                               }
+                                           }
+                                       }
+                );
+//        new android.os.Handler().postDelayed(
+//                new Runnable() {
+//                    public void run() {
+//                        // On complete call either onLoginSuccess or onLoginFailed
+//                        onLoginSuccess();
+//                        // onLoginFailed();
+//                        progressDialog.dismiss();
+//                    }
+//                }, 3000);
     }
 
 
@@ -139,3 +162,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
