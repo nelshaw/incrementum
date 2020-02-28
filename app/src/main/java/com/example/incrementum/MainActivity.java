@@ -143,4 +143,9 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  public void openHabitActivity(){
+      Intent intent = new Intent(this, ViewHabitActivity.class);
+      startActivity(intent);
+  }
+
 }
