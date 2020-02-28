@@ -178,9 +178,6 @@ public class AddHabit2Activity extends AppCompatActivity {
             Back();
             //TO DO - ADD SAVE DB LOGIC
         }
-        else{
-            Toast.makeText(getBaseContext(), "Oops, You may have forgot to fill something in.", Toast.LENGTH_LONG).show();
-        }
     }
     public Boolean Validate(){
 
