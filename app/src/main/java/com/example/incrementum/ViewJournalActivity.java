@@ -69,10 +69,14 @@ public class ViewJournalActivity extends AppCompatActivity {
 
     RemoteFindIterable results = coll.find(filterDoc);
 
+    Log.d("Journal", "*************************************test test test");
+    Log.d("journal", String.valueOf(results));
+
     results.forEach(new Block() {
       int i = 1;
       @Override
       public void apply(Object item) {
+        Log.d("Journal", item.toString());
         String[] dates = item.toString().split("date=");
         Log.d("Date", dates[1]);
         String[] s = dates[1].split(" ");

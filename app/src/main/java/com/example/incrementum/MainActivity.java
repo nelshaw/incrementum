@@ -2,29 +2,18 @@ package com.example.incrementum;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateOptions;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
-import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.bson.Document;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         openHabitActivity();
       }
     });
-
     final StitchAppClient client =
       Stitch.initializeDefaultAppClient("incrementum-xjkms");
 
