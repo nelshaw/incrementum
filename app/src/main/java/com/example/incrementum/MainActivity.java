@@ -21,7 +21,6 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateOptions;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
-
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -42,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     title = findViewById(R.id.title);
 
+    Button habit = findViewById(R.id.habit);
+    habit.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        openHabitActivity();
+      }
+    });
     final StitchAppClient client =
       Stitch.initializeDefaultAppClient("incrementum-xjkms");
 
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
       client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
     final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("test");
+      mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
       new Continuation<StitchUser, Task<RemoteUpdateResult>>() {
