@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Log_Habits_Hobbies_Time_Activity"></activity>
+        <activity android:name=".AddHabit2Activity" />
         <activity android:name=".AddHabitActivity" />
         <activity android:name=".ViewHabitActivity" />
         <activity android:name=".AddJournalActivity" />

@@ -15,7 +15,7 @@ public class AddJournalActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_journal);
-    saveBtn = findViewById(R.id.save);
+    saveBtn = findViewById(R.id.addJournal);
     saveBtn.setOnClickListener(new View.OnClickListener(){
 
         @Override
