@@ -2,6 +2,7 @@ package com.example.incrementum;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +33,9 @@ public class ViewJournalActivity extends AppCompatActivity {
     journalEntries = findViewById(R.id.list);
 
     // Add user's name to title
-    title.append("John Smith");
+    title.append(" John Smith");
+
+    journalEntries.setText("");
 
     getAllEntries();
 
@@ -62,15 +65,27 @@ public class ViewJournalActivity extends AppCompatActivity {
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     Document filterDoc = new Document();
+//      .append("entry", new Document().append("$eq", true));
 
     RemoteFindIterable results = coll.find(filterDoc);
 
     results.forEach(new Block() {
+      int i = 1;
       @Override
       public void apply(Object item) {
-        String[] ids = item.toString().split("=");
-        String[] id = ids[1].split(",");
-        journalEntries.append(String.format("\nID is: %s", id[0]));
+        String[] dates = item.toString().split("date=");
+        Log.d("Date", dates[1]);
+        String[] s = dates[1].split(" ");
+        String date = s[1] + " " + s[2];
+
+        String[] entries = dates[1].split("entry=");
+        String[] entry = entries[1].split(",");
+        journalEntries.append("Entry " + (i++) + ": " + entry[0] + "\n");
+        journalEntries.append(String.format("Added on %s\n\n", date));
+
+//        String[] ids = item.toString().split("entry=");
+//        String[] id = ids[1].split(",");
+//        journalEntries.append("Entry " + i++ + ": " + id[0] + "\n");
       }
     });
   }
