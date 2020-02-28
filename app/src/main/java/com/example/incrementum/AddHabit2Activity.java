@@ -30,8 +30,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         final ToggleButton es = findViewById(R.id.es);
         final ToggleButton otherpeople = findViewById(R.id.otherpeople);
         final ToggleButton time = findViewById(R.id.time);
-
-
+        
         //time buttons
         final ToggleButton morning = findViewById(R.id.morning);
         final ToggleButton night = findViewById(R.id.night);
@@ -92,7 +91,6 @@ public class AddHabit2Activity extends AppCompatActivity {
                 }
             });
         }
-
 
 //trigger buttons
         {
