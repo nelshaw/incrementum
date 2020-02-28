@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Button goto_login_button;
     Button journal;
     TextView title;
-
+    Button habit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +102,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        habit = findViewById(R.id.habit);
 
+        habit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              openHabitActivity();
+            }
+        });
 
 
       // find button by id
@@ -148,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
   public void openJournalActivity(){
     Intent intent = new Intent(this, ViewJournalActivity.class);
     startActivity(intent);
+  }
+
+  public void openHabitActivity(){
+      Intent intent = new Intent(this, ViewHabitActivity.class);
+      startActivity(intent);
   }
 
 }
