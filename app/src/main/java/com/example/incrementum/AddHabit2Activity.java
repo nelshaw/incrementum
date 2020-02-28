@@ -23,7 +23,22 @@ public class AddHabit2Activity extends AppCompatActivity {
 
     private int optionsSelected = 0;
     private int timesSelected;
+
+
+
+    //parameters of habit
     private EditText userIn;
+    boolean triggerLocation = false;
+    boolean triggerpe = false;
+    boolean triggeres = false;
+    boolean triggerop = false;
+    boolean triggerTime = false;
+
+    boolean timeMorning = false;
+    boolean timeEvening = false;
+    boolean timeAfternoon = false;
+    boolean timeNight = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +67,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         morning.setBackgroundColor(Color.rgb(209, 101, 75));
                         timesSelected++;
+                        timeMorning = true;
                     } else {
                         morning.setBackgroundColor(Color.rgb(241, 226, 134));
                         timesSelected--;
+                        timeMorning = false;
                     }
                 }
             });
@@ -65,9 +82,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         evening.setBackgroundColor(Color.rgb(209, 101, 75));
                         timesSelected++;
+                        timeEvening = true;
                     } else {
                         evening.setBackgroundColor(Color.rgb(241, 226, 134));
                         timesSelected--;
+                        timeEvening = false;
                     }
                 }
             });
@@ -78,9 +97,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         af.setBackgroundColor(Color.rgb(209, 101, 75));
                         timesSelected++;
+                        timeAfternoon = true;
                     } else {
                         af.setBackgroundColor(Color.rgb(241, 226, 134));
                         timesSelected--;
+                        timeAfternoon = false;
                     }
                 }
             });
@@ -91,9 +112,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         night.setBackgroundColor(Color.rgb(209, 101, 75));
                         timesSelected++;
+                        timeNight = true;
                     } else {
                         night.setBackgroundColor(Color.rgb(241, 226, 134));
                         timesSelected--;
+                        timeNight = false;
                     }
                 }
             });
@@ -107,9 +130,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         pe.setBackgroundColor(Color.rgb(207, 80, 80));
                         optionsSelected++;
+                        triggerpe = true;
                     } else {
                         pe.setBackgroundColor(Color.rgb(80, 183, 235));
                         optionsSelected--;
+                        triggerpe = false;
                     }
                 }
             });
@@ -119,9 +144,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         es.setBackgroundColor(Color.rgb(207, 80, 80));
                         optionsSelected++;
+                        triggeres = true;
                     } else {
                         es.setBackgroundColor(Color.rgb(80, 183, 235));
                         optionsSelected--;
+                        triggerpe = false;
                     }
                 }
             });
@@ -131,9 +158,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         otherpeople.setBackgroundColor(Color.rgb(207, 80, 80));
                         optionsSelected++;
+                        triggerop = true;
                     } else {
                         otherpeople.setBackgroundColor(Color.rgb(80, 183, 235));
                         optionsSelected--;
+                        triggerop = false;
                     }
                 }
             });
@@ -143,9 +172,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         time.setBackgroundColor(Color.rgb(207, 80, 80));
                         optionsSelected++;
+                        triggerTime = true;
                     } else {
                         time.setBackgroundColor(Color.rgb(80, 183, 235));
                         optionsSelected--;
+                        triggerTime = false;
                     }
                 }
             });
@@ -155,10 +186,12 @@ public class AddHabit2Activity extends AppCompatActivity {
                     if (isChecked) {
                         location.setBackgroundColor(Color.rgb(207, 80, 80));
                         optionsSelected++;
+                        triggerLocation = true;
 
                     } else {
                         location.setBackgroundColor(Color.rgb(80, 183, 235));
                         optionsSelected--;
+                        triggerLocation = false;
                     }
                 }
             });
@@ -171,7 +204,6 @@ public class AddHabit2Activity extends AppCompatActivity {
 
 
         }
-
     }
     public void Continue(){
         if(Validate()) {
