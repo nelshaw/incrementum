@@ -16,7 +16,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
 
-import static com.mongodb.client.model.Filters.gte;
+import java.util.List;
+import java.util.Random;
 
 
 public class HabitEffectActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class HabitEffectActivity extends AppCompatActivity {
     Button nButton;
     Button pButton;
     Button dialogButton;
-    String[] quotes;
+    List<String> quotes;
 
     public enum Type{
         NEGATIVE,
@@ -48,7 +49,11 @@ public class HabitEffectActivity extends AppCompatActivity {
                 getNegativeQuotes();
                 String quote = "neg quote";
                 Type type = Type.NEGATIVE;
-                openDialog(type, quote);
+
+                Random random = new Random();
+                int rand = random.nextInt(quotes.size());
+
+                openDialog(type, quotes.get(rand));
                 //openJournalActivity();
             }
         });
@@ -103,6 +108,7 @@ public class HabitEffectActivity extends AppCompatActivity {
     }
 
     public void getNegativeQuotes(){
+        quotes.clear();
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
 
@@ -112,14 +118,14 @@ public class HabitEffectActivity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
-        //Document filterDoc = new Document().append("Type", "Negative");
+        Document filterDoc = new Document().append("Type", "Negative");
 //      .append("entry", new Document().append("$eq", true));
 
-        RemoteFindIterable results = coll.find(gte("Type", "Negative"));
+        RemoteFindIterable results = coll.find(filterDoc);
 
         results.forEach(item -> {
             Log.d("---------ITEM------", item.toString());
-
+            quotes.add(item.toString());
         });
 
     }
