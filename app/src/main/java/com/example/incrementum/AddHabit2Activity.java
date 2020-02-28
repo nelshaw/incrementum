@@ -1,5 +1,7 @@
 package com.example.incrementum;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class AddHabit2Activity extends AppCompatActivity {
 
@@ -30,7 +37,6 @@ public class AddHabit2Activity extends AppCompatActivity {
         final ToggleButton es = findViewById(R.id.es);
         final ToggleButton otherpeople = findViewById(R.id.otherpeople);
         final ToggleButton time = findViewById(R.id.time);
-
 
         //time buttons
         final ToggleButton morning = findViewById(R.id.morning);
@@ -92,7 +98,6 @@ public class AddHabit2Activity extends AppCompatActivity {
                 }
             });
         }
-
 
 //trigger buttons
         {
