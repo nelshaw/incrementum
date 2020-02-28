@@ -1,16 +1,22 @@
 package com.example.incrementum;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class HabitEffectActivity extends AppCompatActivity {
 
     Button nButton;
     Button pButton;
+    Button dialogButton;
+
+    public enum Type{
+        NEGATIVE,
+        POSITIVE
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +26,16 @@ public class HabitEffectActivity extends AppCompatActivity {
         // find button by id
         nButton = findViewById(R.id.negative_button);
         pButton = findViewById(R.id.positive_button);
+        dialogButton = findViewById(R.id.btn_show);
 
         // on click function negative button
         nButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                openJournalActivity();
+                String quote = "neg quote";
+                Type type = Type.NEGATIVE;
+                openDialog(type, quote);
+                //openJournalActivity();
             }
         });
 
@@ -33,7 +43,17 @@ public class HabitEffectActivity extends AppCompatActivity {
         pButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                openHomeActivity();
+                String quote = "pos quote";
+                Type type = Type.POSITIVE;
+                openDialog(type, quote);
+                //openHabitActivity();
+            }
+        });
+
+        dialogButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //openDialog();
             }
         });
 
@@ -45,10 +65,30 @@ public class HabitEffectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // open home
-    public void openHomeActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+    // open habit
+    public void openHabitActivity(){
+        Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
 
+    public void openDialog(Type type, String quote){
+        QuotesDialog dialog = new QuotesDialog(type, quote);
+        dialog.show(getSupportFragmentManager(), "exampleDialog");
+        dialog.setCancelable(false);
+//        final Timer t = new Timer();
+//        t.schedule(new TimerTask() {
+//            public void run() {
+//                dialog.dismiss();
+//                t.cancel();
+//                if(type == Type.NEGATIVE)
+//                    openJournalActivity();
+//                else
+//                    openHabitActivity();
+//            }
+//        }, 5000);
+    }
+
 }
+
+
+
