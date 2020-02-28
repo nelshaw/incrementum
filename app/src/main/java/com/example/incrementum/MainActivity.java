@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
       client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
     final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("test");
+      mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
       new Continuation<StitchUser, Task<RemoteUpdateResult>>() {
