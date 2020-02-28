@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-
+import android.text.TextUtils;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +21,7 @@ import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.core.auth.providers.userpassword.UserPasswordCredential;
+import com.mongodb.stitch.android.core.auth.providers.userpassword.UserPasswordAuthProviderClient;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
     @InjectView(R.id.link_signup) TextView _signupLink;
+    @InjectView(R.id.reset_password) TextView _resetLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
+
+        _resetLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recoverPassword();
             }
         });
     }
@@ -154,6 +163,34 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    private void recoverPassword() {
+
+        String email = _emailText.getText().toString();
+
+        UserPasswordAuthProviderClient emailPassClient = Stitch.getDefaultAppClient().getAuth().getProviderClient(UserPasswordAuthProviderClient.factory);
+
+        if (TextUtils.isEmpty(email)) {
+
+            _emailText.setError("error! field is required!");
+
+        } else {
+            emailPassClient.sendResetPasswordEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                               @Override
+                                               public void onComplete(@NonNull final Task<Void> task) {
+                                                   if (task.isSuccessful()) {
+                                                       Log.d("stitch-auth", "Successfully sent password reset email");
+                                                       Toast.makeText(LoginActivity.this, "Password reset mail sent.", Toast.LENGTH_SHORT).show();
+                                                   } else {
+                                                       Log.e("stitch-auth", "Error sending password reset email:", task.getException());
+                                                       Toast.makeText(LoginActivity.this, "Account not found!", Toast.LENGTH_SHORT).show();
+                                                   }
+                                               }
+                                           }
+                    );
+        }
     }
 
 
