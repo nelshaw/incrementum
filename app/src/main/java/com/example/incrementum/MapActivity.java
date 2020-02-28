@@ -13,7 +13,7 @@ public class MapActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_view_journal);
+    setContentView(R.layout.activity_map);
 
     habit = findViewById(R.id.habit);
     journal = findViewById(R.id.journal);
