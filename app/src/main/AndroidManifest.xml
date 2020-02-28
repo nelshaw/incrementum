@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewJournalActivity" />
+      <activity android:name=".MapActivity" />
     </application>
 
 </manifest>

@@ -83,9 +83,6 @@ public class ViewJournalActivity extends AppCompatActivity {
         journalEntries.append("Entry " + (i++) + ": " + entry[0] + "\n");
         journalEntries.append(String.format("Added on %s\n\n", date));
 
-//        String[] ids = item.toString().split("entry=");
-//        String[] id = ids[1].split(",");
-//        journalEntries.append("Entry " + i++ + ": " + id[0] + "\n");
       }
     });
   }
