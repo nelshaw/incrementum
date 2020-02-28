@@ -16,6 +16,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
 
+import static com.mongodb.client.model.Filters.gte;
+
 
 public class HabitEffectActivity extends AppCompatActivity {
 
@@ -110,19 +112,15 @@ public class HabitEffectActivity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
-        Document filterDoc = new Document();
+        //Document filterDoc = new Document().append("Type", "Negative");
 //      .append("entry", new Document().append("$eq", true));
 
-        RemoteFindIterable results = coll.find(filterDoc);
-
-        Log.d("sjnd-------------", "start");
+        RemoteFindIterable results = coll.find(gte("Type", "Negative"));
 
         results.forEach(item -> {
             Log.d("---------ITEM------", item.toString());
 
         });
-
-        Log.d("sjnd-------------", "end");
 
     }
 
