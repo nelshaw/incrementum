@@ -187,4 +187,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="646dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

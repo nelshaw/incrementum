@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         openHabitActivity();
       }
     });
+
     final StitchAppClient client =
       Stitch.initializeDefaultAppClient("incrementum-xjkms");
 
@@ -55,54 +56,54 @@ public class MainActivity extends AppCompatActivity {
       client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
     final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("Journals");
+      mongoClient.getDatabase("Incrementum").getCollection("test");
 
-    client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
-      new Continuation<StitchUser, Task<RemoteUpdateResult>>() {
-
-        @Override
-        public Task<RemoteUpdateResult> then(@NonNull Task<StitchUser> task) throws Exception {
-          if (!task.isSuccessful()) {
-            Log.e("STITCH", "Login failed!");
-            throw task.getException();
-          }
-
-          final Document updateDoc = new Document(
-            "owner_id",
-            task.getResult().getId()
-          );
-
-          updateDoc.put("number", 25);
-          return coll.updateOne(
-            null, updateDoc, new RemoteUpdateOptions().upsert(true)
-          );
-        }
-      }
-    ).continueWithTask(new Continuation<RemoteUpdateResult, Task<List<Document>>>() {
-      @Override
-      public Task<List<Document>> then(@NonNull Task<RemoteUpdateResult> task) throws Exception {
-        if (!task.isSuccessful()) {
-          Log.e("STITCH", "Update failed!");
-          throw task.getException();
-        }
-        List<Document> docs = new ArrayList<>();
-        return coll
-          .find(new Document("owner_id", client.getAuth().getUser().getId()))
-          .limit(100)
-          .into(docs);
-      }
-    }).addOnCompleteListener(new OnCompleteListener<List<Document>>() {
-      @Override
-      public void onComplete(@NonNull Task<List<Document>> task) {
-        if (task.isSuccessful()) {
-          Log.d("STITCH", "Found docs: " + task.getResult().toString());
-          title.setText(task.getResult().toString());
-          return;
-        }
-        Log.e("STITCH", "Error: " + task.getException().toString());
-        task.getException().printStackTrace();
-      }
-    });
+//    client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
+//      new Continuation<StitchUser, Task<RemoteUpdateResult>>() {
+//
+//        @Override
+//        public Task<RemoteUpdateResult> then(@NonNull Task<StitchUser> task) throws Exception {
+//          if (!task.isSuccessful()) {
+//            Log.e("STITCH", "Login failed!");
+//            throw task.getException();
+//          }
+//
+//          final Document updateDoc = new Document(
+//            "owner_id",
+//            task.getResult().getId()
+//          );
+//
+//          updateDoc.put("number", 25);
+//          return coll.updateOne(
+//            null, updateDoc, new RemoteUpdateOptions().upsert(true)
+//          );
+//        }
+//      }
+//    ).continueWithTask(new Continuation<RemoteUpdateResult, Task<List<Document>>>() {
+//      @Override
+//      public Task<List<Document>> then(@NonNull Task<RemoteUpdateResult> task) throws Exception {
+//        if (!task.isSuccessful()) {
+//          Log.e("STITCH", "Update failed!");
+//          throw task.getException();
+//        }
+//        List<Document> docs = new ArrayList<>();
+//        return coll
+//          .find(new Document("owner_id", client.getAuth().getUser().getId()))
+//          .limit(100)
+//          .into(docs);
+//      }
+//    }).addOnCompleteListener(new OnCompleteListener<List<Document>>() {
+//      @Override
+//      public void onComplete(@NonNull Task<List<Document>> task) {
+//        if (task.isSuccessful()) {
+//          Log.d("STITCH", "Found docs: " + task.getResult().toString());
+//          title.setText(task.getResult().toString());
+//          return;
+//        }
+//        Log.e("STITCH", "Error: " + task.getException().toString());
+//        task.getException().printStackTrace();
+//      }
+//    });
 
     // find button by id
     button = findViewById(R.id.button);

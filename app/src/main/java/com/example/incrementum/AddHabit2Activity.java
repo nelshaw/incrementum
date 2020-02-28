@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -24,21 +25,39 @@ public class AddHabit2Activity extends AppCompatActivity {
     private int optionsSelected = 0;
     private int timesSelected;
 
-    //parameters of habit
+    /**************PARAMETERS OF HABIT***************/
+    //triggers
     private EditText userIn;
     boolean triggerLocation = false;
     boolean triggerpe = false;
     boolean triggeres = false;
     boolean triggerop = false;
     boolean triggerTime = false;
-
+    //times
     boolean timeMorning = false;
     boolean timeEvening = false;
     boolean timeAfternoon = false;
     boolean timeNight = false;
+    //From previous activity
+   String name;
+   int length;
+   String description;
+   /**************PARAMETERS OF HABIT***************/
+
+   @Override
+   public void onBackPressed() {
+       Intent intent = new Intent(this, AddHabitActivity.class);
+       startActivity(intent);
+   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
+         name = intent.getStringExtra("name");
+         length = Integer.valueOf(intent.getStringExtra("length"));
+         description = intent.getStringExtra("description");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
@@ -205,6 +224,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     public void Continue(){
         if(Validate()) {
+            Toast.makeText(getBaseContext(),name, Toast.LENGTH_LONG).show();
             Back();
             //TO DO - ADD SAVE DB LOGIC
         }
