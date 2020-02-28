@@ -171,8 +171,8 @@ public class AddHabit2Activity extends AppCompatActivity {
 
 
         }
-    }
 
+    }
     public void Continue(){
         if(Validate()) {
             Back();
@@ -192,7 +192,6 @@ public class AddHabit2Activity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Please select when your habit occurs.", Toast.LENGTH_LONG).show();
             return false;
         }
-
         return true;
         //to do
     }
@@ -201,5 +200,4 @@ public class AddHabit2Activity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
-
 }
