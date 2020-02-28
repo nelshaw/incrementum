@@ -42,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     title = findViewById(R.id.title);
 
+    Button habit = findViewById(R.id.habit);
+    habit.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        openHabitActivity();
+      }
+    });
     final StitchAppClient client =
       Stitch.initializeDefaultAppClient("incrementum-xjkms");
 
