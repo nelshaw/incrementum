@@ -44,9 +44,10 @@
     android:layout_marginTop="1dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
+      android:paddingTop="128dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:srcCompat="@tools:sample/backgrounds/scenic[18]" />
+    android:src="@drawable/journey" />
 
   <TextView
     android:id="@+id/title"
