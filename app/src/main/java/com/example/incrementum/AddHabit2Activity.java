@@ -49,7 +49,6 @@ public class AddHabit2Activity extends AppCompatActivity {
        Intent intent = new Intent(this, AddHabitActivity.class);
        startActivity(intent);
    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -224,7 +223,6 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     public void Continue(){
         if(Validate()) {
-            Toast.makeText(getBaseContext(),name, Toast.LENGTH_LONG).show();
             Back();
             //TO DO - ADD SAVE DB LOGIC
         }
