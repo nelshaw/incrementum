@@ -30,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
     title = findViewById(R.id.title);
 
+    Button log = findViewById(R.id.logs);
+    log.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        openlogs();
+      }
+    });
+
+
     Button habit = findViewById(R.id.habit);
     habit.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -141,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
   public void openHabitActivity(){
       Intent intent = new Intent(this, ViewHabitActivity.class);
       startActivity(intent);
+  }
+
+
+  public void openlogs()
+  {
+    Intent intent = new Intent(this, Log_Habits_Hobbies_Time_Activity.class);
+    startActivity(intent);
   }
 
 }
