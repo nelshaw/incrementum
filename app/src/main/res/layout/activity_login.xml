@@ -19,42 +19,28 @@ android:fitsSystemWindows="true">
             android:layout_marginBottom="24dp"
             android:src="@drawable/logo" />
 
-        <!-- Email Label -->
-        <!--    <com.google.android.material.textfield.TextInputLayout-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginTop="8dp"-->
-        <!--        android:layout_marginBottom="8dp">-->
         <EditText
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress" />
-        <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-        <!-- Password Label -->
-        <!--    <com.google.android.material.textfield.TextInputLayout-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginTop="8dp"-->
-        <!--        android:layout_marginBottom="8dp">-->
         <EditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword" />
-        <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Login" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:text="Login" />
 
         <TextView
             android:id="@+id/link_signup"
@@ -73,5 +59,5 @@ android:fitsSystemWindows="true">
             android:text="Reset Password?"
             android:textSize="16dip" />
 
-    </LinearLayout>
+</LinearLayout>
 </ScrollView>

@@ -1,6 +1,7 @@
 package com.example.incrementum;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -105,7 +106,13 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+        openHabitActivity();
         finish();
+    }
+
+    public void openHabitActivity(){
+        Intent intent = new Intent(this, Log_Habits_Hobbies_Time_Activity.class);
+        startActivity(intent);
     }
 
     public void onSignupFailed() {
@@ -140,7 +147,6 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _passwordText.setError(null);
         }
-
         return valid;
     }
 }

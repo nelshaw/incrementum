@@ -15,6 +15,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         Button addButton = findViewById(R.id.AddHabit);
+        Button backButton = findViewById(R.id.back_button);
 
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -22,10 +23,23 @@ public class ViewHabitActivity extends AppCompatActivity {
                 openAddHabitActivity();
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openMapActivity();
+            }
+        });
+
     }
 
     public void openAddHabitActivity(){
         Intent intent = new Intent(this, AddHabitActivity.class);
+        startActivity(intent);
+    }
+
+    public void openMapActivity(){
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 }

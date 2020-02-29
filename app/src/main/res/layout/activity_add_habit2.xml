@@ -2,117 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/afternoon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddHabit2Activity">
-
-    <Button
-        android:id="@+id/trigger2"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="320dp"
-        android:backgroundTint="#F1E286"
-        android:text="Afternoon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger5"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="396dp"
-        android:backgroundTint="#F1E286"
-        android:text="Night"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger7"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="320dp"
-        android:backgroundTint="#F1E286"
-        android:text="Morning"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger6"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="396dp"
-        android:backgroundTint="#F1E286"
-        android:text="Evening"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger3"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="224dp"
-        android:backgroundTint="#5AB7EB"
-        android:text="Trigger3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="36dp"
-        android:backgroundTint="#5AB7EB"
-        android:text="Trigger1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/trigger4"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="76dp"
-        android:backgroundTint="#5AB7EB"
-        android:text="Trigger4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:layout_width="173dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="424dp"
-        android:text="Add Your Own"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trigger4" />
-
-    <Button
-        android:id="@+id/Trigger2"
-        android:layout_width="111dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="76dp"
-        android:backgroundTint="#5AB7EB"
-        android:text="Trigger2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView4"
@@ -127,6 +20,96 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/pe"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="24dp"
+        android:background="#5AB7EB"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="Preceding Event"
+        android:textOn="Preceding Event"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherpeople" />
+
+    <EditText
+        android:id="@+id/own"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="28dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/Location"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="#5AB7EB"
+        android:checked="true"
+        android:text="ToggleButton"
+        android:textOff="Location"
+        android:textOn="Location"
+        app:layout_constraintBottom_toTopOf="@+id/pe"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="173dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="412dp"
+        android:text="Add Your Own"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/time"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="40dp"
+        android:background="#5AB7EB"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="Time"
+        android:textOn="Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ToggleButton
+        android:id="@+id/es"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="#5AB7EB"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="Emotional State"
+        android:textOn="Emotional State"
+        app:layout_constraintBottom_toTopOf="@+id/own"
+        app:layout_constraintStart_toEndOf="@+id/pe" />
+
+    <ToggleButton
+        android:id="@+id/otherpeople"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="28dp"
+        android:background="#5AB7EB"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="Other People"
+        android:textOn="Other People"
+        app:layout_constraintStart_toEndOf="@+id/Location"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView5"
@@ -151,5 +134,65 @@
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/morning"
+        android:layout_width="126dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="20dp"
+        android:background="#F1E286"
+        android:text="ToggleButton"
+        android:textOff="Morning"
+        android:textOn="Morning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <ToggleButton
+        android:id="@+id/night"
+        android:layout_width="126dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="116dp"
+        android:background="#F1E286"
+        android:text="ToggleButton"
+        android:textOff="Night"
+        android:textOn="Night"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <ToggleButton
+        android:id="@+id/evening"
+        android:layout_width="126dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="116dp"
+        android:background="#F1E286"
+        android:text="ToggleButton"
+        android:textOff="Evening"
+        android:textOn="Evening"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <ToggleButton
+        android:id="@+id/noon"
+        android:layout_width="126dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="16dp"
+        android:background="#F1E286"
+        android:text="ToggleButton"
+        android:textOff="Afternoon"
+        android:textOn="Afternoon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="646dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

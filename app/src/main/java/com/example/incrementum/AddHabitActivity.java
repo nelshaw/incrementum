@@ -49,12 +49,9 @@ public class AddHabitActivity extends AppCompatActivity {
 
         @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener(){
@@ -74,7 +71,7 @@ public class AddHabitActivity extends AppCompatActivity {
     public void Continue(){
         if(Validate()) {
             openAddHabit2Activity();
-            //TO DO - ADD SAVE DB LOGIC
+            sendData();
         }
         else{return;}
     }
@@ -93,6 +90,13 @@ public class AddHabitActivity extends AppCompatActivity {
         else return true;
         //to do
     }
-
-
+//pass data to next activity
+    public void sendData()
+    {
+        Intent intent = new Intent(getApplicationContext(),AddHabit2Activity.class);
+        intent.putExtra("name",name.getText().toString());
+        intent.putExtra("length",Integer.toString(trackingLength));
+        intent.putExtra("description",description.getText().toString());
+        startActivity(intent);
+    }
 }
