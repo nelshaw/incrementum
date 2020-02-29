@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.mongodb.Block;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
@@ -26,7 +25,8 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
     Button EnterButton;
     EditText HobbyText;
-    EditText TimeText;
+    EditText startTimeText;
+    EditText endTimeText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,8 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
         EnterButton = findViewById(R.id.addHabitsHobbiesTimeButton);
         HobbyText = findViewById(R.id.editText5);
-        TimeText = findViewById(R.id.editText6);
+        startTimeText = findViewById(R.id.start);
+        endTimeText = findViewById(R.id.end);
         EnterButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -59,7 +60,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Users");
 
-        Document doc = new Document().append("sensitive_time", TimeText.getText().toString()).append("hobbies", TimeText.getText().toString());
+        Document doc = new Document().append("sensitive_time_start", startTimeText.getText().toString()).append("sensitive_time_end", endTimeText.getText().toString()).append("hobbies", HobbyText.getText().toString());
 
     final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
     insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {

@@ -152,11 +152,9 @@ public class MainActivity extends AppCompatActivity {
       startActivity(intent);
   }
 
-
   public void openlogs()
   {
     Intent intent = new Intent(this, Log_Habits_Hobbies_Time_Activity.class);
     startActivity(intent);
   }
-
 }
