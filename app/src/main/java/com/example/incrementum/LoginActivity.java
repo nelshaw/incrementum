@@ -11,10 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
@@ -28,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @InjectView(R.id.input_email) EditText _emailText;
-    @InjectView(R.id.input_password) EditText _passwordText;
+    @InjectView(R.id.input_email) EditText emailInput;
+    @InjectView(R.id.input_password) EditText passwordInput;
     @InjectView(R.id.btn_login) Button _loginButton;
     @InjectView(R.id.link_signup) TextView _signupLink;
     @InjectView(R.id.reset_password) TextView _resetLink;
@@ -80,11 +78,10 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = emailInput.getText().toString();
+        String password = passwordInput.getText().toString();
 
         UserPasswordCredential credential = new UserPasswordCredential(email, password);
-        Log.d("HEYYYYYY", Stitch.getDefaultAppClient().getAuth().toString());
         Stitch.getDefaultAppClient().getAuth().loginWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<StitchUser>() {
                                            @Override
@@ -95,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                                } else {
                                                    Log.e("stitch", "Error logging in with email/password auth:", task.getException());
                                                    progressDialog.dismiss();
-                                                   _passwordText.setText("");
+                                                   passwordInput.setText("");
                                                    onLoginFailed();
                                                }
                                            }
@@ -146,21 +143,21 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = emailInput.getText().toString();
+        String password = passwordInput.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            emailInput.setError("enter a valid email address");
             valid = false;
         } else {
-            _emailText.setError(null);
+            emailInput.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordInput.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            passwordInput.setError(null);
         }
         return valid;
     }
@@ -168,13 +165,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void recoverPassword() {
 
-        String email = _emailText.getText().toString();
+        String email = emailInput.getText().toString();
 
         UserPasswordAuthProviderClient emailPassClient = Stitch.getDefaultAppClient().getAuth().getProviderClient(UserPasswordAuthProviderClient.factory);
 
         if (TextUtils.isEmpty(email)) {
 
-            _emailText.setError("error! field is required!");
+            emailInput.setError("error! field is required!");
 
         } else {
             emailPassClient.sendResetPasswordEmail(email)
@@ -201,7 +198,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void openViewHabitActivity(){
-
         Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
