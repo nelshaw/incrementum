@@ -129,7 +129,7 @@ public class SignupActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            nameInput.setError("at least 3 characters");
+            nameInput.setError("must be least 3 characters");
             valid = false;
         } else {
             nameInput.setError(null);
@@ -143,7 +143,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordInput.setError("between 4 and 10 alphanumeric characters");
+            passwordInput.setError("must be between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             passwordInput.setError(null);

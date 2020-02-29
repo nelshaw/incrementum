@@ -52,7 +52,7 @@ android:fitsSystemWindows="true">
             android:textSize="16dip" />
 
         <TextView
-            android:id="@+id/back_to_login"
+            android:id="@+id/reset_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

@@ -48,7 +48,7 @@
             android:text="Sign Up"/>
 
         <TextView
-            android:id="@+id/link_signup"
+            android:id="@+id/back_to_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"

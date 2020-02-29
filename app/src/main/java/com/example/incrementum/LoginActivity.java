@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordInput.setError("between 4 and 10 alphanumeric characters");
+            passwordInput.setError("must be between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             passwordInput.setError(null);
