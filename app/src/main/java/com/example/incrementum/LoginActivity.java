@@ -25,6 +25,8 @@ import com.mongodb.stitch.android.core.auth.providers.userpassword.UserPasswordA
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    boolean loginAttempted;
+
 
     @InjectView(R.id.input_email) EditText emailInput;
     @InjectView(R.id.input_password) EditText passwordInput;
@@ -37,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
+
+        loginAttempted = false;
+
+        _resetLink.setVisibility(View.INVISIBLE);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +144,18 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
+
+        if(loginAttempted == false) {
+
+            _resetLink.setVisibility(View.VISIBLE);
+            _resetLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recoverPassword();
+                }
+            });
+            loginAttempted = true;
+        }
     }
 
     public boolean validate() {
