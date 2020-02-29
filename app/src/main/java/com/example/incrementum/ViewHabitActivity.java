@@ -24,23 +24,24 @@ import java.util.List;
 public class ViewHabitActivity extends AppCompatActivity {
     List<String> names = new ArrayList<>();
     TextView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         list = findViewById(R.id.myhabits);
-        list.setText(" ");
+        list.setText("");
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
 
         getAllEntries();
-        addButton.setOnClickListener(new View.OnClickListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddHabitActivity();
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener(){
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMapActivity();
@@ -49,15 +50,17 @@ public class ViewHabitActivity extends AppCompatActivity {
 
     }
 
-    public void openAddHabitActivity(){
+    public void openAddHabitActivity() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
     }
-    public void openMapActivity(){
+
+    public void openMapActivity() {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
-    public void getAllEntries(){
+
+    public void getAllEntries() {
 
 
         final StitchAppClient client =
@@ -88,10 +91,11 @@ public class ViewHabitActivity extends AppCompatActivity {
                     names.add(habitName);
                 }
                 Log.d("Habit:", names.toString());
-                list.append(names.toString());
+                //list.append(names.toString());
+                for (String s : names) {
+                    list.append(s + "\n");
+                }
             }
         });
     }
-
-
 }
