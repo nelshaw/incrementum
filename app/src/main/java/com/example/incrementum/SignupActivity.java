@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     @InjectView(R.id.signup_email) EditText emailInput;
     @InjectView(R.id.signup_password) EditText passwordInput;
     @InjectView(R.id.btn_signup) Button signupButton;
-    @InjectView(R.id.back_to_login) Button loginLink;
+//    @InjectView(R.id.back_to_login) Button loginLink;
 
     public static StitchAppClient cl;
 
@@ -54,12 +54,12 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        loginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        loginLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
     public void signup() {
