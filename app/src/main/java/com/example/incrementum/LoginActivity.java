@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         UserPasswordCredential credential = new UserPasswordCredential(email, password);
+        Log.d("HEYYYYYY", Stitch.getDefaultAppClient().getAuth().toString());
         Stitch.getDefaultAppClient().getAuth().loginWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<StitchUser>() {
                                            @Override
