@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,6 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
+
+import org.bson.Document;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -248,4 +260,59 @@ public class AddHabit2Activity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
+/*
+    public String getAllEntries(){
+
+        final StitchAppClient client =
+                Stitch.getAppClient("incrementum-xjkms");
+
+        final RemoteMongoClient mongoClient =
+                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+        final RemoteMongoCollection<Document> coll =
+                mongoClient.getDatabase("Incrementum").getCollection("Users");
+
+        //Document doc = new Document().append("sensitive_time_start", startTimeText.getText().toString()).append("sensitive_time_end", endTimeText.getText().toString()).append("hobbies", HobbyText.getText().toString());
+
+        final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+        insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
+            @Override
+            public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                if (task.isSuccessful()){
+                    Log.d("STITCH", String.format("success inserting: %s",
+                            task.getResult().getInsertedId()));
+                }
+            }
+        });
+
+        Document filterDoc = new Document();
+
+        RemoteFindIterable results = coll.find(filterDoc);
+        return "Test";
+    }
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

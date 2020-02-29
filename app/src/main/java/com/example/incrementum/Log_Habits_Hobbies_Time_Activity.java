@@ -46,10 +46,11 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
     public void openHabitActivity(){
         Intent intent = new Intent(this, AddHabitActivity.class);
+        getAllEntries();
         startActivity(intent);
     }
 
-    public String getAllEntries(){
+    public void getAllEntries(){
 
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
@@ -60,9 +61,13 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Users");
 
-        Document doc = new Document().append("sensitive_time_start", startTimeText.getText().toString()).append("sensitive_time_end", endTimeText.getText().toString()).append("hobbies", HobbyText.getText().toString());
+        Document doc = new Document()
+                .append("sensitive_time_start", startTimeText.getText().toString())
+                .append("sensitive_time_end", endTimeText.getText().toString())
+                .append("hobbies", HobbyText.getText().toString());
 
     final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+
     insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
       @Override
       public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
@@ -72,11 +77,6 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         }
       }
     });
-
-        Document filterDoc = new Document();
-
-        RemoteFindIterable results = coll.find(filterDoc);
-        return "Test";
     }
 
 }
