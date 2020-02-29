@@ -21,6 +21,7 @@ import org.bson.Document;
 public class ViewJournalActivity extends AppCompatActivity {
 
   Button addBtn;
+  Button backBtn;
   TextView title;
   TextView journalEntries;
 
@@ -31,6 +32,8 @@ public class ViewJournalActivity extends AppCompatActivity {
     addBtn = findViewById(R.id.addJournal);
     title = findViewById(R.id.title);
     journalEntries = findViewById(R.id.list);
+
+    backBtn = findViewById(R.id.back_button);
 
     // Add user's name to title
     title.append(" John Smith");
@@ -46,10 +49,26 @@ public class ViewJournalActivity extends AppCompatActivity {
         openAddJournalActivity();
       }
     });
+
+    backBtn.setOnClickListener(new View.OnClickListener(){
+      @Override
+      public void onClick(View v) {
+        openMapActivity();
+      }
+    });
+
+
   }
+
+
 
   public void openAddJournalActivity(){
     Intent intent = new Intent(this, AddJournalActivity.class);
+    startActivity(intent);
+  }
+
+  public void openMapActivity(){
+    Intent intent = new Intent(this, MapActivity.class);
     startActivity(intent);
   }
 

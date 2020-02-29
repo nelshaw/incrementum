@@ -8,11 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.core.auth.providers.userpassword.UserPasswordAuthProviderClient;
+import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -21,6 +27,17 @@ public class SignupActivity extends AppCompatActivity {
     @InjectView(R.id.signup_email) EditText _emailText;
     @InjectView(R.id.signup_password) EditText _passwordText;
     @InjectView(R.id.btn_signup) Button _signupButton;
+    public static StitchAppClient cl;
+
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//        if(cl == null){
+//            cl = Stitch.initializeAppClient("incrementum-xjkms");
+//        }
+//
+//        cl = Stitch.getAppClient("incrementum-xjkms");
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,18 +80,26 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        UserPasswordAuthProviderClient emailPassClient = Stitch.getDefaultAppClient().getAuth().getProviderClient(
+                UserPasswordAuthProviderClient.factory
+        );
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        emailPassClient.registerWithEmail(email, password)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                           @Override
+                                           public void onComplete(@NonNull final Task<Void> task) {
+                                               if (task.isSuccessful()) {
+                                                   Log.d("stitch", "Successfully sent account confirmation email");
+                                                   progressDialog.dismiss();
+                                                   onSignupSuccess();
+                                               } else {
+                                                   Log.e("stitch", "Error registering new user:", task.getException());
+                                                   progressDialog.dismiss();
+                                                   onSignupFailed();
+                                               }
+                                           }
+                                       }
+                );
     }
 
 
@@ -91,8 +116,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
+        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
         _signupButton.setEnabled(true);
     }
 
@@ -126,3 +150,5 @@ public class SignupActivity extends AppCompatActivity {
         return valid;
     }
 }
+
+
