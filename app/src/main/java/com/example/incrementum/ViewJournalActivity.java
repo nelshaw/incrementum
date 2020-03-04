@@ -26,6 +26,7 @@ public class ViewJournalActivity extends AppCompatActivity {
   Button backBtn;
   TextView title;
   TextView journalEntries;
+  String user_id;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +35,28 @@ public class ViewJournalActivity extends AppCompatActivity {
     addBtn = findViewById(R.id.addJournal);
     title = findViewById(R.id.title);
     journalEntries = findViewById(R.id.list);
-
     backBtn = findViewById(R.id.back_button);
 
+    // Get user_id from login to view journal entries for that user
+    user_id = LoginActivity.user_id;
+
     // Add user's name to title
+    // This will grab from database once dummy data has been inserted
     title.append(" John Smith");
 
     journalEntries.setText("");
 
     getAllEntries();
 
+    // Direct to add journal entry
     addBtn.setOnClickListener(new View.OnClickListener() {
-
       @Override
       public void onClick(View v) {
         openAddJournalActivity();
       }
     });
 
+    // Go back to home page
     backBtn.setOnClickListener(new View.OnClickListener(){
       @Override
       public void onClick(View v) {
@@ -59,9 +64,7 @@ public class ViewJournalActivity extends AppCompatActivity {
       }
     });
 
-
   }
-
 
   public void openAddJournalActivity(){
     Intent intent = new Intent(this, AddJournalActivity.class);
@@ -75,6 +78,7 @@ public class ViewJournalActivity extends AppCompatActivity {
 
   public void getAllEntries(){
 
+    // Connect to MongoDB client
     final StitchAppClient client =
       Stitch.getAppClient("incrementum-xjkms");
 
@@ -84,19 +88,24 @@ public class ViewJournalActivity extends AppCompatActivity {
     final RemoteMongoCollection<Document> coll =
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
-    Document filterDoc = new Document();
-//      .append("entry", new Document().append("$eq", true));
+    // Only get journal entries from current user who is logged in
+    Document filterDoc = new Document()
+      .append("user_id", user_id);
 
+    // Get all entries with the criteria from filterDoc
     RemoteFindIterable results = coll.find(filterDoc);
 
-    Log.d("Journal", "*************************************test test test");
-    Log.d("journal", String.valueOf(results));
+    // Log all journal entries that are found in the logger
+    Log.d("JOURNALS", String.valueOf(results));
 
+    // Iterate through each found journal and display them
     results.forEach(new Block() {
+      // Keep track of number of entries
       int i = 1;
       @Override
       public void apply(Object item) {
-        Log.d("Journal", item.toString());
+        Log.d("JOURNALS", item.toString());
+
         Document doc = (Document) item;
 
         Date date = (Date) doc.get("date");

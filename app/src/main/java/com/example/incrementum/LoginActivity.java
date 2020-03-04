@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     boolean loginAttempted;
+    // Static variable that stores user who logs in
+    public static String user_id;
 
 
     @InjectView(R.id.input_email) EditText emailInput;
@@ -94,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                            public void onComplete(@NonNull final Task<StitchUser> task) {
                                                if (task.isSuccessful()) {
                                                    Log.d("stitch", "Successfully logged in as user " + task.getResult().getId());
+                                                   user_id = task.getResult().getId();
                                                    onLoginSuccess();
                                                } else {
                                                    Log.e("stitch", "Error logging in with email/password auth:", task.getException());

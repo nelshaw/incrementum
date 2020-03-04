@@ -28,6 +28,7 @@ public class AddJournalActivity extends AppCompatActivity {
   Button saveBtn;
   TextView title;
   EditText entry;
+  String user_id;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,11 @@ public class AddJournalActivity extends AppCompatActivity {
     title = findViewById(R.id.title);
     entry = findViewById(R.id.journalEntry);
 
-    saveBtn.setOnClickListener(new View.OnClickListener(){
+    // Get user id from user who logged in successfully
+    user_id = LoginActivity.user_id;
 
+    // Save entry and direct to view all journals
+    saveBtn.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v) {
           openViewJournalActivity();
@@ -55,6 +59,7 @@ public class AddJournalActivity extends AppCompatActivity {
 
   public void addEntry(){
 
+    // Connect to MongoDB client
     final StitchAppClient client =
       Stitch.getAppClient("incrementum-xjkms");
 
@@ -64,11 +69,13 @@ public class AddJournalActivity extends AppCompatActivity {
     final RemoteMongoCollection<Document> coll =
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
+    // Create new document from information and entry submitted
     Document doc = new Document()
-      .append("user_id", "56789jdhfkd")
+      .append("user_id", user_id)
       .append("date", new Date())
       .append("entry", entry.getText().toString());
 
+    // Insert document
     final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
 
     insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
