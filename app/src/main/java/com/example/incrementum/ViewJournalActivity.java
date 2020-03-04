@@ -18,6 +18,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
 
+import java.util.Date;
+
 public class ViewJournalActivity extends AppCompatActivity {
 
   Button addBtn;
@@ -61,7 +63,6 @@ public class ViewJournalActivity extends AppCompatActivity {
   }
 
 
-
   public void openAddJournalActivity(){
     Intent intent = new Intent(this, AddJournalActivity.class);
     startActivity(intent);
@@ -96,15 +97,17 @@ public class ViewJournalActivity extends AppCompatActivity {
       @Override
       public void apply(Object item) {
         Log.d("Journal", item.toString());
-        String[] dates = item.toString().split("date=");
-        Log.d("Date", dates[1]);
-        String[] s = dates[1].split(" ");
-        String date = s[1] + " " + s[2];
+        Document doc = (Document) item;
 
-        String[] entries = dates[1].split("entry=");
-        String[] entry = entries[1].split(",");
-        journalEntries.append("Entry " + (i++) + ": " + entry[0] + "\n");
-        journalEntries.append(String.format("Added on %s\n\n", date));
+        Date date = (Date) doc.get("date");
+        String[] dateStr = date.toString().split(" ");
+
+        String entry = (String) doc.get("entry");
+        String userId = doc.get("user_id").toString();
+
+        journalEntries.append("Entry " + i++ +": " + entry);
+        journalEntries.append(String.format("\nPosted by %s\n", userId));
+        journalEntries.append(String.format("Added on %s\n\n", dateStr[1] + " " + dateStr[2]));
 
       }
     });

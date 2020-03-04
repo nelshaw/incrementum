@@ -28,7 +28,6 @@ public class AddJournalActivity extends AppCompatActivity {
   Button saveBtn;
   TextView title;
   EditText entry;
-  EditText trigger;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class AddJournalActivity extends AppCompatActivity {
     saveBtn = findViewById(R.id.addJournal);
     title = findViewById(R.id.title);
     entry = findViewById(R.id.journalEntry);
-    trigger = findViewById(R.id.newTrigger);
 
     saveBtn.setOnClickListener(new View.OnClickListener(){
 
@@ -67,10 +65,9 @@ public class AddJournalActivity extends AppCompatActivity {
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     Document doc = new Document()
-      .append("user_id", 12345)
+      .append("user_id", "56789jdhfkd")
       .append("date", new Date())
-      .append("entry", entry.getText().toString())
-      .append("trigger", false);
+      .append("entry", entry.getText().toString());
 
     final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
 
@@ -82,7 +79,7 @@ public class AddJournalActivity extends AppCompatActivity {
             task.getResult().getInsertedId()));
         }
         else{
-          Log.d("STITCH", "Unsuccessful");
+          Log.d("STITCH", "Unsuccessful adding journal entry");
         }
       }
     });

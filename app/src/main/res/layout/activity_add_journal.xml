@@ -46,29 +46,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-    android:id="@+id/journalTrigger"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="45dp"
-    android:layout_marginTop="404dp"
-    android:text="@string/journal_trigger"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-  <EditText
-    android:id="@+id/newTrigger"
-    android:layout_width="323dp"
-    android:layout_height="39dp"
-    android:layout_marginStart="44dp"
-    android:layout_marginTop="440dp"
-    android:ems="10"
-    android:hint="@string/journal_trigger_hint"
-    android:importantForAutofill="no"
-    android:inputType="textNoSuggestions"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
   <Button
     android:id="@+id/addJournal"
     android:layout_width="wrap_content"
