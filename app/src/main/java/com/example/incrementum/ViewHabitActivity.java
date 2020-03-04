@@ -30,10 +30,9 @@ public class ViewHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         list = findViewById(R.id.myhabits);
-        list.setText("");
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
-
+        list.setText("");
         getAllEntries();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +94,12 @@ public class ViewHabitActivity extends AppCompatActivity {
                 for (String s : names) {
                     list.append(s + "\n");
                 }
+
             }
         });
+
+        while(list.getText()==""){
+            //loop to make sure list is filled
+        }
     }
 }

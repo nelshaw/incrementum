@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         openHabitEffectActivity();
       }
     });
-
     // on click function
     goto_login_button.setOnClickListener(new View.OnClickListener() {
       @Override
