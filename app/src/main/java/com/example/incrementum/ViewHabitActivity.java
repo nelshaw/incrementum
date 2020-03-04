@@ -32,8 +32,8 @@ public class ViewHabitActivity extends AppCompatActivity {
         list = findViewById(R.id.myhabits);
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
-        list.setText("");
-        getAllEntries();
+        //list.setText("");
+        //getAllEntries();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +60,6 @@ public class ViewHabitActivity extends AppCompatActivity {
     }
 
     public void getAllEntries() {
-
 
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");

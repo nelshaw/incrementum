@@ -59,7 +59,7 @@
         android:layout_height="238dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="43dp"
-        android:text="TextView"
+        android:text="Smoking"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title" />
