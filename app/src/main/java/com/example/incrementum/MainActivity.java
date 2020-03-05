@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
   Button button;
   Button goto_login_button;
   Button journal;
+  Button calendarButton;
   TextView title;
 
   @Override
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     button = findViewById(R.id.button);
     goto_login_button = findViewById(R.id.goto_login_button);
     journal = findViewById(R.id.journal);
+    calendarButton = findViewById(R.id.calendarButton);
 
     // on click function
     button.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         openJournalActivity();
+      }
+    });
+
+    calendarButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v){
+        openCalendarActivity();
       }
     });
   }
@@ -157,4 +166,10 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(this, Log_Habits_Hobbies_Time_Activity.class);
     startActivity(intent);
   }
+
+  public void openCalendarActivity() {
+    Intent intent = new Intent(this, CalendarActivity.class);
+    startActivity(intent);
+  }
+
 }

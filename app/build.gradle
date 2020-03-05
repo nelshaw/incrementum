@@ -21,10 +21,10 @@ android {
         annotationProcessor 'com.jakewharton:butterknife:6.1.0'
         implementation 'com.jakewharton:butterknife:6.1.0'
     }
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-  }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -39,5 +39,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'org.mongodb:stitch-android-sdk:4.0.5'
-
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
