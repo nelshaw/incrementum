@@ -1,15 +1,14 @@
 package com.example.incrementum;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.CalendarView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    CalendarView calendarView;
+    MaterialCalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +17,13 @@ public class CalendarActivity extends AppCompatActivity {
 
         calendarView = findViewById(R.id.calendarView);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                Log.d("Select Date: ", date);
-            }
-        });
+//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//            @Override
+//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+//                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+//                Log.d("Select Date: ", date);
+//            }
+//        });
 
     }
 }
