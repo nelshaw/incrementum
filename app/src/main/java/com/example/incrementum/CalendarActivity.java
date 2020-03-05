@@ -1,14 +1,20 @@
 package com.example.incrementum;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+
+import java.util.HashSet;
 
 public class CalendarActivity extends AppCompatActivity {
 
     MaterialCalendarView calendarView;
+    HashSet<CalendarDay> dates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +22,12 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         calendarView = findViewById(R.id.calendarView);
+        dates = new HashSet<>();
+        dates.add(CalendarDay.today());
+        Log.d("date", CalendarDay.today().toString());
+
+        int redColorValue = Color.BLUE;
+        calendarView.addDecorator(new CalendarDecorator(redColorValue, dates));
 
 //        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @Override
