@@ -1,6 +1,5 @@
 package com.example.incrementum;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -24,10 +23,13 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         dates = new HashSet<>();
         dates.add(CalendarDay.today());
+
         Log.d("date", CalendarDay.today().toString());
 
-        int redColorValue = Color.BLUE;
-        calendarView.addDecorator(new CalendarDecorator(redColorValue, dates));
+//        int redColorValue = Color.BLUE;
+//        calendarView.addDecorator(new CalendarDecorator(redColorValue, dates));
+
+        calendarView.addDecorator(new CalendarDecorator(this));
 
 //        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @Override

@@ -1,29 +1,30 @@
 package com.example.incrementum;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
-
-import java.util.Collection;
-import java.util.HashSet;
 
 public class CalendarDecorator implements DayViewDecorator {
-    private final int color;
-    private final HashSet<CalendarDay> dates;
 
-    public CalendarDecorator(int color, Collection<CalendarDay> dates) {
-        this.color = color;
-        this.dates = new HashSet<>(dates);
+    private Drawable highlightDrawable;
+    private Context context;
+
+    public CalendarDecorator( Context context) {
+        this.context = context;
+        highlightDrawable = this.context.getResources().getDrawable(R.drawable.circlebackground);
     }
-
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        return dates.contains(day);
+        return day.equals(CalendarDay.today());
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, color));
+        highlightDrawable.setTint(Color.RED);
+        view.setBackgroundDrawable(highlightDrawable);
     }
 }
