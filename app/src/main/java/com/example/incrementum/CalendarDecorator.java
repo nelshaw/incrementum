@@ -11,34 +11,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class CalendarDecorator implements DayViewDecorator {
-//
-//
-//    public CalendarDecorator(int color, Collection<CalendarDay> dates) {
-////        this.color = color;
-////        this.dates = new HashSet<>(dates);
-//        highlightDrawable = new ColorDrawable(color);
-//        date = CalendarDay.today();
-//    }
-//
-//    @Override
-//    public boolean shouldDecorate(CalendarDay day) {
-//        //return dates.contains(day);
-//        return date != null && day.equals(date);
-//    }
-//
-//    @Override
-//    public void decorate(DayViewFacade view) {
-////        view.addSpan(new DotSpan(10, color));
-//        //view.addSpan(new CircularBorderDrawable(10, color));
-//        //view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.selector));
-//        view.addSpan(highlightDrawable);
-//        view.addSpan(new ForegroundColorSpan(Color.RED));
-//    }
 
     private Drawable highlightDrawable;
     private Context context;
-    private final int color;
-    private final HashSet<CalendarDay> dates;
+    private int color;
+    private HashSet<CalendarDay> dates;
 
     public CalendarDecorator( Context context, int color, Collection<CalendarDay> dates) {
         this.context = context;
@@ -53,7 +30,8 @@ public class CalendarDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        highlightDrawable.setTint(color);
+        highlightDrawable.mutate().setTint(color);
         view.setBackgroundDrawable(highlightDrawable);
     }
+
 }
