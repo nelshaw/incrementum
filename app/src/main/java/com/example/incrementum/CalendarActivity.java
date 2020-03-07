@@ -2,14 +2,22 @@ package com.example.incrementum;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.client.model.Updates;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -23,11 +31,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class CalendarActivity extends AppCompatActivity {
 
     MaterialCalendarView calendarView;
     HashSet<CalendarDay> didNotDoHabitDates;
     HashSet<CalendarDay> didDoHabitDates;
+
+    ImageButton didNotButton;
+    ImageButton didButton;
+
+    String User_id = "5e587cbed6292c4d1074b5d8";
+    String Habit_id = "12345";
+    //connect to database
+    final StitchAppClient client =
+            Stitch.getAppClient("incrementum-xjkms");
+
+    final RemoteMongoClient mongoClient =
+            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+    //connect to collection
+    final RemoteMongoCollection<Document> coll =
+            mongoClient.getDatabase("Incrementum").getCollection("Calendar");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +61,8 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         calendarView = findViewById(R.id.calendarView);
+        didNotButton = findViewById(R.id.didNotButton);
+        didButton = findViewById(R.id.didButton);
 
         didNotDoHabitDates = new HashSet<>();
         didDoHabitDates = new HashSet<>();
@@ -43,24 +71,92 @@ public class CalendarActivity extends AppCompatActivity {
 
         //sleep 1 sec to wait for getDateValues() to fill all hashsets from mongodb
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         calendarView.addDecorator(new CalendarDecorator(this, Color.GREEN, didNotDoHabitDates));
         calendarView.addDecorator(new CalendarDecorator(this, Color.RED, didDoHabitDates));
+        calendarView.setSelectedDate(CalendarDay.today());
+
+        didNotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CalendarDay date = calendarView.getSelectedDate();
+                String selectedDate = formatDate(date);
+
+                Document query = new Document()
+                        .append("User_id", User_id)
+                        .append("Habit_id", Habit_id);
+
+                Document dayStatus = new Document()
+                        .append("Date", selectedDate)
+                        .append("Status", false);
+
+                final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
+
+                update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
+                        if (task.isSuccessful()){
+                            Log.d("STITCH", String.format("success inserting: %s",
+                                    task.getResult().getUpsertedId()));
+                        }
+                        else{
+                            Log.d("STITCH", "Unsuccessful");
+                        }
+                    }
+                });
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
+        didButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CalendarDay date = calendarView.getSelectedDate();
+                String selectedDate = formatDate(date);
+
+                Document dayStatus = new Document()
+                        .append("Date", selectedDate)
+                        .append("Status", true);
+
+                final Task<RemoteUpdateResult> update = coll.updateOne(eq("User_id", User_id), Updates.addToSet("Days", dayStatus));
+
+                update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
+                        if (task.isSuccessful()){
+                            Log.d("STITCH", String.format("success inserting: %s",
+                                    task.getResult().getUpsertedId()));
+                        }
+                        else{
+                            Log.d("STITCH", "Unsuccessful");
+                        }
+                    }
+                });
+                finish();
+                startActivity(getIntent());
+            }
+        });
 
 
+    }
 
-//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-//                Log.d("Select Date: ", date);
-//            }
-//        });
+    //function to format date
+    public String formatDate(CalendarDay date){
+        String day = date.getDay() + "";
+        String month = (date.getMonth() + 1) + "";
+        if(day.length() != 2)
+            day = "0" + day;
+        if(month.length() != 2)
+            month = "0" + month;
 
+        return date.getYear() + "-" + month + "-" + day;
     }
 
     //function to convert string to date
@@ -78,17 +174,6 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void getDateValues(){
-
-        //connect to database
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        //connect to collection
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Calendar");
 
         Document filterDoc = new Document();
 
@@ -115,7 +200,7 @@ public class CalendarActivity extends AppCompatActivity {
                     //find date and status
                     JSONObject object = new JSONObject(days.get(i).toString());
                     String date = object.getString("Date");
-                    Boolean stat = object.getBoolean("Status");
+                    boolean stat = object.getBoolean("Status");
 
                     //convert date into a CalendarDay
                     CalendarDay day = CalendarDay.from(StringToDate(date));
