@@ -19,24 +19,28 @@
 
     <ImageButton
         android:id="@+id/didNotButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="84dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="120dp"
+        android:backgroundTint="#00FFFFFF"
         android:clickable="true"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:srcCompat="@drawable/check" />
 
     <ImageButton
         android:id="@+id/didButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="84dp"
+        android:layout_width="85dp"
+        android:layout_height="82dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="120dp"
+        android:backgroundTint="#00FFFFFF"
         android:clickable="true"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:srcCompat="@drawable/x" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

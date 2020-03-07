@@ -1,5 +1,6 @@
 package com.example.incrementum;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,8 +140,7 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                     }
                 });
-                finish();
-                startActivity(getIntent());
+                openAddHabitOccuranceActivity();
             }
         });
 
@@ -217,5 +217,11 @@ public class CalendarActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+    }
+
+    //function to open add habit occurance
+    public void openAddHabitOccuranceActivity() {
+        Intent intent = new Intent(this, AddHabitOccuranceActivity.class);
+        startActivity(intent);
     }
 }
