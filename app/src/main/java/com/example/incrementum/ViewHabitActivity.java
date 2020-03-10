@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,18 +24,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewHabitActivity extends AppCompatActivity {
-    List<String> names = new ArrayList<>();
-    TextView list;
+    List<String> habitNames;
+    ListView listView;
+    ListAdapter listAdapter;
+    Button addButton;
+    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
-        list = findViewById(R.id.myhabits);
-        Button addButton = findViewById(R.id.AddHabit);
-        Button backButton = findViewById(R.id.back_button);
-        //list.setText("");
-        //getAllEntries();
+
+        //list for all habit entries from MongoDB
+        habitNames = new ArrayList<>();
+
+        //fill habitNames list
+        getAllEntries();
+
+        //wait until habitNames list is filled
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        addButton = findViewById(R.id.AddHabit);
+        backButton = findViewById(R.id.back_button);
+        listView = findViewById(R.id.myHabits);
+
+        //create list adapter for ListView
+        listAdapter = new ArrayAdapter<>(this, R.layout.simplerow, habitNames);
+
+        //attach adapter to ListView
+        listView.setAdapter(listAdapter);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +85,7 @@ public class ViewHabitActivity extends AppCompatActivity {
 
     public void getAllEntries() {
 
+
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
 
@@ -86,19 +111,18 @@ public class ViewHabitActivity extends AppCompatActivity {
                 ArrayList<Document> habits = (ArrayList<Document>) doc.get("habits");
                 for (Document s : habits) {
                     String habitName = (String) s.get("name");
-                    names.add(habitName);
-                }
-                Log.d("Habit:", names.toString());
-                //list.append(names.toString());
-                for (String s : names) {
-                    list.append(s + "\n");
-                }
 
+                    //append habit to habitNames list
+                    habitNames.add(habitName);
+                    Log.d("Habit:", habitName);
+                }
+                //Log.d("Habit:", names.toString());
+//                //list.append(names.toString());
+//                for (String s : names) {
+//                    list.append(s + "\n");
+//
+//                }
             }
         });
-
-        while(list.getText()==""){
-            //loop to make sure list is filled
-        }
     }
 }

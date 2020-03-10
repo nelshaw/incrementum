@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/incrementum_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Log_Habits_Hobbies_Time_Activity"></activity>
+        <activity android:name=".HabitOccuranceActivity"></activity>
+        <activity android:name=".AddHabitOccuranceActivity" />
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".Log_Habits_Hobbies_Time_Activity" />
         <activity android:name=".AddHabit2Activity" />
         <activity android:name=".AddHabitActivity" />
         <activity android:name=".ViewHabitActivity" />
@@ -25,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewJournalActivity" />
-      <activity android:name=".MapActivity" />
+        <activity android:name=".MapActivity" />
     </application>
 
 </manifest>
