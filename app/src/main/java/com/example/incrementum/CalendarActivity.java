@@ -175,7 +175,9 @@ public class CalendarActivity extends AppCompatActivity {
 
     public void getDateValues(){
 
-        Document filterDoc = new Document();
+        Document filterDoc = new Document()
+                .append("User_id", User_id)
+                .append("Habit_id", Habit_id);
 
         //find all documents
         RemoteFindIterable<Document> results = coll.find(filterDoc)
