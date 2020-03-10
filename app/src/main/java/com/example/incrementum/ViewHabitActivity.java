@@ -17,6 +17,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
         //list.setText("");
-        //getAllEntries();
+        getAllEntries();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,37 +70,38 @@ public class ViewHabitActivity extends AppCompatActivity {
                 client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
         final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Users");
+                mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
         Document filterDoc = new Document();
-//      .append("entry", new Document().append("$eq", true));
 
-        RemoteFindIterable results = coll.find(filterDoc)
+        RemoteFindIterable <Document> results = coll.find(filterDoc)
                 .projection(
                         new Document()
-                                .append("habits", 1)
-                                .append("_id", 0));
+                                .append("description", 0)
+                                .append("_id", 0)
+                                .append("userId",0)
+                                .append("length",0)
+                                .append("isActive",0));
 
-        results.forEach(new Block() {
-            @Override
-            public void apply(Object item) {
-                Document doc = (Document) item;
-                ArrayList<Document> habits = (ArrayList<Document>) doc.get("habits");
-                for (Document s : habits) {
-                    String habitName = (String) s.get("name");
-                    names.add(habitName);
-                }
-                Log.d("Habit:", names.toString());
-                //list.append(names.toString());
-                for (String s : names) {
-                    list.append(s + "\n");
-                }
+        Log.d("Habits", "*************************************");
+        Log.d("Habits", String.valueOf(results));
 
+
+        results.forEach(item ->{
+            try{
+                JSONObject obj = new JSONObject(item.toJson());
+                Log.d("objjjjjjjjjjjjj",obj.toString());
             }
+
+            catch(JSONException e){
+                Log.d("JSON exception:",e.toString());
+            }
+
+
         });
 
         while(list.getText()==""){
-            //loop to make sure list is filled
+            getAllEntries();
         }
     }
 }
