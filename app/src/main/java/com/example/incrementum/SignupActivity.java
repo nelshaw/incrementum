@@ -90,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
                                            @Override
                                            public void onComplete(@NonNull final Task<Void> task) {
                                                if (task.isSuccessful()) {
-                                                   Log.d("stitch", "Successfully sent account confirmation email");
+                                                   Log.i("stitch", "Successfully sent account confirmation email");
                                                    progressDialog.dismiss();
                                                    onSignupSuccess();
                                                } else {
