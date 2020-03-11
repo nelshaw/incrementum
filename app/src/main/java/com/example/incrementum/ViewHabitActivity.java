@@ -43,6 +43,7 @@ ArrayList<String> habits = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         ListView list = findViewById(R.id.list);
@@ -52,6 +53,10 @@ ArrayList<String> habits = new ArrayList<>();
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(ViewHabitActivity.this,habits.get(position),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewHabitActivity.this,ViewAHabit.class);
+                intent.putExtra("sss",habits.get(position));
+                startActivity(intent);
+                openViewAHabitActivity();
             }
         });
         Button addButton = findViewById(R.id.AddHabit);
@@ -72,40 +77,101 @@ ArrayList<String> habits = new ArrayList<>();
             }
         });
 
-        new Thread(new Runnable(){
-            public void run()
-            {
-                final StitchAppClient client =
-                        Stitch.getAppClient("incrementum-xjkms");
+//        new Thread(() -> {
+//            final StitchAppClient client =
+//                    Stitch.getAppClient("incrementum-xjkms");
+//
+//            final RemoteMongoClient mongoClient =
+//                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+//
+//            final RemoteMongoCollection<Document> coll =
+//                    mongoClient.getDatabase("Incrementum").getCollection("Habits");
+//
+//            Document filterDoc = new Document();
+//
+//            RemoteFindIterable <Document>  results = coll.find(filterDoc)
+//                    .projection(
+//                            new Document());
+//
+//            results.forEach(item ->{
+//                try{
+//                    JSONObject obj = new JSONObject(item.toJson());
+//                    String habit = obj.getString("name");
+//                    habits.add(habit);
+//                    adapter.notifyDataSetChanged();
+//                    Log.d("*************",habit);
+//                }
+//                catch(JSONException e){
+//                    Log.d("JSON exception:",e.toString());
+//                }
+//            });
+//        }).start();
+        DatabaseLoad load = new DatabaseLoad();
+        load.execute();
 
-                final RemoteMongoClient mongoClient =
-                        client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-                final RemoteMongoCollection<Document> coll =
-                        mongoClient.getDatabase("Incrementum").getCollection("Habits");
-
-                Document filterDoc = new Document();
-
-                RemoteFindIterable <Document>  results = coll.find(filterDoc)
-                        .projection(
-                                new Document());
-
-                results.forEach(item ->{
-                    try{
-                        JSONObject obj = new JSONObject(item.toJson());
-                        String habit = obj.getString("name");
-                        habits.add(habit);
-                        adapter.notifyDataSetChanged();
-                        Log.d("*************",habit);
-                    }
-                    catch(JSONException e){
-                        Log.d("JSON exception:",e.toString());
-                    }
-                });
-            }
-
-        }).start();
     }
+
+    private class DatabaseLoad extends AsyncTask<Void,Void,Void>{
+
+        RemoteFindIterable <Document>  results;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("BACKGROUND","************************************");
+
+            final StitchAppClient client =
+                    Stitch.getAppClient("incrementum-xjkms");
+
+            final RemoteMongoClient mongoClient =
+                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+            final RemoteMongoCollection<Document> coll =
+                    mongoClient.getDatabase("Incrementum").getCollection("Habits");
+
+            Document filterDoc = new Document();
+
+             results = coll.find(filterDoc)
+                    .projection(
+                            new Document());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {   Log.d("POST","************************************");
+                    results.forEach(item ->{
+                        try{
+                            JSONObject obj = new JSONObject(item.toJson());
+                            String habit = obj.getString("name");
+                            habits.add(habit);
+                            adapter.notifyDataSetChanged();
+                            Log.d("*************",habit);
+                        }
+                        catch(JSONException e){
+                            Log.d("JSON exception:",e.toString());
+                        }
+                    });
+                }
+            });
+            super.onPostExecute(aVoid);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -152,4 +218,8 @@ ArrayList<String> habits = new ArrayList<>();
 
     }
 
+    public void openViewAHabitActivity(){
+        Intent intent = new Intent(this, ViewAHabit.class);
+        startActivity(intent);
+    }
 }

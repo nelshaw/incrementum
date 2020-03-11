@@ -67,11 +67,8 @@ public class AddHabit2Activity extends AppCompatActivity {
    String ownTrigger;
    /**************PARAMETERS OF HABIT***************/
 
-   @Override
-   public void onBackPressed() {
-       Intent intent = new Intent(this, AddHabitActivity.class);
-       startActivity(intent);
-   }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -319,7 +316,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         }
         if(ownTrigger!="")
         {
-            triggerList.add(userIn.toString());
+           // triggerList.add(userIn.toString());
         }
            //times
 //        boolean timeMorning = false;
