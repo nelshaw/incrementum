@@ -362,6 +362,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                     Log.d("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
                     HabitId = task.getResult().getInsertedId().toString();
+
                 }
                 else{
                     Log.d("STITCH", "Unsuccessful");
