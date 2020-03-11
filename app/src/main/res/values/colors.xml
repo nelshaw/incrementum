@@ -7,4 +7,6 @@
     <color name="redTheme">#ff7675</color>
     <color name="lightBlueTheme">#d8f2f3</color>
     <color name="cremeTheme">#fff0e3</color>
+    <color name="darkGrey">#6C6C6C</color>
+    <color name="purpleTheme">#a29bfe</color>
 </resources>
