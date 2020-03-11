@@ -34,7 +34,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         list = findViewById(R.id.myhabits);
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
-        //list.setText("");
+        list.setText("");
         getAllEntries();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,32 +76,19 @@ public class ViewHabitActivity extends AppCompatActivity {
 
         RemoteFindIterable <Document> results = coll.find(filterDoc)
                 .projection(
-                        new Document()
-                                .append("description", 0)
-                                .append("_id", 0)
-                                .append("userId",0)
-                                .append("length",0)
-                                .append("isActive",0));
-
-        Log.d("Habits", "*************************************");
-        Log.d("Habits", String.valueOf(results));
-
+                        new Document());
 
         results.forEach(item ->{
             try{
                 JSONObject obj = new JSONObject(item.toJson());
-                Log.d("objjjjjjjjjjjjj",obj.toString());
+                list.append(obj.getString("name")+"\n");
             }
 
             catch(JSONException e){
                 Log.d("JSON exception:",e.toString());
             }
-
-
         });
-
         while(list.getText()==""){
-            getAllEntries();
         }
     }
 }
