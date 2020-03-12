@@ -19,6 +19,11 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.auth.providers.userpassword.UserPasswordAuthProviderClient;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
+
+import org.bson.Document;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -92,7 +97,8 @@ public class SignupActivity extends AppCompatActivity {
                                                if (task.isSuccessful()) {
                                                    Log.i("stitch", "Successfully sent account confirmation email");
                                                    progressDialog.dismiss();
-                                                   onSignupSuccess();
+                                                   onSignupSuccess(name, email, password);
+
                                                } else {
                                                    Log.e("stitch", "Error registering new user:", task.getException());
                                                    progressDialog.dismiss();
@@ -104,16 +110,56 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(String name, String email, String password) {
+
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         openHabitActivity();
+        sendData(name, email, password);
         finish();
     }
 
     public void openHabitActivity(){
         Intent intent = new Intent(this, Log_Habits_Hobbies_Time_Activity.class);
         startActivity(intent);
+    }
+
+    public void sendData(String name, String email, String password)
+    {
+        Intent intent = new Intent(getApplicationContext(),Log_Habits_Hobbies_Time_Activity.class);
+        intent.putExtra("username", name);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    public void insertUser(String user_name, String e_mail, String pass_word) {
+
+        final StitchAppClient client =
+                Stitch.getAppClient("incrementum-xjkms");
+
+        final RemoteMongoClient mongoClient =
+                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+        final RemoteMongoCollection<Document> coll =
+                mongoClient.getDatabase("Incrementum").getCollection("Users");
+
+        Document doc = new Document()
+                .append("username", user_name)
+                .append("email", e_mail)
+                .append("password", pass_word);
+
+        final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+
+        insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
+            @Override
+            public void onComplete(@androidx.annotation.NonNull Task<RemoteInsertOneResult> task) {
+                if (task.isSuccessful()){
+                    Log.i("STITCH", String.format("success inserting: %s",
+                            task.getResult().getInsertedId()));
+                }
+            }
+        });
     }
 
     public void onSignupFailed() {
