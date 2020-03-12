@@ -77,38 +77,8 @@ ArrayList<String> habits = new ArrayList<>();
             }
         });
 
-//        new Thread(() -> {
-//            final StitchAppClient client =
-//                    Stitch.getAppClient("incrementum-xjkms");
-//
-//            final RemoteMongoClient mongoClient =
-//                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-//
-//            final RemoteMongoCollection<Document> coll =
-//                    mongoClient.getDatabase("Incrementum").getCollection("Habits");
-//
-//            Document filterDoc = new Document();
-//
-//            RemoteFindIterable <Document>  results = coll.find(filterDoc)
-//                    .projection(
-//                            new Document());
-//
-//            results.forEach(item ->{
-//                try{
-//                    JSONObject obj = new JSONObject(item.toJson());
-//                    String habit = obj.getString("name");
-//                    habits.add(habit);
-//                    adapter.notifyDataSetChanged();
-//                    Log.d("*************",habit);
-//                }
-//                catch(JSONException e){
-//                    Log.d("JSON exception:",e.toString());
-//                }
-//            });
-//        }).start();
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
-
     }
 
     private class DatabaseLoad extends AsyncTask<Void,Void,Void>{
@@ -116,9 +86,7 @@ ArrayList<String> habits = new ArrayList<>();
         RemoteFindIterable <Document>  results;
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            Log.d("BACKGROUND","************************************");
-
+        protected void onPreExecute() {
             final StitchAppClient client =
                     Stitch.getAppClient("incrementum-xjkms");
 
@@ -130,51 +98,39 @@ ArrayList<String> habits = new ArrayList<>();
 
             Document filterDoc = new Document();
 
-             results = coll.find(filterDoc)
+            results = coll.find(filterDoc)
                     .projection(
                             new Document());
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("BACKGROUND","************************************");
+            results.forEach(item ->{
+                try{
+                    JSONObject obj = new JSONObject(item.toJson());
+                    String habit = obj.getString("name");
+                    habits.add(habit);
+                    adapter.notifyDataSetChanged();
+                    Log.d("*************",habit);
+                }
+                catch(JSONException e){
+                    Log.d("JSON exception:",e.toString());
+                }
+            });
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {   Log.d("POST","************************************");
-                    results.forEach(item ->{
-                        try{
-                            JSONObject obj = new JSONObject(item.toJson());
-                            String habit = obj.getString("name");
-                            habits.add(habit);
-                            adapter.notifyDataSetChanged();
-                            Log.d("*************",habit);
-                        }
-                        catch(JSONException e){
-                            Log.d("JSON exception:",e.toString());
-                        }
-                    });
-                }
+            runOnUiThread(() -> {   Log.d("POST","************************************");
+                adapter.notifyDataSetChanged();
             });
             super.onPostExecute(aVoid);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void openAddHabitActivity() {
