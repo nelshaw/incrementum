@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.InjectView;
 
@@ -12,8 +13,6 @@ public class profileActivity1 extends AppCompatActivity {
 
     @InjectView(R.id.emailText) TextView _emailText;
 
-    Intent intent = getIntent();
-    String email = intent.getStringExtra("email");
 
 
     @Override
@@ -21,7 +20,12 @@ public class profileActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        _emailText.setText(email);
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+
+
+
+       // _emailText.setText(email);
 
     }
 }
