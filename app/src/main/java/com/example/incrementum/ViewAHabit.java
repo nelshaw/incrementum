@@ -31,7 +31,6 @@ public class ViewAHabit extends AppCompatActivity {
     TextView name;
     TextView triggers;
     TextView times;
-
     String habitName;
 
     @Override
