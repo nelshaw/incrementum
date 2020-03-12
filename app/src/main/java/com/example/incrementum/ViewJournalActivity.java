@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,24 +21,42 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ViewJournalActivity extends AppCompatActivity {
 
   Button addBtn;
   Button backBtn;
+
   TextView title;
-  TextView journalEntries;
   String user_id;
+
+  List<String> journals;
+  ListView listView;
+  ListAdapter listAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_view_journal);
+
+    journals = new ArrayList<>();
+
     addBtn = findViewById(R.id.addJournal);
     title = findViewById(R.id.title);
-    journalEntries = findViewById(R.id.list);
     backBtn = findViewById(R.id.back_button);
+    listView = findViewById(R.id.myJournals);
+
+    getAllEntries();
+
+    //wait until journals list is filled
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     // Get user_id from login to view journal entries for that user
     user_id = LoginActivity.user_id;
@@ -44,25 +65,11 @@ public class ViewJournalActivity extends AppCompatActivity {
     // This will grab from database once dummy data has been inserted
     title.append(" John Smith");
 
-    journalEntries.setText("");
-
-    getAllEntries();
-
     // Direct to add journal entry
-    addBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openAddJournalActivity();
-      }
-    });
+    addBtn.setOnClickListener(v -> openAddJournalActivity());
 
     // Go back to home page
-    backBtn.setOnClickListener(new View.OnClickListener(){
-      @Override
-      public void onClick(View v) {
-        openMapActivity();
-      }
-    });
+    backBtn.setOnClickListener(v -> openMapActivity());
 
   }
 
@@ -89,8 +96,8 @@ public class ViewJournalActivity extends AppCompatActivity {
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     // Only get journal entries from current user who is logged in
-    Document filterDoc = new Document()
-      .append("user_id", user_id);
+    Document filterDoc = new Document();
+//      .append("user_id", user_id);
 
     // Get all entries with the criteria from filterDoc
     RemoteFindIterable results = coll.find(filterDoc);
@@ -98,27 +105,34 @@ public class ViewJournalActivity extends AppCompatActivity {
     // Log all journal entries that are found in the logger
     Log.d("JOURNALS", String.valueOf(results));
 
-    // Iterate through each found journal and display them
     results.forEach(new Block() {
-      // Keep track of number of entries
-      int i = 1;
-      @Override
-      public void apply(Object item) {
-        Log.d("JOURNALS", item.toString());
+                      int i = 1;
 
-        Document doc = (Document) item;
+                      @Override
+                      public void apply(Object item) {
+                        Document doc = (Document) item;
+                        String entry = (String) doc.get("entry");
 
-        Date date = (Date) doc.get("date");
-        String[] dateStr = date.toString().split(" ");
+                        Date date = (Date) doc.get("date");
+                        String[] dateStr = date.toString().split(" ");
 
-        String entry = (String) doc.get("entry");
-        String userId = doc.get("user_id").toString();
+                        String userId = doc.get("user_id").toString();
 
-        journalEntries.append("Entry " + i++ +": " + entry);
-        journalEntries.append(String.format("\nPosted by %s\n", userId));
-        journalEntries.append(String.format("Added on %s\n\n", dateStr[1] + " " + dateStr[2]));
+                        String journalEntry = "Entry " + i++ + ": " + entry +
+                          String.format("\nPosted by %s\n", userId) +
+                          String.format("Added on %s\n\n", dateStr[1] + " " + dateStr[2]);
+                        //append habit to habitNames list
+                        journals.add(journalEntry);
+                        Log.d("JOURNAL", entry);
+                      }
+                    }
+    );
 
-      }
-    });
+    //create list adapter for ListView
+    listAdapter = new ArrayAdapter<>(this, R.layout.simplerow, journals);
+
+    //attach adapter to ListView
+    listView.setAdapter(listAdapter);
   }
+
 }
