@@ -28,6 +28,8 @@ public class profileActivity1 extends AppCompatActivity {
 
 
 
+
+
         
         _emailText.setText(email);
     }
