@@ -32,6 +32,7 @@ public class ViewAHabit extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     TextView name;
     TextView triggers;
     TextView times;
@@ -61,7 +62,6 @@ public class ViewAHabit extends AppCompatActivity {
                     client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
             final RemoteMongoCollection<Document> coll =
                     mongoClient.getDatabase("Incrementum").getCollection("Habits");
-
             results = coll.find(Filters.eq("name",_getData))
                     .projection(
                             new Document());
@@ -115,17 +115,4 @@ public class ViewAHabit extends AppCompatActivity {
             super.onPostExecute(aVoid);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

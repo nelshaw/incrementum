@@ -39,11 +39,8 @@ public class ViewHabitActivity extends AppCompatActivity {
     //TextView list;
 ArrayList<String> habits = new ArrayList<>();
     ArrayAdapter<String> adapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         ListView list = findViewById(R.id.list);
@@ -75,11 +72,8 @@ ArrayList<String> habits = new ArrayList<>();
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
     }
-
     private class DatabaseLoad extends AsyncTask<Void,Void,Void>{
-
         RemoteFindIterable <Document>  results;
-
         @Override
         protected void onPreExecute() {
             final StitchAppClient client =
@@ -99,7 +93,6 @@ ArrayList<String> habits = new ArrayList<>();
 
             super.onPreExecute();
         }
-
         @Override
         protected Void doInBackground(Void... voids) {
             Log.d("BACKGROUND","************************************");
@@ -117,7 +110,6 @@ ArrayList<String> habits = new ArrayList<>();
             });
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             runOnUiThread(() -> {   Log.d("POST","************************************");
@@ -126,8 +118,6 @@ ArrayList<String> habits = new ArrayList<>();
             super.onPostExecute(aVoid);
         }
     }
-
-
     public void openAddHabitActivity() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
@@ -137,45 +127,7 @@ ArrayList<String> habits = new ArrayList<>();
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
-
-    public void  getAllEntries() {
-
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Habits");
-
-        Document filterDoc = new Document();
-
-        RemoteFindIterable <Document> results = coll.find(filterDoc)
-                .projection(
-                        new Document());
-
-        results.forEach(item ->{
-            try{
-                JSONObject obj = new JSONObject(item.toJson());
-                String habit = obj.getString("name");
-                habits.add(habit);
-                adapter.notifyDataSetChanged();
-            }
-            catch(JSONException e){
-                Log.d("JSON exception:",e.toString());
-            }
-        });
-
-    }
-
-    public void openViewAHabitActivity(){
-        Intent intent = new Intent(this, ViewAHabit.class);
-        startActivity(intent);
-    }
-
     public void sendData(String name){
-
        Intent intent = new Intent(getApplicationContext(),ViewAHabit.class);
             intent.putExtra("habit", name);
             startActivity(intent);
