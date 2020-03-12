@@ -3,12 +3,14 @@ package com.example.incrementum;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mongodb.Block;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
@@ -57,6 +59,38 @@ public class ViewJournalActivity extends AppCompatActivity {
       }
     });
 
+//    //Initalize and Assign Value
+//    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//
+//    //Set home selected
+//    bottomNavigationView.setSelectedItemId(R.id.calender_nav);
+//
+//    //Perform ItemSelectedList
+//    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//      @Override
+//      public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem menuItem) {
+//        switch (menuItem.getItemId()){
+//          case R.id.calender_nav:
+//                        startActivity(new Intent(getApplicationContext()
+//                                ,CalendarActivity.class));
+//                        overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.journal_nav:
+////            startActivity(new Intent(getApplicationContext()
+////                    ,ViewJournalActivity.class));
+////            overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.profile_nav:
+//            startActivity(new Intent(getApplicationContext()
+//                    ,MainActivity.class));
+//            overridePendingTransition(0,0);
+//            return true;
+//        }
+//        return false;
+//      }
+//    });
 
   }
 
