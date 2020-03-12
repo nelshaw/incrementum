@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
@@ -15,6 +17,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,24 +31,25 @@ public class ViewAHabit extends AppCompatActivity {
         Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
+
     TextView name;
     TextView triggers;
     TextView times;
     String habitName;
-
+    String _getData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_a_habit);
         Intent intent = getIntent();
-        String _getData = intent.getStringExtra("sss");
+        _getData  = intent.getStringExtra("habit");
+        Toast.makeText(getBaseContext(),_getData, Toast.LENGTH_LONG).show();
 
         name = findViewById(R.id.name);
         triggers = findViewById(R.id.triggersListView);
         times = findViewById(R.id.timesListView);
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
-
     }
     private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
         RemoteFindIterable <Document>  results;
@@ -57,8 +61,8 @@ public class ViewAHabit extends AppCompatActivity {
                     client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
             final RemoteMongoCollection<Document> coll =
                     mongoClient.getDatabase("Incrementum").getCollection("Habits");
-            Document filterDoc = new Document();
-            results = coll.find(filterDoc)
+
+            results = coll.find(Filters.eq("name",_getData))
                     .projection(
                             new Document());
             super.onPreExecute();
@@ -69,14 +73,33 @@ public class ViewAHabit extends AppCompatActivity {
             results.forEach(item ->{
                 try{
                     JSONObject obj = new JSONObject(item.toJson());
-                  habitName = obj.getString("name");
-                 JSONArray triggerlist = new JSONArray();
-                  triggerlist = obj.getJSONArray("Triggers");
-                  triggers.setText(triggerlist.toString());
-
+                     habitName = obj.getString("name");
+                    JSONArray triggerlist = new JSONArray();
+                    triggerlist = obj.getJSONArray("Triggers");
                     JSONArray timesList = new JSONArray();
                     timesList = obj.getJSONArray("Times");
-                    times.setText(timesList.toString());
+                    name.setText(habitName);
+
+                    ArrayList<String> tempTriggers = new ArrayList<String>();
+                    for(int i =0;i<triggerlist.length();i++)
+                    {
+                        tempTriggers.add(triggerlist.get(i).toString());
+                        Log.d("*********************",triggerlist.get(i).toString());
+                    }
+                    for(String s:tempTriggers)
+                    {
+                        triggers.append(s+"\n");
+                    }
+                    ArrayList<String> tempTimes= new ArrayList<String>();
+                    for(int i =0;i<timesList.length();i++)
+                    {
+                        tempTimes.add(timesList.get(i).toString());
+                       Log.d("*********************",timesList.get(i).toString());
+                    }
+                    for(String s:tempTimes)
+                    {
+                        times.append(s+"\n");
+                    }
                 }
                 catch(JSONException e){
                     Log.d("JSON exception:",e.toString());

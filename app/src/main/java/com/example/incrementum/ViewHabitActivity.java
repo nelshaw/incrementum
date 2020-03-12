@@ -52,11 +52,7 @@ ArrayList<String> habits = new ArrayList<>();
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewHabitActivity.this,habits.get(position),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ViewHabitActivity.this,ViewAHabit.class);
-                intent.putExtra("sss",habits.get(position));
-                startActivity(intent);
-                openViewAHabitActivity();
+              sendData(habits.get(position));
             }
         });
         Button addButton = findViewById(R.id.AddHabit);
@@ -76,7 +72,6 @@ ArrayList<String> habits = new ArrayList<>();
                 openMapActivity();
             }
         });
-
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
     }
@@ -177,5 +172,12 @@ ArrayList<String> habits = new ArrayList<>();
     public void openViewAHabitActivity(){
         Intent intent = new Intent(this, ViewAHabit.class);
         startActivity(intent);
+    }
+
+    public void sendData(String name){
+
+       Intent intent = new Intent(getApplicationContext(),ViewAHabit.class);
+            intent.putExtra("habit", name);
+            startActivity(intent);
     }
 }
