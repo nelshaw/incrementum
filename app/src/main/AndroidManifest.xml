@@ -9,11 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".profileActivity1"></activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".HabitOccuranceActivity"></activity>
+        <activity android:name=".AddHabitOccuranceActivity" />
+        <activity android:name=".CalendarActivity" />
+
         <activity android:name=".Log_Habits_Hobbies_Time_Activity" />
         <activity android:name=".AddHabit2Activity" />
         <activity android:name=".AddHabitActivity" />
