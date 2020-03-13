@@ -134,7 +134,6 @@ ArrayList<String> habits = new ArrayList<>();
         }
     }
 
-
     public void getHabits(){
 
         RemoteFindIterable <Document>  results;

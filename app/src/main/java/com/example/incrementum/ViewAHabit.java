@@ -38,6 +38,11 @@ public class ViewAHabit extends AppCompatActivity {
     TextView times;
     String habitName;
     String _getData;
+    TextView descriptionText;
+    String description;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class ViewAHabit extends AppCompatActivity {
         name = findViewById(R.id.name);
         triggers = findViewById(R.id.triggersListView);
         times = findViewById(R.id.timesListView);
+        descriptionText = findViewById(R.id.description);
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
     }
@@ -79,7 +85,8 @@ public class ViewAHabit extends AppCompatActivity {
                     JSONArray timesList = new JSONArray();
                     timesList = obj.getJSONArray("Times");
                     name.setText(habitName);
-
+                    description = obj.getString("description");
+                    descriptionText.setText(description);
                     ArrayList<String> tempTriggers = new ArrayList<String>();
                     for(int i =0;i<triggerlist.length();i++)
                     {
@@ -111,6 +118,8 @@ public class ViewAHabit extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             runOnUiThread(() -> {   Log.d("POST","************************************");
                name.setText(habitName);
+                descriptionText.setText(description);
+                
             });
             super.onPostExecute(aVoid);
         }
