@@ -1,60 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".AddJournalActivity">
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@color/cremeTheme"
+  android:fitsSystemWindows="true" >
 
-  <TextView
-    android:id="@+id/title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/add_journal"
-    android:visibility="visible"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.07" />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingLeft="24dp"
+      android:paddingRight="24dp"
+      android:paddingBottom="56dp"
+      android:paddingTop="56dp">
 
-  <TextView
-    android:id="@+id/thoughtsTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="45dp"
-    android:layout_marginLeft="45dp"
-    android:layout_marginTop="89dp"
-    android:text="@string/add_journal_feeling"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+      <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        android:text="@string/add_journal"
+        android:visibility="visible" />
 
-  <EditText
-    android:id="@+id/journalEntry"
-    android:layout_width="321dp"
-    android:layout_height="210dp"
-    android:layout_marginTop="123dp"
-    android:ems="10"
-    android:gravity="start|top"
-    android:hint="@string/journal_entry_hint"
-    android:importantForAutofill="no"
-    android:inputType="textShortMessage|textLongMessage|textMultiLine|textNoSuggestions"
-    android:singleLine="false"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+      <TextView
+        android:id="@+id/thoughtsTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_journal_feeling" />
 
-  <Button
-    android:id="@+id/addJournal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="51dp"
-    android:layout_marginRight="51dp"
-    android:layout_marginBottom="51dp"
-    android:text="@string/save"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+      <EditText
+        android:id="@+id/journalEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/journal_entry_hint"
+        android:importantForAutofill="no"
+        android:inputType="textShortMessage|textLongMessage|textMultiLine|textNoSuggestions"
+        android:textColor="@color/darkGrey" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <CheckBox
+        android:id="@+id/newTriggerCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="I have a new trigger"
+        android:onClick="onCheckboxClicked"/>
+
+      <TextView
+        android:id="@+id/triggerTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:text="@string/journal_habit_title"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+      <LinearLayout
+        android:id="@+id/triggers_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ToggleButton
+          android:id="@+id/otherPeople"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/other_people"
+          android:textOn="@string/other_people" />
+
+        <ToggleButton
+          android:id="@+id/precedingEvent"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/preceding_event"
+          android:textOn="@string/preceding_event" />
+
+        <ToggleButton
+          android:id="@+id/emotionalState"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/emotional_state"
+          android:textOn="@string/emotional_state" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/triggers_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ToggleButton
+          android:id="@+id/location"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="true"
+          android:text="@string/togglebutton"
+          android:textOff="@string/location"
+          android:textOn="@string/location" />
+
+        <ToggleButton
+          android:id="@+id/time"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/time"
+          android:textOn="@string/time" />
+
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/triggerTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:text="@string/trigger_time"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+      <LinearLayout
+        android:id="@+id/time_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ToggleButton
+          android:id="@+id/morning"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/morning"
+          android:textOn="@string/morning" />
+
+        <ToggleButton
+          android:id="@+id/afternoon"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/afternoon"
+          android:textOn="@string/afternoon" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/time_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ToggleButton
+          android:id="@+id/evening"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="true"
+          android:text="@string/togglebutton"
+          android:textOff="@string/evening"
+          android:textOn="@string/evening" />
+
+        <ToggleButton
+          android:id="@+id/night"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@color/lightBlueTheme"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/night"
+          android:textOn="@string/night" />
+
+      </LinearLayout>
+
+      <Button
+        android:id="@+id/addJournal"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/darkGrey"
+        android:padding="12dp"
+        android:text="@string/save"
+        android:textColor="@color/cremeTheme" />
+    </LinearLayout>
+</ScrollView>
