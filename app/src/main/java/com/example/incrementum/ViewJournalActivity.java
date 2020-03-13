@@ -63,7 +63,7 @@ public class ViewJournalActivity extends AppCompatActivity {
 
     // Add user's name to title
     // This will grab from database once dummy data has been inserted
-    title.append(" John Smith");
+    title.append(" " + getFirstName());
 
     // Direct to add journal entry
     addBtn.setOnClickListener(v -> openAddJournalActivity());
@@ -81,6 +81,49 @@ public class ViewJournalActivity extends AppCompatActivity {
   public void openMapActivity(){
     Intent intent = new Intent(this, MapActivity.class);
     startActivity(intent);
+  }
+
+  public String getFirstName(){
+
+    // Connect to MongoDB client
+    final StitchAppClient client =
+      Stitch.getAppClient("incrementum-xjkms");
+
+    final RemoteMongoClient mongoClient =
+      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+    final RemoteMongoCollection<Document> coll =
+      mongoClient.getDatabase("Incrementum").getCollection("Users");
+
+    // Only get journal entries from current user who is logged in
+    Document filterDoc = new Document()
+      .append("userid", user_id);
+
+    // Get all entries with the criteria from filterDoc
+    RemoteFindIterable results = coll.find(filterDoc);
+
+    // Log all journal entries that are found in the logger
+    Log.d("USER", String.valueOf(results));
+
+    final String[] firstName = new String[1];
+
+    results.forEach(item -> {
+      Document doc = (Document) item;
+      String fName = (String) doc.get("fname");
+
+      if(fName != null){
+        firstName[0] = fName;
+      }
+
+      Log.d("USER", fName);
+    }
+    );
+
+    if(firstName[0] != null){
+      return firstName[0];
+    }
+
+    return "John Smith";
   }
 
   public void getAllEntries(){
