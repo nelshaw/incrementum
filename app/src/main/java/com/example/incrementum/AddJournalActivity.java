@@ -30,7 +30,6 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.InjectViews;
 
 public class AddJournalActivity extends AppCompatActivity {
 
@@ -72,6 +71,9 @@ public class AddJournalActivity extends AppCompatActivity {
 
     // Get user id from user who logged in successfully
     user_id = LoginActivity.user_id;
+
+    // Get date from calendar
+    date = CalendarActivity.dateSelected;
 
     // Time buttons
     morning.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -208,19 +210,6 @@ public class AddJournalActivity extends AppCompatActivity {
     }
 
   }
-  public void makeButtonsVisible(){
-    triggerLayout.setVisibility(View.VISIBLE);
-    trigger2Layout.setVisibility(View.VISIBLE);
-    timeLayout.setVisibility(View.VISIBLE);
-    time2Layout.setVisibility(View.VISIBLE);
-  }
-
-  public void makeButtonsInvisible(){
-    triggerLayout.setVisibility(View.INVISIBLE);
-    trigger2Layout.setVisibility(View.INVISIBLE);
-    timeLayout.setVisibility(View.INVISIBLE);
-    time2Layout.setVisibility(View.INVISIBLE);
-  }
 
   public void addEntry(){
 
@@ -238,7 +227,7 @@ public class AddJournalActivity extends AppCompatActivity {
     // Add triggers to database
     Document doc = new Document()
       .append("user_id", user_id)
-      .append("date", new Date())
+      .append("date", date)
       .append("entry", entry.getText().toString());
 
     // Insert document

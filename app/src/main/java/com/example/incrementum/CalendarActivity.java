@@ -21,6 +21,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateLongClickListener;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.bson.Document;
 import org.json.JSONArray;
@@ -29,8 +31,10 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -45,6 +49,9 @@ public class CalendarActivity extends AppCompatActivity {
 
     String User_id = "5e587cbed6292c4d1074b5d8";
     String Habit_id = "12345";
+
+    static Date dateSelected;
+
     //connect to database
     final StitchAppClient client =
             Stitch.getAppClient("incrementum-xjkms");
@@ -140,10 +147,19 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                     }
                 });
-                openAddHabitOccuranceActivity();
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+              try {
+                dateSelected = format.parse(selectedDate);
+              } catch (ParseException e) {
+                e.printStackTrace();
+              }
+//                openAddHabitOccuranceActivity();
+              Log.d("CALENDAR", "date added " + dateSelected);
+              openHabitEffectActivity();
             }
         });
-
 
     }
 
@@ -224,4 +240,14 @@ public class CalendarActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddHabitOccuranceActivity.class);
         startActivity(intent);
     }
+
+    public void openAddJournalActivity(){
+      Intent intent = new Intent(this, AddJournalActivity.class);
+      startActivity(intent);
+    }
+
+    public void openHabitEffectActivity(){
+    Intent intent = new Intent(this, HabitEffectActivity.class);
+    startActivity(intent);
+  }
 }
