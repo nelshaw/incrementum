@@ -160,18 +160,17 @@ public class CalendarActivity extends AppCompatActivity {
 //                        startActivity(new Intent(getApplicationContext()
 //                                ,CalendarActivity.class));
 //                        overridePendingTransition(0,0);
-                        finish();
                         return true;
 
                     case R.id.journal_nav:
-                        finish();
+                        //finish();
                         startActivity(new Intent(getApplicationContext()
                                 ,ViewJournalActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 
                     case R.id.profile_nav:
-                        finish();
+                        //finish();
             startActivity(new Intent(getApplicationContext()
                     ,MainActivity.class));
             overridePendingTransition(0,0);
