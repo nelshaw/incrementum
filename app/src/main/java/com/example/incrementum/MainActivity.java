@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
           case R.id.profile_nav:
-//            startActivity(new Intent(getApplicationContext()
-//                    ,MainActivity.class));
-//            overridePendingTransition(0,0);
+            startActivity(new Intent(getApplicationContext()
+                    ,profileActivity1.class));
+            overridePendingTransition(0,0);
             finish();
             return true;
         }
