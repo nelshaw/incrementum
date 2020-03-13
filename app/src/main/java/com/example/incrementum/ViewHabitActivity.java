@@ -14,10 +14,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,6 +83,7 @@ ArrayList<String> habits = new ArrayList<>();
         });
        DatabaseLoad load = new DatabaseLoad();
        load.execute();
+        //getHabits();
     }
 
     private class DatabaseLoad extends AsyncTask<Void,Void,Void>{
@@ -141,7 +138,6 @@ ArrayList<String> habits = new ArrayList<>();
 
         RemoteFindIterable <Document>  results;
 
-
             final StitchAppClient client =
                     Stitch.getAppClient("incrementum-xjkms");
 
@@ -171,6 +167,7 @@ ArrayList<String> habits = new ArrayList<>();
             }
         });
     }
+
     public void openAddHabitActivity() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
