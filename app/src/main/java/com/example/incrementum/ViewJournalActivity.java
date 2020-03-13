@@ -36,7 +36,7 @@ public class ViewJournalActivity extends AppCompatActivity {
     backBtn = findViewById(R.id.back_button);
 
     // Add user's name to title
-    title.append(" John Smith");
+    title.append(" John Sm;ith");
 
     journalEntries.setText("");
 
@@ -56,11 +56,7 @@ public class ViewJournalActivity extends AppCompatActivity {
         openMapActivity();
       }
     });
-
-
   }
-
-
 
   public void openAddJournalActivity(){
     Intent intent = new Intent(this, AddJournalActivity.class);
@@ -105,7 +101,6 @@ public class ViewJournalActivity extends AppCompatActivity {
         String[] entry = entries[1].split(",");
         journalEntries.append("Entry " + (i++) + ": " + entry[0] + "\n");
         journalEntries.append(String.format("Added on %s\n\n", date));
-
       }
     });
   }
