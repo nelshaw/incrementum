@@ -119,7 +119,7 @@ public class ViewAHabit extends AppCompatActivity {
             runOnUiThread(() -> {   Log.d("POST","************************************");
                name.setText(habitName);
                 descriptionText.setText(description);
-                
+
             });
             super.onPostExecute(aVoid);
         }
