@@ -11,7 +11,7 @@ import butterknife.InjectView;
 
 public class profileActivity1 extends AppCompatActivity {
 
-    @InjectView(R.id.emailText) TextView _emailText;
+    TextView _emailText;
 
 
 
@@ -23,9 +23,11 @@ public class profileActivity1 extends AppCompatActivity {
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
 
+        _emailText = findViewById(R.id.emailText);
+        _emailText.setText(email);
 
 
-       // _emailText.setText(email);
+
 
     }
 }

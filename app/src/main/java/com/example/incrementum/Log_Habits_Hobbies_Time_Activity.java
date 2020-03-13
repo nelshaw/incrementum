@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,15 @@ import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
 
 import org.bson.Document;
 
+import java.security.Key;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
+
+    private static final String ALGORITHM = "AES";
+    private static final String KEY = "1Hbfh667adfDEJ78";
 
     Button EnterButton;
     EditText HobbyText;
@@ -82,6 +91,12 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
         Toast.makeText(getBaseContext(), "Point reached", Toast.LENGTH_LONG).show();
 
+        try {
+            pass_word = encrypt(pass_word);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Document doc = new Document()
                 .append("username", user_name)
                 .append("email", e_mail)
@@ -98,6 +113,37 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static String encrypt(String value) throws Exception
+    {
+        Key key = generateKey();
+        Cipher cipher = Cipher.getInstance(Log_Habits_Hobbies_Time_Activity.ALGORITHM);
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte [] encryptedByteValue = cipher.doFinal(value.getBytes("utf-8"));
+        String encryptedValue64 = Base64.encodeToString(encryptedByteValue, Base64.DEFAULT);
+        return encryptedValue64;
+    }
+
+    /*
+    public static String decrypt(String value) throws Exception
+    {
+        Key key = generateKey();
+        Cipher cipher = Cipher.getInstance(AESCrypt.ALGORITHM);
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] decryptedValue64 = Base64.decode(value, Base64.DEFAULT);
+        byte [] decryptedByteValue = cipher.doFinal(decryptedValue64);
+        String decryptedValue = new String(decryptedByteValue,"utf-8");
+        return decryptedValue;
+
+    }
+    */
+
+
+    private static Key generateKey() throws Exception
+    {
+        Key key = new SecretKeySpec(Log_Habits_Hobbies_Time_Activity.KEY.getBytes(),Log_Habits_Hobbies_Time_Activity.ALGORITHM);
+        return key;
     }
 
     public void getAllEntries(){
