@@ -1,63 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
   android:orientation="vertical"
-  tools:context=".AddJournalActivity">
-
-  <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="43dp">
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
-    </LinearLayout>
-  </ScrollView>
+  android:paddingLeft="32dp"
+  android:paddingTop="64dp"
+  android:paddingRight="32dp">
 
   <TextView
     android:id="@+id/title"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/view_journal"
     android:textAlignment="center"
-    android:visibility="visible" />
+    android:layout_marginBottom="15dp"
+    android:textSize="16sp"
+    android:textColor="@color/darkGrey"
+    />
 
   <ListView
     android:id="@+id/myJournals"
-    android:layout_width="match_parent"
-    android:layout_height="551dp" />
+    android:layout_width="fill_parent"
+    android:layout_height="550dp" />
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="66dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
 
     <Button
       android:id="@+id/back_button"
-      android:layout_width="194dp"
-      android:layout_height="48dp"
-      android:layout_marginEnd="10dp"
-      android:layout_marginBottom="60dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:text="Back" />
-
-    <View
-      android:id="@+id/divider3"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="50"
-      android:background="?android:attr/listDivider" />
 
     <Button
       android:id="@+id/addJournal"
-      android:layout_width="201dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="10dp"
-      android:layout_marginBottom="0dp"
       android:text="@string/add_journal" />
   </LinearLayout>
 

@@ -33,7 +33,7 @@ import butterknife.InjectView;
 
 public class AddJournalActivity extends AppCompatActivity {
 
-  @InjectView(R.id.addJournal) Button saveBtn;
+  @InjectView(R.id.save) Button saveBtn;
   @InjectView(R.id.newTriggerCheck) CheckBox newTriggerCheck;
   @InjectView(R.id.journalEntry) EditText entry;
   @InjectView(R.id.triggerTitle) TextView triggerTitle;

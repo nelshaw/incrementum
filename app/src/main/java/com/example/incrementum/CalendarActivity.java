@@ -21,8 +21,6 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateLongClickListener;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.bson.Document;
 import org.json.JSONArray;
@@ -31,7 +29,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -155,9 +152,9 @@ public class CalendarActivity extends AppCompatActivity {
               } catch (ParseException e) {
                 e.printStackTrace();
               }
-//                openAddHabitOccuranceActivity();
+
+              openAddHabitOccurrenceActivity();
               Log.d("CALENDAR", "date added " + dateSelected);
-              openHabitEffectActivity();
             }
         });
 
@@ -236,18 +233,8 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     //function to open add habit occurance
-    public void openAddHabitOccuranceActivity() {
-        Intent intent = new Intent(this, AddHabitOccuranceActivity.class);
+    public void openAddHabitOccurrenceActivity() {
+        Intent intent = new Intent(this, AddHabitOccurrenceActivity.class);
         startActivity(intent);
     }
-
-    public void openAddJournalActivity(){
-      Intent intent = new Intent(this, AddJournalActivity.class);
-      startActivity(intent);
-    }
-
-    public void openHabitEffectActivity(){
-    Intent intent = new Intent(this, HabitEffectActivity.class);
-    startActivity(intent);
-  }
 }

@@ -35,4 +35,6 @@
   <string name="afternoon">Afternoon</string>
   <string name="evening">evening</string>
   <string name="night">night</string>
+  <string name="moodTitle">How are you feeling today?</string>
+  <string name="what_were_you_doing_before_you_broke_your_habit">What were you doing before you broke your habit?</string>
 </resources>
