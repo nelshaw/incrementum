@@ -27,11 +27,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-<<<<<<< HEAD
-    TextView _emailText;
-=======
+
+
+
 import java.util.ArrayList;
->>>>>>> 0bfbd4402391d390486b4646acecff99a24e9016
+
 
 import butterknife.InjectView;
 
@@ -46,15 +46,14 @@ public class profileActivity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        _emailText = findViewById(R.id.emailText);
+        _emailText.setText(email);
 
         refresh = findViewById(R.id.refresh);
         refresh.setOnClickListener(new View.OnClickListener() {
 
-<<<<<<< HEAD
-        _emailText = findViewById(R.id.emailText);
-        _emailText.setText(email);
 
-=======
+
             @Override
          public void onClick(View v) {
             Intent intent = getIntent();
@@ -65,7 +64,7 @@ public class profileActivity1 extends AppCompatActivity {
             startActivity(intent);
     }
 });
->>>>>>> 0bfbd4402391d390486b4646acecff99a24e9016
+
 
         _emailText = findViewById(R.id.emailText);
         _userText = findViewById(R.id.usernameText);
