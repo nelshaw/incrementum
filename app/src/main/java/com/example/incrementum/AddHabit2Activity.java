@@ -1,5 +1,6 @@
 package com.example.incrementum;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,28 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateOptions;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -63,12 +54,13 @@ public class AddHabit2Activity extends AppCompatActivity {
    String name;
    int length;
    String description;
-   String HabitId;
-   String ownTrigger;
    /**************PARAMETERS OF HABIT***************/
 
-
-
+   @Override
+   public void onBackPressed() {
+       Intent intent = new Intent(this, AddHabitActivity.class);
+       startActivity(intent);
+   }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -80,8 +72,8 @@ public class AddHabit2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
-        userIn = findViewById(R.id.triggerown);
-        ownTrigger = userIn.getText().toString();
+        userIn = findViewById(R.id.own);
+
         //trigger buttons
         final ToggleButton location = findViewById(R.id.Location);
         final ToggleButton pe = findViewById(R.id.pe);
@@ -244,7 +236,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     public void Continue(){
         if(Validate()) {
             Back();
-          addHabit();
+            //TO DO - ADD SAVE DB LOGIC
         }
     }
     public Boolean Validate(){
@@ -265,11 +257,11 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     //returns user to main menu
     public void Back(){
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
-
-    public void addHabit(){
+/*
+    public String getAllEntries(){
 
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
@@ -278,94 +270,49 @@ public class AddHabit2Activity extends AppCompatActivity {
                 client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
         final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Habits");
+                mongoClient.getDatabase("Incrementum").getCollection("Users");
 
-//        String name;
-//        int length;
-//        String description;
-
-        ArrayList<String> triggerList = new ArrayList<>();
-        ArrayList<String> timeList = new ArrayList<>();
-
-//        boolean triggerLocation = false;
-//        boolean triggerpe = false;
-//        boolean triggeres = false;
-//        boolean triggerop = false;
-//        boolean triggerTime = false;
-
-        //checks what triggers are added
-        if(triggeres)
-        {
-           triggerList.add("Emotional State");
-        }
-        if(triggerpe)
-        {
-            triggerList.add("Preceding Event");
-        }
-        if(triggerop)
-        {
-            triggerList.add("Other People");
-        }
-        if(triggerTime)
-        {
-            triggerList.add("Time");
-        }
-        if(triggerLocation)
-        {
-            triggerList.add("Location");
-        }
-        if(ownTrigger!="")
-        {
-           // triggerList.add(userIn.toString());
-        }
-           //times
-//        boolean timeMorning = false;
-//        boolean timeEvening = false;
-//        boolean timeAfternoon = false;
-//        boolean timeNight = false;
-
-//times
-        if(timeAfternoon)
-        {
-        timeList.add("Afternoon");
-        }
-        if(timeEvening)
-        {
-            timeList.add("Evening");
-        }
-        if(timeMorning)
-        {
-            timeList.add("Morning");
-        }
-        if(timeNight)
-        {
-            timeList.add("Night");
-        }
-
-        Document doc = new Document()
-                .append("name", name)
-                .append("length",length)
-                .append("description",description)
-                .append("Triggers",triggerList)
-                .append("Times",timeList)
-                .append("userId","5e52b0dc1c9d440000a2a03a");
+        //Document doc = new Document().append("sensitive_time_start", startTimeText.getText().toString()).append("sensitive_time_end", endTimeText.getText().toString()).append("hobbies", HobbyText.getText().toString());
 
         final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
-        ObjectId id = doc.getObjectId("_id");
         insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
             @Override
             public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
                 if (task.isSuccessful()){
                     Log.d("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
-                    HabitId = task.getResult().getInsertedId().toString();
-
-                }
-                else{
-                    Log.d("STITCH", "Unsuccessful");
                 }
             }
         });
+
+        Document filterDoc = new Document();
+
+        RemoteFindIterable results = coll.find(filterDoc);
+        return "Test";
     }
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

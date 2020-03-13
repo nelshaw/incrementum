@@ -20,7 +20,6 @@
         <activity android:name=".AddHabitOccuranceActivity" />
         <activity android:name=".CalendarActivity" />
 
-        <activity android:name=".ViewAHabit"></activity>
         <activity android:name=".Log_Habits_Hobbies_Time_Activity" />
         <activity android:name=".AddHabit2Activity" />
         <activity android:name=".AddHabitActivity" />

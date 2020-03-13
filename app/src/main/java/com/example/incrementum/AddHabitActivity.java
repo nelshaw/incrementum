@@ -88,7 +88,7 @@ public class AddHabitActivity extends AppCompatActivity {
             return false;
         }
         else return true;
-
+        //to do
     }
 //pass data to next activity
     public void sendData()

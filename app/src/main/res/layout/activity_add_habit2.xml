@@ -35,6 +35,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherpeople" />
 
+    <EditText
+        android:id="@+id/own"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="28dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ToggleButton
         android:id="@+id/Location"
         android:layout_width="100dp"
@@ -78,14 +89,14 @@
         android:layout_width="100dp"
         android:layout_height="54dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginBottom="32dp"
         android:background="#5AB7EB"
         android:checked="false"
         android:text="ToggleButton"
         android:textOff="Emotional State"
         android:textOn="Emotional State"
-        app:layout_constraintStart_toEndOf="@+id/pe"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
+        app:layout_constraintBottom_toTopOf="@+id/own"
+        app:layout_constraintStart_toEndOf="@+id/pe" />
 
     <ToggleButton
         android:id="@+id/otherpeople"
@@ -177,22 +188,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/triggersListView"
+        android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="646dp" />
-
-    <EditText
-        android:id="@+id/triggerown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="17dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/es" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
