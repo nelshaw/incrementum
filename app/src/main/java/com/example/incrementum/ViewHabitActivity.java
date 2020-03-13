@@ -67,13 +67,8 @@ ArrayList<String> habits = new ArrayList<>();
             }
         });
 
-
-
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
-        // = findViewById(R.id.list);
-        //list.setText("");
-        //getAllEntries();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,9 +81,11 @@ ArrayList<String> habits = new ArrayList<>();
                 openMapActivity();
             }
         });
-        DatabaseLoad load = new DatabaseLoad();
-        load.execute();
+       DatabaseLoad load = new DatabaseLoad();
+       load.execute();
+        //getHabits();
     }
+
     private class DatabaseLoad extends AsyncTask<Void,Void,Void>{
         RemoteFindIterable <Document>  results;
         @Override
@@ -117,6 +114,7 @@ ArrayList<String> habits = new ArrayList<>();
                 try{
                     JSONObject obj = new JSONObject(item.toJson());
                     String habit = obj.getString("name");
+                    Log.d("*************",obj.toString());
                     habits.add(habit);
                     adapter.notifyDataSetChanged();
                     Log.d("*************",habit);
@@ -135,11 +133,46 @@ ArrayList<String> habits = new ArrayList<>();
             super.onPostExecute(aVoid);
         }
     }
+
+
+    public void getHabits(){
+
+        RemoteFindIterable <Document>  results;
+
+            final StitchAppClient client =
+                    Stitch.getAppClient("incrementum-xjkms");
+
+            final RemoteMongoClient mongoClient =
+                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+
+            final RemoteMongoCollection<Document> coll =
+                    mongoClient.getDatabase("Incrementum").getCollection("Habits");
+
+            Document filterDoc = new Document();
+
+            results = coll.find(filterDoc)
+                    .projection(
+                            new Document());
+
+        results.forEach(item ->{
+            try{
+                JSONObject obj = new JSONObject(item.toJson());
+                String habit = obj.getString("name");
+                Log.d("*************",obj.toString());
+                habits.add(habit);
+                adapter.notifyDataSetChanged();
+                Log.d("*************",habit);
+            }
+            catch(JSONException e){
+                Log.d("JSON exception:",e.toString());
+            }
+        });
+    }
+
     public void openAddHabitActivity() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
     }
-
     public void openMapActivity() {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
