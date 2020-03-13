@@ -39,6 +39,7 @@ public class ViewHabitActivity extends AppCompatActivity {
     //TextView list;
 ArrayList<String> habits = new ArrayList<>();
     ArrayAdapter<String> adapter;
+    Button refresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,22 @@ ArrayList<String> habits = new ArrayList<>();
               sendData(habits.get(position));
             }
         });
+        refresh = findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                overridePendingTransition(0, 0);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(intent);
+            }
+        });
+
+
+
         Button addButton = findViewById(R.id.AddHabit);
         Button backButton = findViewById(R.id.back_button);
         // = findViewById(R.id.list);
