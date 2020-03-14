@@ -32,41 +32,41 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    //Initalize and Assign Value
-    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-    //Set home selected
-    bottomNavigationView.setSelectedItemId(R.id.profile_nav);
-
-    //Perform ItemSelectedList
-    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-          case R.id.calender_nav:
-            finish();
-            startActivity(new Intent(getApplicationContext()
-                    ,CalendarActivity.class));
-            overridePendingTransition(0,0);
-            return true;
-
-          case R.id.journal_nav:
-            finish();
-            startActivity(new Intent(getApplicationContext()
-                    ,ViewJournalActivity.class));
-            overridePendingTransition(0,0);
-            return true;
-
-          case R.id.profile_nav:
-            startActivity(new Intent(getApplicationContext()
-                    ,profileActivity1.class));
-            overridePendingTransition(0,0);
-            finish();
-            return true;
-        }
-        return false;
-      }
-    });
+//    //Initalize and Assign Value
+//    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//
+//    //Set home selected
+//    bottomNavigationView.setSelectedItemId(R.id.profile_nav);
+//
+//    //Perform ItemSelectedList
+//    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//      @Override
+//      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//        switch (menuItem.getItemId()){
+//          case R.id.calender_nav:
+//            finish();
+//            startActivity(new Intent(getApplicationContext()
+//                    ,CalendarActivity.class));
+//            overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.journal_nav:
+//            finish();
+//            startActivity(new Intent(getApplicationContext()
+//                    ,ViewJournalActivity.class));
+//            overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.profile_nav:
+//            startActivity(new Intent(getApplicationContext()
+//                    ,profileActivity1.class));
+//            overridePendingTransition(0,0);
+//            finish();
+//            return true;
+//        }
+//        return false;
+//      }
+//    });
 
     title = findViewById(R.id.title);
 
