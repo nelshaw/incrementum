@@ -87,13 +87,13 @@ public class MainActivity extends AppCompatActivity {
       }
     });
     final StitchAppClient client =
-      Stitch.initializeDefaultAppClient("incrementum-xjkms");
+            Stitch.initializeDefaultAppClient("incrementum-xjkms");
 
     final RemoteMongoClient mongoClient =
-      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
     final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("test");
+            mongoClient.getDatabase("Incrementum").getCollection("test");
 
 //    client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
 //      new Continuation<StitchUser, Task<RemoteUpdateResult>>() {
@@ -195,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void openHabitActivity(){
-      Intent intent = new Intent(this, ViewHabitActivity.class);
-      startActivity(intent);
+    Intent intent = new Intent(this, ViewHabitActivity.class);
+    startActivity(intent);
   }
 
   public void openlogs()
