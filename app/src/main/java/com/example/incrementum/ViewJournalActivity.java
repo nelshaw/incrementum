@@ -41,7 +41,6 @@ import butterknife.InjectView;
 public class ViewJournalActivity extends AppCompatActivity {
 
   @InjectView(R.id.addJournal) Button addBtn;
-  @InjectView(R.id.back_button) Button backBtn;
   @InjectView(R.id.myJournals) ListView listView;
   @InjectView(R.id.title) TextView title;
   @InjectView(R.id.updateJournal) EditText updateJournal;
@@ -135,18 +134,10 @@ public class ViewJournalActivity extends AppCompatActivity {
 
       // Direct to add journal entry
       addBtn.setOnClickListener(v -> openAddJournalActivity());
-
-    // Go back to home page
-    backBtn.setOnClickListener(v -> openMapActivity());
   }
 
   public void openAddJournalActivity(){
     Intent intent = new Intent(this, AddJournalActivity.class);
-    startActivity(intent);
-  }
-
-  public void openMapActivity(){
-    Intent intent = new Intent(this, MapActivity.class);
     startActivity(intent);
   }
 
