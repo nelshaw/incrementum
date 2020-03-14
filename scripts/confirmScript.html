@@ -20,6 +20,8 @@ const {
     .confirmUser(token, tokenId)
     .then(() => displayResult('success'))
     .catch(err => displayResult('error', err))
+  
+
 
   function displayResult(result, err) {
     const message = document.getElementById("message");

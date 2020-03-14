@@ -1,36 +1,16 @@
 package com.example.incrementum;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
-
-import org.bson.Document;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class AddHabit2Activity extends AppCompatActivity {
 
@@ -75,10 +55,10 @@ public class AddHabit2Activity extends AppCompatActivity {
         userIn = findViewById(R.id.own);
 
         //trigger buttons
-        final ToggleButton location = findViewById(R.id.Location);
-        final ToggleButton pe = findViewById(R.id.pe);
-        final ToggleButton es = findViewById(R.id.es);
-        final ToggleButton otherpeople = findViewById(R.id.otherpeople);
+        final ToggleButton location = findViewById(R.id.location);
+        final ToggleButton pe = findViewById(R.id.precedingEvent);
+        final ToggleButton es = findViewById(R.id.emotionalState);
+        final ToggleButton otherpeople = findViewById(R.id.otherPeople);
         final ToggleButton time = findViewById(R.id.time);
 
         //time buttons

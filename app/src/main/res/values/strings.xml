@@ -23,4 +23,19 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="my_app_id">incrementum-xjkms</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+  <string name="journal_habit_title">What triggered your habit today?</string>
+  <string name="togglebutton">ToggleButton</string>
+  <string name="location">Location</string>
+  <string name="time">Time</string>
+  <string name="other_people">Other People</string>
+  <string name="preceding_event">Preceding Event</string>
+  <string name="emotional_state">Emotional State</string>
+  <string name="trigger_time">When does it happen?</string>
+  <string name="morning">morning</string>
+  <string name="afternoon">Afternoon</string>
+  <string name="evening">evening</string>
+  <string name="night">night</string>
+  <string name="moodTitle">How are you feeling today?</string>
+  <string name="what_were_you_doing_before_you_broke_your_habit">What were you doing before you broke your habit?</string>
 </resources>

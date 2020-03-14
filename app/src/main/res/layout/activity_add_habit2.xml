@@ -1,198 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/afternoon"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddHabit2Activity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/cremeTheme"
+    android:fitsSystemWindows="true" >
 
-    <TextView
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingLeft="24dp"
+      android:paddingRight="24dp"
+      android:paddingBottom="56dp"
+      android:paddingTop="56dp">
+
+      <TextView
         android:id="@+id/textView4"
-        android:layout_width="380dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:hapticFeedbackEnabled="false"
-        android:text="What Triggers Your Habit?"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ToggleButton
-        android:id="@+id/pe"
-        android:layout_width="100dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
-        android:background="#5AB7EB"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textOff="Preceding Event"
-        android:textOn="Preceding Event"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherpeople" />
-
-    <EditText
-        android:id="@+id/own"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="28dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ToggleButton
-        android:id="@+id/Location"
-        android:layout_width="100dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="#5AB7EB"
-        android:checked="true"
-        android:text="ToggleButton"
-        android:textOff="Location"
-        android:textOn="Location"
-        app:layout_constraintBottom_toTopOf="@+id/pe"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:layout_width="173dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="412dp"
-        android:text="Add Your Own"
+        android:gravity="center"
+        android:text="@string/journal_habit_title"
+        android:textColor="@color/darkGrey"
         android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <ToggleButton
-        android:id="@+id/time"
-        android:layout_width="100dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="40dp"
-        android:background="#5AB7EB"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textOff="Time"
-        android:textOn="Time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <ToggleButton
-        android:id="@+id/es"
-        android:layout_width="100dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="#5AB7EB"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textOff="Emotional State"
-        android:textOn="Emotional State"
-        app:layout_constraintBottom_toTopOf="@+id/own"
-        app:layout_constraintStart_toEndOf="@+id/pe" />
+        <ToggleButton
+          android:id="@+id/otherPeople"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@color/lightBlueTheme"
+          android:layout_marginStart="28dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/other_people"
+          android:textOn="@string/other_people"/>
 
-    <ToggleButton
-        android:id="@+id/otherpeople"
-        android:layout_width="100dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="28dp"
-        android:background="#5AB7EB"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textOff="Other People"
-        android:textOn="Other People"
-        app:layout_constraintStart_toEndOf="@+id/Location"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <ToggleButton
+          android:id="@+id/precedingEvent"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@color/lightBlueTheme"
+          android:layout_marginStart="10dp"
+          android:layout_marginEnd="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/preceding_event"
+          android:textOn="@string/preceding_event" />
 
-    <TextView
+        <ToggleButton
+          android:id="@+id/emotionalState"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@color/lightBlueTheme"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/emotional_state"
+          android:textOn="@string/emotional_state"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ToggleButton
+          android:id="@+id/location"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@color/lightBlueTheme"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:checked="true"
+          android:text="@string/togglebutton"
+          android:textOff="@string/location"
+          android:textOn="@string/location" />
+
+        <ToggleButton
+          android:id="@+id/time"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@color/lightBlueTheme"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="10dp"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/time"
+          android:textOn="@string/time"/>
+      </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      android:gravity="center">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Add Your Own: "
+          android:textAlignment="textStart"
+          android:textSize="12sp"
+          android:textColor="@color/darkGrey"
+          android:textStyle="bold" />
+
+        <EditText
+          android:id="@+id/own"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:ems="10"
+          android:inputType="textPersonName" />
+      </LinearLayout>
+
+      <TextView
         android:id="@+id/textView5"
-        android:layout_width="380dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="336dp"
-        android:hapticFeedbackEnabled="false"
-        android:text="When Does it Happen?"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trigger_time"
         android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <Button
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ToggleButton
+          android:id="@+id/morning"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="#F1E286"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/morning"
+          android:textOn="@string/morning" />
+
+        <ToggleButton
+          android:id="@+id/noon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="#F1E286"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/afternoon"
+          android:textOn="@string/afternoon" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ToggleButton
+          android:id="@+id/evening"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="#F1E286"
+          android:checked="true"
+          android:text="@string/togglebutton"
+          android:textOff="@string/evening"
+          android:textOn="@string/evening" />
+
+        <ToggleButton
+          android:id="@+id/night"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="#F1E286"
+          android:checked="false"
+          android:text="@string/togglebutton"
+          android:textOff="@string/night"
+          android:textOn="@string/night"/>
+
+      </LinearLayout>
+
+      <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="21dp"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="24dp"
+        android:text="@string/save" />
 
-    <ToggleButton
-        android:id="@+id/morning"
-        android:layout_width="126dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="20dp"
-        android:background="#F1E286"
-        android:text="ToggleButton"
-        android:textOff="Morning"
-        android:textOn="Morning"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <ToggleButton
-        android:id="@+id/night"
-        android:layout_width="126dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="116dp"
-        android:background="#F1E286"
-        android:text="ToggleButton"
-        android:textOff="Night"
-        android:textOn="Night"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <ToggleButton
-        android:id="@+id/evening"
-        android:layout_width="126dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="116dp"
-        android:background="#F1E286"
-        android:text="ToggleButton"
-        android:textOff="Evening"
-        android:textOn="Evening"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <ToggleButton
-        android:id="@+id/noon"
-        android:layout_width="126dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="16dp"
-        android:background="#F1E286"
-        android:text="ToggleButton"
-        android:textOff="Afternoon"
-        android:textOn="Afternoon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="646dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+  </ScrollView>

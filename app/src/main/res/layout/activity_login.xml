@@ -1,63 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:fitsSystemWindows="true">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@drawable/gradient"
+  android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingTop="56dp"
-        android:paddingRight="24dp">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingTop="56dp"
+    android:paddingRight="24dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="256dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
-            android:src="@drawable/logo" />
+    <ImageView
+      android:id="@+id/logo"
+      android:layout_width="wrap_content"
+      android:layout_height="256dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="-20dp"
+      android:contentDescription="@string/app_name"
+      app:srcCompat="@drawable/wide_no_bg" />
 
-        <EditText
-            android:id="@+id/input_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+    <ImageView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="49dp"
+      android:layout_marginBottom="25dp"
+      android:contentDescription="@string/app_name"
+      app:srcCompat="@drawable/incrementum_typography" />
 
-        <EditText
-            android:id="@+id/input_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword" />
+    <EditText
+      android:id="@+id/input_email"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:drawableStart="@drawable/email"
+      android:hint="Email"
+      android:inputType="textEmailAddress"
+      android:textColor="@color/darkGrey"
+      android:textColorHighlight="@color/darkGrey"
+      android:textColorLink="@color/darkGrey" />
+
+    <EditText
+      android:id="@+id/input_password"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:drawableStart="@drawable/password"
+      android:hint="Password"
+      android:inputType="textPassword"
+      android:textColor="@color/darkGrey" />
 
     <Button
-        android:id="@+id/btn_login"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:padding="12dp"
-        android:text="Login" />
+      android:id="@+id/btn_login"
+      android:layout_width="fill_parent"
+      android:layout_height="40dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="24dp"
+      android:background="@drawable/button_red"
+      android:padding="12dp"
+      android:text="Login"
+      android:textColor="@color/cremeTheme" />
 
-        <TextView
-            android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="No account yet? Create one"
-            android:textSize="16dip" />
+    <TextView
+      android:id="@+id/link_signup"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:gravity="center"
+      android:text="No account yet? Create one"
+      android:textColor="@color/darkGrey"
+      android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/reset_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Reset Password?"
-            android:textSize="16dip" />
+    <TextView
+      android:id="@+id/reset_password"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="Reset Password"
+      android:textColor="@color/darkGrey"
+      android:textSize="16sp" />
 
-</LinearLayout>
+  </LinearLayout>
 </ScrollView>
