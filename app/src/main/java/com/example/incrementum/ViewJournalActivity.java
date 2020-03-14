@@ -4,50 +4,67 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.mongodb.Block;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class ViewJournalActivity extends AppCompatActivity {
 
-  Button addBtn;
-  Button backBtn;
+  @InjectView(R.id.addJournal) Button addBtn;
+  @InjectView(R.id.back_button) Button backBtn;
+  @InjectView(R.id.myJournals) ListView listView;
+  @InjectView(R.id.title) TextView title;
+  @InjectView(R.id.updateJournal) EditText updateJournal;
+  @InjectView(R.id.updateBtn) Button updateBtn;
 
-  TextView title;
   String user_id;
-
   List<String> journals;
-  ListView listView;
   ListAdapter listAdapter;
+  HashMap<Integer, Date> entriesInformation;
+  boolean isUpdateVisible;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_view_journal);
+    ButterKnife.inject(this);
 
     journals = new ArrayList<>();
+    entriesInformation = new HashMap<>();
 
-    addBtn = findViewById(R.id.addJournal);
-    title = findViewById(R.id.title);
-    backBtn = findViewById(R.id.back_button);
-    listView = findViewById(R.id.myJournals);
+    updateJournal.setVisibility(View.INVISIBLE);
+    updateBtn.setVisibility(View.INVISIBLE);
+    isUpdateVisible = false;
+
+    // Get user_id from login to view journal entries for that user
+    user_id = LoginActivity.user_id;
 
     getAllEntries();
 
@@ -58,15 +75,27 @@ public class ViewJournalActivity extends AppCompatActivity {
       e.printStackTrace();
     }
 
-    // Get user_id from login to view journal entries for that user
-    user_id = LoginActivity.user_id;
-
     // Add user's name to title
     // This will grab from database once dummy data has been inserted
     title.append(" " + getFirstName());
 
-    // Direct to add journal entry
-    addBtn.setOnClickListener(v -> openAddJournalActivity());
+    listView.setOnItemClickListener((parent, view, position, id) -> {
+      if(!isUpdateVisible) {
+        updateJournal.setVisibility(View.VISIBLE);
+        updateBtn.setVisibility(View.VISIBLE);
+        isUpdateVisible = true;
+      }
+      else {
+        updateJournal.setVisibility(View.INVISIBLE);
+        updateBtn.setVisibility(View.INVISIBLE);
+        isUpdateVisible = false;
+      }
+      updateEntry(position);
+      Log.d("VIEW", "Position: " + position + " id: " + id);
+    });
+
+      // Direct to add journal entry
+      addBtn.setOnClickListener(v -> openAddJournalActivity());
 
     // Go back to home page
     backBtn.setOnClickListener(v -> openMapActivity());
@@ -135,7 +164,7 @@ public class ViewJournalActivity extends AppCompatActivity {
     final RemoteMongoClient mongoClient =
       client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
-    final RemoteMongoCollection<Document> coll =
+    final RemoteMongoCollection<Document> collection =
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     // Only get journal entries from current user who is logged in
@@ -143,7 +172,7 @@ public class ViewJournalActivity extends AppCompatActivity {
 //      .append("user_id", user_id);
 
     // Get all entries with the criteria from filterDoc
-    RemoteFindIterable results = coll.find(filterDoc);
+    RemoteFindIterable results = collection.find(filterDoc);
 
     // Log all journal entries that are found in the logger
     Log.d("JOURNALS", String.valueOf(results));
@@ -161,10 +190,12 @@ public class ViewJournalActivity extends AppCompatActivity {
 
                         String userId = doc.get("user_id").toString();
 
+                        entriesInformation.put(i-1, date);
                         String journalEntry = "Entry " + i++ + ": " + entry +
                           String.format("\nPosted by %s\n", userId) +
                           String.format("Added on %s\n\n", dateStr[1] + " " + dateStr[2]);
-                        //append habit to habitNames list
+
+                        // Append journal to journal list
                         journals.add(journalEntry);
                         Log.d("JOURNAL", entry);
                       }
@@ -176,6 +207,37 @@ public class ViewJournalActivity extends AppCompatActivity {
 
     //attach adapter to ListView
     listView.setAdapter(listAdapter);
+  }
+
+  public void updateEntry(int position){
+
+    updateBtn.setOnClickListener(v -> {
+      // Connect to MongoDB client
+      final StitchAppClient client =
+        Stitch.getAppClient("incrementum-xjkms");
+
+      final RemoteMongoClient mongoClient =
+        client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+      final RemoteMongoCollection<Document> coll =
+        mongoClient.getDatabase("Incrementum").getCollection("Journals");
+
+      Document filterDoc = new Document().append("date", entriesInformation.get(position));
+      Document updateDoc = new Document()
+        .append("$push", new Document().append("entry", updateJournal.getText().toString()));
+
+      final Task<RemoteUpdateResult> updateTask = coll.updateOne(filterDoc, updateDoc);
+      updateTask.addOnCompleteListener(task -> {
+        if (task.isSuccessful()) {
+          long numMatched = task.getResult().getMatchedCount();
+          long numModified = task.getResult().getModifiedCount();
+          Log.d("app", String.format("successfully matched %d and modified %d documents",
+            numMatched, numModified));
+        } else {
+          Log.e("app", "failed to update document with: ", task.getException());
+        }
+      });
+    });
+
   }
 
 }
