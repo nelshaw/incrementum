@@ -35,8 +35,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 
-import static com.mongodb.client.model.Filters.eq;
-
 public class CalendarActivity extends AppCompatActivity {
 
     MaterialCalendarView calendarView;
@@ -47,7 +45,8 @@ public class CalendarActivity extends AppCompatActivity {
     ImageButton didButton;
 
     String User_id = "5e587cbed6292c4d1074b5d8";
-    String Habit_id = "12345";
+    String Habit_id = "5e65ba9a1c9d440000d8a29d";
+    String _getHabitId;
 
     static Date dateSelected;
 
@@ -73,6 +72,11 @@ public class CalendarActivity extends AppCompatActivity {
 
         didNotDoHabitDates = new HashSet<>();
         didDoHabitDates = new HashSet<>();
+
+        Intent intent = getIntent();
+        _getHabitId  = intent.getStringExtra("habit");
+
+        Log.d("Habit id*****", "passes habit id");
 
         getDateValues();
 
@@ -128,11 +132,15 @@ public class CalendarActivity extends AppCompatActivity {
                 CalendarDay date = calendarView.getSelectedDate();
                 String selectedDate = formatDate(date);
 
+                Document query = new Document()
+                        .append("User_id", User_id)
+                        .append("Habit_id", Habit_id);
+
                 Document dayStatus = new Document()
                         .append("Date", selectedDate)
                         .append("Status", true);
 
-                final Task<RemoteUpdateResult> update = coll.updateOne(eq("User_id", User_id), Updates.addToSet("Days", dayStatus));
+                final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
 
                 update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
                     @Override
