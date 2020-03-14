@@ -33,6 +33,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -47,6 +48,9 @@ public class CalendarActivity extends AppCompatActivity {
 
     String User_id = "5e587cbed6292c4d1074b5d8";
     String Habit_id = "12345";
+
+    static Date dateSelected;
+
     //connect to database
     final StitchAppClient client =
             Stitch.getAppClient("incrementum-xjkms");
@@ -142,7 +146,17 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                     }
                 });
-                openAddHabitOccuranceActivity();
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+              try {
+                dateSelected = format.parse(selectedDate);
+              } catch (ParseException e) {
+                e.printStackTrace();
+              }
+
+              openAddHabitOccurrenceActivity();
+              Log.d("CALENDAR", "date added " + dateSelected);
             }
         });
         //Initalize and Assign Value
@@ -179,7 +193,6 @@ public class CalendarActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     //function to format date
@@ -257,8 +270,8 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     //function to open add habit occurance
-    public void openAddHabitOccuranceActivity() {
-        Intent intent = new Intent(this, AddHabitOccuranceActivity.class);
+    public void openAddHabitOccurrenceActivity() {
+        Intent intent = new Intent(this, AddHabitOccurrenceActivity.class);
         startActivity(intent);
     }
 }
