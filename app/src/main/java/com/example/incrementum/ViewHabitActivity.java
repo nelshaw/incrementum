@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
@@ -76,6 +79,37 @@ public class ViewHabitActivity extends AppCompatActivity {
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
         //getHabits();
+
+        //Initalize and Assign Value
+        BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
+
+        //Set home selected
+        bottomNavigationView2.setSelectedItemId(R.id.habits_nav);
+
+        //Perform ItemSelectedList
+        bottomNavigationView2.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.profile_nav:
+                        finish();
+                        startActivity(new Intent(getApplicationContext()
+                                ,profileActivity1.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.habits_nav:
+//                        finish();
+//                        startActivity(new Intent(getApplicationContext()
+//                                ,ViewHabitActivity.class));
+//                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+                return false;
+            }
+        });
     }
 
     private class DatabaseLoad extends AsyncTask<Void,Void,Void>{

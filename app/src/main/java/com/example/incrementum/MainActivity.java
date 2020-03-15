@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
     //Set home selected
-    bottomNavigationView.setSelectedItemId(R.id.profile_nav);
+    bottomNavigationView.setSelectedItemId(R.id.map_nav);
 
     //Perform ItemSelectedList
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(0,0);
             return true;
 
-          case R.id.profile_nav:
+          case R.id.map_nav:
             startActivity(new Intent(getApplicationContext()
-                    ,profileActivity1.class));
+                    ,MapActivity.class));
             overridePendingTransition(0,0);
             finish();
             return true;
