@@ -91,8 +91,10 @@ public class CalendarActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        calendarView.addDecorator(new CalendarDecorator(this, Color.GREEN, didNotDoHabitDates));
-        calendarView.addDecorator(new CalendarDecorator(this, Color.RED, didDoHabitDates));
+        //green
+        calendarView.addDecorator(new CalendarDecorator(this, Color.parseColor("#90EE90"), didNotDoHabitDates));
+        //red
+        calendarView.addDecorator(new CalendarDecorator(this, Color.parseColor("#F64D4E"), didDoHabitDates));
         calendarView.setSelectedDate(CalendarDay.today());
 
         didNotButton.setOnClickListener(new View.OnClickListener() {
