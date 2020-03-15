@@ -73,6 +73,10 @@ public class CalendarActivity extends AppCompatActivity {
         didNotDoHabitDates = new HashSet<>();
         didDoHabitDates = new HashSet<>();
 
+        calendarView.state().edit()
+                .setMaximumDate(CalendarDay.today())
+                .commit();
+
         Intent intent = getIntent();
         _getHabitId  = intent.getStringExtra("habit");
 
