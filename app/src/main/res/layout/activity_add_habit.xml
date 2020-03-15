@@ -1,112 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/habitname"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddHabitActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:background="@color/lightGreyTheme">
 
-    <TextView
+  <TextView
+    android:id="@+id/textView6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
+    android:text="Add Your Habit"
+    android:textAlignment="center"
+    android:textAllCaps="true"
+    android:textColor="@color/redTheme"
+    android:textSize="26sp"
+    android:textStyle="bold" />
+
+  <TableLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:shrinkColumns="1">
+
+    <TableRow
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_marginBottom="30dp">
+
+      <TextView
         android:id="@+id/HabitNameText"
-        android:layout_width="132dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="98dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
         android:text="@string/habit_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        android:textColor="@color/darkGrey"
+        android:textStyle="bold" />
 
-    <EditText
+      <EditText
         android:id="@+id/name"
-        android:layout_width="177dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/HabitNameText"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:inputType="textPersonName" />
 
-    <SeekBar
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/TLtext"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
+        android:text="How long do you want to track your habit for?"
+        android:textSize="16sp"
+        android:textColor="@color/darkGrey"
+        android:textStyle="bold" />
+
+      <SeekBar
         android:id="@+id/SeekBar"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="165dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="54dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:max="6"
-        android:progress="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        android:progress="0" />
 
-    <TextView
-        android:id="@+id/TLtext"
-        android:layout_width="180dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="56dp"
-        android:text="How long do you want to track your havit for?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HabitNameText" />
+    </TableRow>
 
-    <TextView
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="30dp">
+
+      <TextView
+        android:id="@+id/length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:text="1 Week"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/darkGrey" />
+
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="30dp">
+
+      <TextView
         android:id="@+id/textView3"
         android:layout_width="198dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="332dp"
-        android:text="How do you think this habit affectsyour life style?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="How do you think this habit affects your life style?" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:textSize="16sp"
+        android:textColor="@color/darkGrey"
+        android:textStyle="bold"
+        android:text="How do you think this habit affects your life style?" />
 
-    <EditText
+      <EditText
         android:id="@+id/description"
         style="@style/Widget.AppCompat.EditText"
-        android:layout_width="209dp"
-        android:layout_height="189dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
-        android:singleLine="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SeekBar" />
+        android:singleLine="false" />
 
-    <Button
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="50dp">
+
+      <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="295dp"
-        android:layout_marginBottom="26dp"
-        android:text="Continue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Continue" />
-
-    <TextView
-        android:id="@+id/length"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="116dp"
-        android:text="1 Week"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="331dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:text="Add Your Habit"
-        android:textAlignment="center"
-        android:textSize="20pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_column="1"
+        android:text="@string/continue_text"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_red"
+        android:padding="10dp"
+        android:textColor="@color/cremeTheme"/>
+    </TableRow>
+  </TableLayout>
+</LinearLayout>

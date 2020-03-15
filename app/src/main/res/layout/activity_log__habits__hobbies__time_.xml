@@ -1,74 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Log_Habits_Hobbies_Time_Activity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center"
+  android:background="@color/lightGreyTheme"
+  android:fitsSystemWindows="true"
+  android:orientation="vertical"
+  android:paddingLeft="24dp"
+  android:paddingTop="56dp"
+  android:paddingRight="24dp"
+  tools:context=".Log_Habits_Hobbies_Time_Activity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="77dp"
-        android:text="Enter a Hobby"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+  <TextView
+    android:id="@+id/textView8"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:gravity="start"
+    android:text="Enter a Hobby"
+    android:textColor="@color/darkGrey"
+    android:textSize="16sp"
+    android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="65dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Hobby"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+  <EditText
+    android:id="@+id/editText5"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:ems="10"
+    android:hint="Hobby"
+    android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="54dp"
-        android:text="Sensitive Time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+  <TextView
+    android:id="@+id/textView9"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="70dp"
+    android:gravity="start"
+    android:text="Enter a Hobby"
+    android:text="Sensitive Time"
+    android:textColor="@color/darkGrey"
+    android:textSize="16sp"
+    android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="43dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Beginning"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+  <EditText
+    android:id="@+id/start"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:ems="10"
+    android:ems="10"
+    android:hint="Beginning"
+    android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="148dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="End"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+  <EditText
+    android:id="@+id/end"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:ems="10"
+    android:hint="End"
+    android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/addHabitsHobbiesTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="209dp"
-        android:text="Enter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+      android:id="@+id/addHabitsHobbiesTimeButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="90dp"
+      android:background="@drawable/button_red"
+      android:text="Enter"
+      android:textColor="@color/cremeTheme" />
+</LinearLayout>

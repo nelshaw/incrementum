@@ -210,6 +210,12 @@ public class AddHabit2Activity extends AppCompatActivity {
                 }
             });
 
+            Button backBtn = findViewById(R.id.backBtn);
+
+            backBtn.setOnClickListener(v -> {
+              Intent intt = new Intent(this, AddHabitActivity.class);
+              startActivity(intt);
+            });
 
         }
     }

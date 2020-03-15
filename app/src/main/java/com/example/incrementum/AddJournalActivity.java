@@ -34,6 +34,7 @@ import butterknife.InjectView;
 public class AddJournalActivity extends AppCompatActivity {
 
   @InjectView(R.id.save) Button saveBtn;
+  @InjectView(R.id.cancelBtn) Button cancelBtn;
   @InjectView(R.id.newTriggerCheck) CheckBox newTriggerCheck;
   @InjectView(R.id.journalEntry) EditText entry;
   @InjectView(R.id.triggerTitle) TextView triggerTitle;
@@ -174,6 +175,12 @@ public class AddJournalActivity extends AppCompatActivity {
           openViewJournalActivity();
         }
       });
+
+    // Cancel process
+    cancelBtn.setOnClickListener(v -> {
+      Intent intent = new Intent(this, ViewJournalActivity.class);
+      startActivity(intent);
+    });
   }
 
   public void openViewJournalActivity(){

@@ -7,11 +7,10 @@
   android:layout_height="match_parent"
   tools:context=".AddJournalActivity">
 
-  <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/cremeTheme"
+    android:background="@color/lightGreyTheme"
     android:fitsSystemWindows="true" >
 
     <LinearLayout
@@ -21,17 +20,19 @@
       android:paddingLeft="24dp"
       android:paddingRight="24dp"
       android:paddingBottom="56dp"
-      android:paddingTop="56dp">
+      android:paddingTop="40dp">
 
       <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/darkGrey"
-        android:textSize="16sp"
         android:text="@string/add_journal"
-        android:visibility="visible" />
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/redTheme"
+        android:textSize="26sp"
+        android:textStyle="bold"/>
 
       <TextView
         android:id="@+id/thoughtsTitle"
@@ -41,8 +42,9 @@
         android:gravity="start"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:layout_marginTop="50dp"
-        android:text="@string/add_journal_feeling" />
+        android:layout_marginTop="20dp"
+        android:text="@string/add_journal_feeling"
+        android:textStyle="bold"/>
 
       <EditText
         android:id="@+id/journalEntry"
@@ -59,19 +61,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="I have a new trigger"
-        android:onClick="onCheckboxClicked"/>
+        android:onClick="onCheckboxClicked"
+        android:textColor="@color/darkGrey"/>
 
       <TextView
         android:id="@+id/triggerTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:gravity="start"
         android:text="@string/journal_habit_title"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:visibility="invisible" />
+        android:visibility="visible"
+        android:textStyle="bold"/>
 
       <LinearLayout
         android:id="@+id/triggers_1"
@@ -79,7 +83,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ToggleButton
           android:id="@+id/otherPeople"
@@ -127,7 +131,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ToggleButton
           android:id="@+id/location"
@@ -160,13 +164,14 @@
         android:id="@+id/triggerTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:gravity="start"
         android:text="@string/trigger_time"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:visibility="invisible" />
+        android:visibility="visible"
+        android:textStyle="bold" />
 
       <LinearLayout
         android:id="@+id/time_1"
@@ -174,7 +179,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ToggleButton
           android:id="@+id/morning"
@@ -182,7 +187,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="@color/lightBlueTheme"
+          android:background="#F1E286"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/morning"
@@ -195,7 +200,7 @@
           android:layout_marginStart="10dp"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="@color/lightBlueTheme"
+          android:background="#F1E286"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/afternoon"
@@ -209,7 +214,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ToggleButton
           android:id="@+id/evening"
@@ -217,7 +222,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="@color/lightBlueTheme"
+          android:background="#F1E286"
           android:checked="true"
           android:text="@string/togglebutton"
           android:textOff="@string/evening"
@@ -230,7 +235,7 @@
           android:layout_marginStart="10dp"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="@color/lightBlueTheme"
+          android:background="#F1E286"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/night"
@@ -238,16 +243,33 @@
 
       </LinearLayout>
 
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:layout_marginTop="17dp">
+
+      <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@color/lightGreyTheme"
+        android:padding="10dp"
+        android:text="Cancel"
+        android:textColor="@color/darkGrey" />
+
       <Button
         android:id="@+id/save"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/darkGrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_red"
         android:padding="12dp"
         android:text="@string/save"
+        android:layout_gravity="center"
         android:textColor="@color/cremeTheme" />
+    </LinearLayout>
     </LinearLayout>
   </ScrollView>
 
@@ -255,10 +277,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/bottom_navigation"
-      app:itemBackground="@color/colorPrimary"
+      app:itemBackground="@color/redTheme"
       app:itemTextColor="@drawable/selector"
       app:itemIconTint="@drawable/selector"
       app:menu="@menu/menu_navigation"
       android:layout_alignParentBottom="true"/>
-
 </RelativeLayout>

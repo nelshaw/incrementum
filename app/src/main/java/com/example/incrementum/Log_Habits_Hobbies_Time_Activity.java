@@ -69,7 +69,6 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void openHabitActivity(){

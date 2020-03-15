@@ -147,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
     goto_login_button = findViewById(R.id.goto_login_button);
     journal = findViewById(R.id.journal);
     calendarButton = findViewById(R.id.calendarButton);
+    Button addHabitBtn = findViewById(R.id.button2);
+
+    addHabitBtn.setOnClickListener( v -> {
+      Intent intent = new Intent(this, AddHabitActivity.class);
+      startActivity(intent);
+    });
+
 
     // on click function
     button.setOnClickListener(new View.OnClickListener() {
