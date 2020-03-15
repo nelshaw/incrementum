@@ -80,27 +80,28 @@ public class profileActivity1 extends AppCompatActivity {
         }
 
         //Initalize and Assign Value
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
 
         //Set home selected
-        bottomNavigationView.setSelectedItemId(R.id.profile_nav);
+        bottomNavigationView2.setSelectedItemId(R.id.profile_nav);
 
         //Perform ItemSelectedList
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView2.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.calender_nav:
-                        finish();
-                        startActivity(new Intent(getApplicationContext()
-                                ,CalendarActivity.class));
-                        overridePendingTransition(0,0);
+
+                    case R.id.profile_nav:
+//                        finish();
+//                        startActivity(new Intent(getApplicationContext()
+//                                ,CalendarActivity.class));
+//                        overridePendingTransition(0,0);
                         return true;
 
-                    case R.id.journal_nav:
+                    case R.id.habits_nav:
                         finish();
                         startActivity(new Intent(getApplicationContext()
-                                ,ViewJournalActivity.class));
+                                ,ViewHabitActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 //

@@ -191,10 +191,10 @@ public class CalendarActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
-                    case R.id.profile_nav:
+                    case R.id.map_nav:
                         //finish();
             startActivity(new Intent(getApplicationContext()
-                    ,MainActivity.class));
+                    ,MapActivity.class));
             overridePendingTransition(0,0);
                         return true;
                 }
