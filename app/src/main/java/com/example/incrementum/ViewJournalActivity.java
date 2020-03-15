@@ -40,11 +40,16 @@ import butterknife.InjectView;
 
 public class ViewJournalActivity extends AppCompatActivity {
 
-  @InjectView(R.id.addJournal) Button addBtn;
-  @InjectView(R.id.myJournals) ListView listView;
-  @InjectView(R.id.title) TextView title;
-  @InjectView(R.id.updateJournal) EditText updateJournal;
-  @InjectView(R.id.updateBtn) Button updateBtn;
+  @InjectView(R.id.addJournal)
+  Button addBtn;
+  @InjectView(R.id.myJournals)
+  ListView listView;
+  @InjectView(R.id.title)
+  TextView title;
+  @InjectView(R.id.updateJournal)
+  EditText updateJournal;
+  @InjectView(R.id.updateBtn)
+  Button updateBtn;
 
   String user_id;
   List<String> journals;
@@ -82,12 +87,11 @@ public class ViewJournalActivity extends AppCompatActivity {
     title.append(" " + getFirstName());
 
     listView.setOnItemClickListener((parent, view, position, id) -> {
-      if(!isUpdateVisible) {
+      if (!isUpdateVisible) {
         updateJournal.setVisibility(View.VISIBLE);
         updateBtn.setVisibility(View.VISIBLE);
         isUpdateVisible = true;
-      }
-      else {
+      } else {
         updateJournal.setVisibility(View.INVISIBLE);
         updateBtn.setVisibility(View.INVISIBLE);
         isUpdateVisible = false;
@@ -106,25 +110,32 @@ public class ViewJournalActivity extends AppCompatActivity {
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
           case R.id.calender_nav:
             finish();
             startActivity(new Intent(getApplicationContext()
-                    ,CalendarActivity.class));
-            overridePendingTransition(0,0);
+              , CalendarActivity.class));
+            overridePendingTransition(0, 0);
             return true;
 
-//          case R.id.journal_nav:
+          case R.id.journal_nav:
 //            finish();
 //            startActivity(new Intent(getApplicationContext()
 //                    ,ViewJournalActivity.class));
 //            overridePendingTransition(0,0);
-//            return true;
+            return true;
+
+          case R.id.habit_nav:
+            finish();
+            startActivity(new Intent(getApplicationContext()
+              , ViewHabitActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
 
           case R.id.map_nav:
             startActivity(new Intent(getApplicationContext()
-                    ,MapActivity.class));
-            overridePendingTransition(0,0);
+              , MapActivity.class));
+            overridePendingTransition(0, 0);
             finish();
             return true;
         }
@@ -132,16 +143,16 @@ public class ViewJournalActivity extends AppCompatActivity {
       }
     });
 
-      // Direct to add journal entry
-      addBtn.setOnClickListener(v -> openAddJournalActivity());
+    // Direct to add journal entry
+    addBtn.setOnClickListener(v -> openAddJournalActivity());
   }
 
-  public void openAddJournalActivity(){
+  public void openAddJournalActivity() {
     Intent intent = new Intent(this, AddJournalActivity.class);
     startActivity(intent);
   }
 
-  public String getFirstName(){
+  public String getFirstName() {
 
     // Connect to MongoDB client
     final StitchAppClient client =
@@ -166,25 +177,25 @@ public class ViewJournalActivity extends AppCompatActivity {
     final String[] firstName = new String[1];
 
     results.forEach(item -> {
-      Document doc = (Document) item;
-      String fName = (String) doc.get("fname");
+        Document doc = (Document) item;
+        String fName = (String) doc.get("fname");
 
-      if(fName != null){
-        firstName[0] = fName;
+        if (fName != null) {
+          firstName[0] = fName;
+        }
+
+        Log.d("USER", fName);
       }
-
-      Log.d("USER", fName);
-    }
     );
 
-    if(firstName[0] != null){
+    if (firstName[0] != null) {
       return firstName[0];
     }
 
     return "John Smith";
   }
 
-  public void getAllEntries(){
+  public void getAllEntries() {
 
     // Connect to MongoDB client
     final StitchAppClient client =
@@ -219,7 +230,7 @@ public class ViewJournalActivity extends AppCompatActivity {
 
                         String userId = doc.get("user_id").toString();
 
-                        entriesInformation.put(i-1, date);
+                        entriesInformation.put(i - 1, date);
                         String journalEntry = "Entry " + i++ + ": " + entry +
                           String.format("\nPosted by %s\n", userId) +
                           String.format("Added on %s\n\n", dateStr[1] + " " + dateStr[2]);
@@ -238,7 +249,7 @@ public class ViewJournalActivity extends AppCompatActivity {
     listView.setAdapter(listAdapter);
   }
 
-  public void updateEntry(int position){
+  public void updateEntry(int position) {
 
     updateBtn.setOnClickListener(v -> {
       // Connect to MongoDB client
