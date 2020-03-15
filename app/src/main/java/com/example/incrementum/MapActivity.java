@@ -80,8 +80,8 @@ public class MapActivity extends AppCompatActivity {
           case R.id.calender_nav:
             finish();
             startActivity(new Intent(getApplicationContext()
-              , CalendarActivity.class));
-            overridePendingTransition(0, 0);
+                    ,CalendarActivity.class));
+            overridePendingTransition(0,0);
             return true;
 
           case R.id.journal_nav:
@@ -91,17 +91,10 @@ public class MapActivity extends AppCompatActivity {
             overridePendingTransition(0,0);
             return true;
 
-          case R.id.habit_nav:
-            finish();
-            startActivity(new Intent(getApplicationContext()
-              , ViewHabitActivity.class));
-            overridePendingTransition(0, 0);
-            return true;
-
           case R.id.map_nav:
 //            startActivity(new Intent(getApplicationContext()
-//              , MapActivity.class));
-//            overridePendingTransition(0, 0);
+//                    ,MapActivity.class));
+//            overridePendingTransition(0,0);
 //            finish();
             return true;
         }

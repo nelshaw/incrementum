@@ -12,23 +12,20 @@
     android:id="@+id/linearLayout"
     android:layout_width="fill_parent"
     android:layout_height="674dp"
-    android:layout_gravity="center"
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingTop="56dp"
     android:paddingRight="24dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_gravity="center">
 
     <Button
       android:id="@+id/refresh"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="end"
       android:background="@color/lightGreyTheme"
+      android:textColor="@color/darkGrey"
       android:text="Refresh"
-      android:textColor="@color/darkGrey" />
+      android:layout_gravity="end"/>
 
     <TextView
       android:id="@+id/title"
@@ -46,45 +43,45 @@
       android:id="@+id/username"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="30dp"
-      android:layout_marginBottom="24dp"
-      android:gravity="start"
       android:text="Username"
-      android:textColor="@color/darkGrey"
       android:textSize="20sp"
+      android:layout_marginBottom="24dp"
+      android:layout_marginTop="30dp"
+      android:gravity="start"
+      android:textColor="@color/darkGrey"
       android:textStyle="bold" />
 
     <TextView
       android:id="@+id/usernameText"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:text="User's_Username_Placeholder"
+      android:textSize="16sp"
       android:layout_marginBottom="24dp"
       android:gravity="start"
-      android:text="User's_Username_Placeholder"
-      android:textColor="@color/darkGrey"
-      android:textSize="16sp" />
+      android:textColor="@color/darkGrey"/>
 
     <TextView
       android:id="@+id/textView10"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="30dp"
-      android:layout_marginBottom="24dp"
-      android:gravity="start"
       android:text="Email Address"
-      android:textColor="@color/darkGrey"
       android:textSize="20sp"
+      android:layout_marginBottom="24dp"
+      android:layout_marginTop="30dp"
+      android:gravity="start"
+      android:textColor="@color/darkGrey"
       android:textStyle="bold" />
 
     <TextView
       android:id="@+id/emailText"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:text="User's_email_placeholder"
+      android:textSize="16sp"
       android:layout_marginBottom="24dp"
       android:gravity="start"
-      android:text="User's_email_placeholder"
-      android:textColor="@color/darkGrey"
-      android:textSize="16sp" />
+      android:textColor="@color/darkGrey" />
 
   </LinearLayout>
 
@@ -93,14 +90,12 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:layout_marginTop="2dp"
     android:background="@color/redTheme"
     app:itemIconSize="20dp"
     app:itemIconTint="@drawable/selector"
     app:itemTextColor="@drawable/selector"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-    app:menu="@menu/menu_navigation2" />
+    app:menu="@menu/menu_navigation2"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="676dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
