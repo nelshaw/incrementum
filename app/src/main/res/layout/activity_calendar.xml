@@ -45,6 +45,7 @@
     </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
     <LinearLayout
+      android:id="@+id/linearLayout"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -57,6 +58,7 @@
         android:layout_width="75dp"
         android:layout_height="72dp"
         android:backgroundTint="#00FFFFFF"
+        android:layout_marginStart="5dp"
         android:clickable="true"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/check"
@@ -67,12 +69,44 @@
         android:layout_width="75dp"
         android:layout_height="72dp"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/x" />
 
     </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintTop_toBottomOf="@id/linearLayout"
+    android:gravity="center"
+    android:layout_marginTop="5dp">
+
+    <TextView
+      android:id="@+id/textView13"
+      android:layout_width="75dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="Did Not Do Habit"
+      android:textAlignment="textEnd"
+      android:textColor="@color/darkGrey"
+      android:textStyle="italic"/>
+
+    <TextView
+      android:id="@+id/textView14"
+      android:layout_width="75dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:textAlignment="textStart"
+      android:layout_weight="1"
+      android:text="Did Habit"
+      android:textColor="@color/darkGrey"
+      android:textStyle="italic"/>
+
+  </LinearLayout>
 
   </LinearLayout>
 
