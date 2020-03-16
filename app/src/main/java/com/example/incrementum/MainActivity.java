@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(0,0);
             return true;
 
+          case R.id.habit_nav:
+            startActivity(new Intent(getApplicationContext()
+              ,ViewHabitActivity.class));
+            overridePendingTransition(0,0);
+            finish();
+            return true;
+
           case R.id.map_nav:
             startActivity(new Intent(getApplicationContext()
                     ,MapActivity.class));
