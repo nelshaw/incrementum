@@ -5,7 +5,7 @@
         />
 
     <solid
-        android:color="@color/cremeTheme"
+        android:color="@color/white"
         />
 
 </shape>
