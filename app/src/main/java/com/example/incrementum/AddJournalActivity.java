@@ -76,46 +76,43 @@ public class AddJournalActivity extends AppCompatActivity {
     // Get date from calendar
     date = CalendarActivity.dateSelected;
 
-    int red = Color.rgb(237, 177, 162);
-    int blue = Color.rgb(216, 242, 243);
-
     // Time buttons
     morning.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        morning.setBackgroundColor(red);
+        morning.setBackgroundColor(Color.rgb(209, 101, 75));
         timeMorn = true;
       } else {
-        morning.setBackgroundColor(blue);
+        morning.setBackgroundColor(Color.rgb(241, 226, 134));
         timeMorn = false;
       }
     });
 
     evening.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        evening.setBackgroundColor(red);
+        evening.setBackgroundColor(Color.rgb(209, 101, 75));
         timeEve = true;
       } else {
-        evening.setBackgroundColor(blue);
+        evening.setBackgroundColor(Color.rgb(241, 226, 134));
         timeEve = false;
       }
     });
 
     afternoon.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        afternoon.setBackgroundColor(red);
+        afternoon.setBackgroundColor(Color.rgb(209, 101, 75));
         timeAft = true;
       } else {
-        afternoon.setBackgroundColor(blue);
+        afternoon.setBackgroundColor(Color.rgb(241, 226, 134));
         timeAft = false;
       }
     });
 
     night.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        night.setBackgroundColor(red);
+        night.setBackgroundColor(Color.rgb(209, 101, 75));
         timeNight = true;
       } else {
-        night.setBackgroundColor(blue);
+        night.setBackgroundColor(Color.rgb(241, 226, 134));
         timeNight = false;
       }
     });
@@ -123,50 +120,50 @@ public class AddJournalActivity extends AppCompatActivity {
     // Trigger buttons
     precedingEvent.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        precedingEvent.setBackgroundColor(red);
+        precedingEvent.setBackgroundColor(Color.rgb(207, 80, 80));
         triggerPEvent = true;
       } else {
-        precedingEvent.setBackgroundColor(blue);
+        precedingEvent.setBackgroundColor(Color.rgb(80, 183, 235));
         triggerPEvent = false;
       }
     });
 
     emotionalState.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        emotionalState.setBackgroundColor(red);
+        emotionalState.setBackgroundColor(Color.rgb(207, 80, 80));
         triggerEState = true;
       } else {
-        emotionalState.setBackgroundColor(blue);
+        emotionalState.setBackgroundColor(Color.rgb(80, 183, 235));
         triggerEState = false;
       }
     });
 
     otherPeople.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        otherPeople.setBackgroundColor(red);
+        otherPeople.setBackgroundColor(Color.rgb(207, 80, 80));
         triggerOPeople = true;
       } else {
-        otherPeople.setBackgroundColor(blue);
+        otherPeople.setBackgroundColor(Color.rgb(80, 183, 235));
         triggerOPeople = false;
       }
     });
 
     time.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        time.setBackgroundColor(red);
+        time.setBackgroundColor(Color.rgb(207, 80, 80));
         triggerTime = true;
       } else {
-        time.setBackgroundColor(blue);
+        time.setBackgroundColor(Color.rgb(80, 183, 235));
         triggerTime = false;
       }
     });
 
     location.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (isChecked) {
-        location.setBackgroundColor(red);
+        location.setBackgroundColor(Color.rgb(207, 80, 80));
         triggerLoc = true;
       } else {
-        location.setBackgroundColor(blue);
+        location.setBackgroundColor(Color.rgb(80, 183, 235));
         triggerLoc = false;
       }
     });
