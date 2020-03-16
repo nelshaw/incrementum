@@ -10,14 +10,14 @@
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
-        android:layout_width="295dp"
-        android:layout_height="329dp"
+        android:layout_width="357dp"
+        android:layout_height="306dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginRight="45dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginRight="27dp"
         android:background="@drawable/bg_rounded_corners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,5 +73,21 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+
+  <TextView
+    android:id="@+id/textView12"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="43dp"
+    android:layout_marginRight="-2dp"
+    android:fontFamily="sans-serif-medium"
+    android:text="Track Your Habit"
+    android:textAlignment="center"
+    android:textColor="@color/cremeTheme"
+    android:textSize="30sp" />
 
 </RelativeLayout>

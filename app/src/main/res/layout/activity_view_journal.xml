@@ -10,8 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-      app:itemBackground="@color/white"
-      app:itemIconSize="20dp"
+    android:background="@color/redTheme"
+    app:itemIconSize="20dp"
     app:itemIconTint="@drawable/selector"
     app:itemTextColor="@drawable/selector"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -24,9 +24,9 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="32dp"
+    android:paddingLeft="24dp"
     android:paddingTop="60dp"
-    android:paddingRight="32dp"
+    android:paddingRight="24dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
@@ -39,14 +39,14 @@
       android:layout_marginBottom="15dp"
       android:text="@string/view_journal"
       android:textAlignment="center"
-      android:textColor="@color/darkGrey"
-      android:textSize="16sp" />
+      android:textColor="@color/redTheme"
+      android:textSize="16sp"
+      android:textStyle="bold"/>
 
     <ListView
         android:id="@+id/myJournals"
         android:layout_width="fill_parent"
         android:layout_height="391dp">
-
     </ListView>
 
     <LinearLayout
@@ -68,26 +68,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Update" />
+        android:text="Update"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/button_red"
+        android:textColor="@color/cremeTheme"/>
     </LinearLayout>
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      android:layout_marginTop="30dp">
 
       <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="Back"
+        android:layout_marginEnd="10dp"
+        android:background="@color/lightGreyTheme"
+        android:padding="10dp"
+        android:textColor="@color/darkGrey" />
 
       <Button
         android:id="@+id/addJournal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_journal" />
+        android:text="@string/add_journal"
+        android:layout_gravity="center"
+        android:background="@drawable/button_red"
+        android:padding="12dp"
+        android:textColor="@color/cremeTheme" />
     </LinearLayout>
 
   </LinearLayout>

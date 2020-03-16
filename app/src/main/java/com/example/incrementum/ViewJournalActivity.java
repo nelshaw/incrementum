@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import com.mongodb.Block;
@@ -107,19 +105,26 @@ public class ViewJournalActivity extends AppCompatActivity {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-          case R.id.calender_nav:
+          case R.id.calendar_nav:
             finish();
             startActivity(new Intent(getApplicationContext()
                     ,CalendarActivity.class));
             overridePendingTransition(0,0);
             return true;
 
-//          case R.id.journal_nav:
+          case R.id.journal_nav:
 //            finish();
 //            startActivity(new Intent(getApplicationContext()
 //                    ,ViewJournalActivity.class));
 //            overridePendingTransition(0,0);
-//            return true;
+            return true;
+
+          case R.id.habit_nav:
+            finish();
+            startActivity(new Intent(getApplicationContext()
+              , ViewHabitActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
 
           case R.id.map_nav:
             startActivity(new Intent(getApplicationContext()

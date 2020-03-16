@@ -16,7 +16,10 @@
     android:paddingLeft="24dp"
     android:paddingTop="56dp"
     android:paddingRight="24dp"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <Button
       android:id="@+id/refresh"
@@ -90,12 +93,14 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
+    android:layout_marginTop="2dp"
     android:background="@color/redTheme"
     app:itemIconSize="20dp"
     app:itemIconTint="@drawable/selector"
     app:itemTextColor="@drawable/selector"
-    app:menu="@menu/menu_navigation2"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="676dp"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+    app:menu="@menu/menu_navigation2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

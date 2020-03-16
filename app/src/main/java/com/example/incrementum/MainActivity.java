@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-          case R.id.calender_nav:
+          case R.id.calendar_nav:
             finish();
             startActivity(new Intent(getApplicationContext()
                     ,CalendarActivity.class));

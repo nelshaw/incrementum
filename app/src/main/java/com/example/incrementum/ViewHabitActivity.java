@@ -63,19 +63,14 @@ public class ViewHabitActivity extends AppCompatActivity {
         });
 
         Button addButton = findViewById(R.id.AddHabit);
-        Button backButton = findViewById(R.id.back_button);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddHabitActivity();
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMapActivity();
-            }
-        });
+
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
         //getHabits();
@@ -84,7 +79,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
 
         //Set home selected
-        bottomNavigationView2.setSelectedItemId(R.id.habits_nav);
+        bottomNavigationView2.setSelectedItemId(R.id.habit_nav);
 
         //Perform ItemSelectedList
         bottomNavigationView2.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,7 +94,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
-                    case R.id.habits_nav:
+                    case R.id.habit_nav:
 //                        finish();
 //                        startActivity(new Intent(getApplicationContext()
 //                                ,ViewHabitActivity.class));

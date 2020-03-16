@@ -2,18 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/calender_nav"
-        android:title="Calender"
+        android:id="@+id/calendar_nav"
+        android:title="Calendar"
         android:icon="@drawable/ic_calendar"/>
 
     <item
         android:id="@+id/journal_nav"
         android:title="Journal"
         android:icon="@drawable/ic_journal"/>
-<!--    <item-->
-<!--        android:id="@+id/journal_nav"-->
-<!--        android:title="Journal"-->
-<!--        android:icon="@drawable/ic_calendar"/>-->
+
+  <item
+    android:id="@+id/habit_nav"
+    android:title="Habits"
+    android:icon="@drawable/ic_habits"/>
 
     <item
         android:id="@+id/map_nav"

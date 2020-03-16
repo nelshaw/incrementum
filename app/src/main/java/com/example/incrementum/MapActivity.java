@@ -2,11 +2,9 @@ package com.example.incrementum;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -24,9 +22,6 @@ public class MapActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_map);
 
-    habit = findViewById(R.id.habit);
-    journal = findViewById(R.id.journal);
-    logout = findViewById(R.id.logout);
     map = findViewById(R.id.map);
     mapClickCounter = 0;
     map.setImageDrawable(getResources().getDrawable(R.drawable.map0));
@@ -69,27 +64,6 @@ public class MapActivity extends AppCompatActivity {
       }
     });
 
-    habit.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openViewHabitActivity();
-      }
-    });
-
-    journal.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openViewJournalActivity();
-      }
-    });
-
-    logout.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        logout();
-      }
-    });
-
     //Initalize and Assign Value
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -101,7 +75,7 @@ public class MapActivity extends AppCompatActivity {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-          case R.id.calender_nav:
+          case R.id.calendar_nav:
             finish();
             startActivity(new Intent(getApplicationContext()
                     ,CalendarActivity.class));
@@ -112,6 +86,13 @@ public class MapActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(getApplicationContext()
                     ,ViewJournalActivity.class));
+            overridePendingTransition(0,0);
+            return true;
+
+          case R.id.habit_nav:
+            finish();
+            startActivity(new Intent(getApplicationContext()
+              ,ViewHabitActivity.class));
             overridePendingTransition(0,0);
             return true;
 
@@ -126,20 +107,5 @@ public class MapActivity extends AppCompatActivity {
       }
     });
 
-  }
-
-  public void openViewHabitActivity() {
-    Intent intent = new Intent(this, ViewHabitActivity.class);
-    startActivity(intent);
-  }
-
-  public void openViewJournalActivity() {
-    Intent intent = new Intent(this, ViewJournalActivity.class);
-    startActivity(intent);
-  }
-
-  public void logout() {
-    Intent intent = new Intent(this, LoginActivity.class);
-    startActivity(intent);
   }
 }

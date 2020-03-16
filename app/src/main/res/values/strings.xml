@@ -12,7 +12,7 @@
     <string name="journal_trigger">Add New Trigger</string>
     <string name="journal_entry_hint">Today, I am …</string>
     <string name="journal_trigger_hint">Add a new trigger…</string>
-    <string name="view_journal">Journal Entries for </string>
+    <string name="view_journal">JOURNAL ENTRIES FOR </string>
     <string name="title_activity_log_hobbies">LogHobbiesActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

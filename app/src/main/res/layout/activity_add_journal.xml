@@ -42,7 +42,7 @@
         android:gravity="start"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/add_journal_feeling"
         android:textStyle="bold"/>
 
@@ -187,7 +187,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="#F1E286"
+          android:background="@color/lightBlueTheme"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/morning"
@@ -200,7 +200,7 @@
           android:layout_marginStart="10dp"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="#F1E286"
+          android:background="@color/lightBlueTheme"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/afternoon"
@@ -222,7 +222,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="#F1E286"
+          android:background="@color/lightBlueTheme"
           android:checked="true"
           android:text="@string/togglebutton"
           android:textOff="@string/evening"
@@ -235,7 +235,7 @@
           android:layout_marginStart="10dp"
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
-          android:background="#F1E286"
+          android:background="@color/lightBlueTheme"
           android:checked="false"
           android:text="@string/togglebutton"
           android:textOff="@string/night"
@@ -248,7 +248,7 @@
       android:layout_height="match_parent"
       android:gravity="center"
       android:orientation="horizontal"
-      android:layout_marginTop="17dp">
+      android:layout_marginTop="20dp">
 
       <Button
         android:id="@+id/cancelBtn"
@@ -272,14 +272,4 @@
     </LinearLayout>
     </LinearLayout>
   </ScrollView>
-
-  <com.google.android.material.bottomnavigation.BottomNavigationView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/bottom_navigation"
-      app:itemBackground="@color/redTheme"
-      app:itemTextColor="@drawable/selector"
-      app:itemIconTint="@drawable/selector"
-      app:menu="@menu/menu_navigation"
-      android:layout_alignParentBottom="true"/>
 </RelativeLayout>

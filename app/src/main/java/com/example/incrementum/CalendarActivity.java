@@ -37,253 +37,250 @@ import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    MaterialCalendarView calendarView;
-    HashSet<CalendarDay> didNotDoHabitDates;
-    HashSet<CalendarDay> didDoHabitDates;
+  MaterialCalendarView calendarView;
+  HashSet<CalendarDay> didNotDoHabitDates;
+  HashSet<CalendarDay> didDoHabitDates;
 
-    ImageButton didNotButton;
-    ImageButton didButton;
+  ImageButton didNotButton;
+  ImageButton didButton;
 
-    String User_id = "5e587cbed6292c4d1074b5d8";
-    String Habit_id = "5e65ba9a1c9d440000d8a29d";
-    String _getHabitId;
+  String User_id = "5e587cbed6292c4d1074b5d8";
+  String Habit_id = "5e65ba9a1c9d440000d8a29d";
+  String _getHabitId;
 
-    static Date dateSelected;
+  static Date dateSelected;
 
-    //connect to database
-    final StitchAppClient client =
-            Stitch.getAppClient("incrementum-xjkms");
+  //connect to database
+  final StitchAppClient client =
+    Stitch.getAppClient("incrementum-xjkms");
 
-    final RemoteMongoClient mongoClient =
-            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+  final RemoteMongoClient mongoClient =
+    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
-    //connect to collection
-    final RemoteMongoCollection<Document> coll =
-            mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+  //connect to collection
+  final RemoteMongoCollection<Document> coll =
+    mongoClient.getDatabase("Incrementum").getCollection("Calendar");
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_calendar);
 
-        calendarView = findViewById(R.id.calendarView);
-        didNotButton = findViewById(R.id.didNotButton);
-        didButton = findViewById(R.id.didButton);
+    calendarView = findViewById(R.id.calendarView);
+    didNotButton = findViewById(R.id.didNotButton);
+    didButton = findViewById(R.id.didButton);
 
-        didNotDoHabitDates = new HashSet<>();
-        didDoHabitDates = new HashSet<>();
+    didNotDoHabitDates = new HashSet<>();
+    didDoHabitDates = new HashSet<>();
 
-        calendarView.state().edit()
-                .setMaximumDate(CalendarDay.today())
-                .commit();
+    calendarView.state().edit()
+      .setMaximumDate(CalendarDay.today())
+      .commit();
 
-        Intent intent = getIntent();
-        _getHabitId  = intent.getStringExtra("habit");
+    Intent intent = getIntent();
+    _getHabitId = intent.getStringExtra("habit");
 
-        Log.d("Habit id*****", "passes habit id");
+    Log.d("Habit id*****", "passes habit id");
 
-        getDateValues();
+    getDateValues();
 
-        //sleep 1 sec to wait for getDateValues() to fill all hashsets from mongodb
+    //sleep 1 sec to wait for getDateValues() to fill all hashsets from mongodb
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    //green
+    calendarView.addDecorator(new CalendarDecorator(this, Color.parseColor("#90EE90"), didNotDoHabitDates));
+    //red
+    calendarView.addDecorator(new CalendarDecorator(this, Color.parseColor("#F64D4E"), didDoHabitDates));
+    calendarView.setSelectedDate(CalendarDay.today());
+
+    didNotButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        CalendarDay date = calendarView.getSelectedDate();
+        String selectedDate = formatDate(date);
+
+        Document query = new Document()
+          .append("User_id", User_id)
+          .append("Habit_id", Habit_id);
+
+        Document dayStatus = new Document()
+          .append("Date", selectedDate)
+          .append("Status", false);
+
+        final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
+
+        update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
+          @Override
+          public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
+            if (task.isSuccessful()) {
+              Log.d("STITCH", String.format("success inserting: %s",
+                task.getResult().getUpsertedId()));
+            } else {
+              Log.d("STITCH", "Unsuccessful");
+            }
+          }
+        });
+        finish();
+        startActivity(getIntent());
+      }
+    });
+
+    didButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        CalendarDay date = calendarView.getSelectedDate();
+        String selectedDate = formatDate(date);
+
+        Document query = new Document()
+          .append("User_id", User_id)
+          .append("Habit_id", Habit_id);
+
+        Document dayStatus = new Document()
+          .append("Date", selectedDate)
+          .append("Status", true);
+
+        final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
+
+        update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
+          @Override
+          public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
+            if (task.isSuccessful()) {
+              Log.d("STITCH", String.format("success inserting: %s",
+                task.getResult().getUpsertedId()));
+            } else {
+              Log.d("STITCH", "Unsuccessful");
+            }
+          }
+        });
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
         try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+          dateSelected = format.parse(selectedDate);
+        } catch (ParseException e) {
+          e.printStackTrace();
         }
 
-        calendarView.addDecorator(new CalendarDecorator(this, Color.GREEN, didNotDoHabitDates));
-        calendarView.addDecorator(new CalendarDecorator(this, Color.RED, didDoHabitDates));
-        calendarView.setSelectedDate(CalendarDay.today());
+        openAddHabitOccurrenceActivity();
+        Log.d("CALENDAR", "date added " + dateSelected);
+      }
+    });
+    //Initalize and Assign Value
+    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        didNotButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    //Set home selected
+    bottomNavigationView.setSelectedItemId(R.id.calendar_nav);
 
-                CalendarDay date = calendarView.getSelectedDate();
-                String selectedDate = formatDate(date);
-
-                Document query = new Document()
-                        .append("User_id", User_id)
-                        .append("Habit_id", Habit_id);
-
-                Document dayStatus = new Document()
-                        .append("Date", selectedDate)
-                        .append("Status", false);
-
-                final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
-
-                update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
-                        if (task.isSuccessful()){
-                            Log.d("STITCH", String.format("success inserting: %s",
-                                    task.getResult().getUpsertedId()));
-                        }
-                        else{
-                            Log.d("STITCH", "Unsuccessful");
-                        }
-                    }
-                });
-                finish();
-                startActivity(getIntent());
-            }
-        });
-
-        didButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                CalendarDay date = calendarView.getSelectedDate();
-                String selectedDate = formatDate(date);
-
-                Document query = new Document()
-                        .append("User_id", User_id)
-                        .append("Habit_id", Habit_id);
-
-                Document dayStatus = new Document()
-                        .append("Date", selectedDate)
-                        .append("Status", true);
-
-                final Task<RemoteUpdateResult> update = coll.updateOne(query, Updates.addToSet("Days", dayStatus));
-
-                update.addOnCompleteListener(new OnCompleteListener<RemoteUpdateResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<RemoteUpdateResult> task) {
-                        if (task.isSuccessful()){
-                            Log.d("STITCH", String.format("success inserting: %s",
-                                    task.getResult().getUpsertedId()));
-                        }
-                        else{
-                            Log.d("STITCH", "Unsuccessful");
-                        }
-                    }
-                });
-
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-              try {
-                dateSelected = format.parse(selectedDate);
-              } catch (ParseException e) {
-                e.printStackTrace();
-              }
-
-              openAddHabitOccurrenceActivity();
-              Log.d("CALENDAR", "date added " + dateSelected);
-            }
-        });
-        //Initalize and Assign Value
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set home selected
-        bottomNavigationView.setSelectedItemId(R.id.calender_nav);
-
-        //Perform ItemSelectedList
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.calender_nav:
+    //Perform ItemSelectedList
+    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+      @Override
+      public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+          case R.id.calendar_nav:
 //                        startActivity(new Intent(getApplicationContext()
 //                                ,CalendarActivity.class));
 //                        overridePendingTransition(0,0);
-                        return true;
+            return true;
 
-                    case R.id.journal_nav:
-                        //finish();
-                        startActivity(new Intent(getApplicationContext()
-                                ,ViewJournalActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.map_nav:
-                        //finish();
+          case R.id.journal_nav:
+            //finish();
             startActivity(new Intent(getApplicationContext()
-                    ,MapActivity.class));
-            overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
+              , ViewJournalActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
 
-    //function to format date
-    public String formatDate(CalendarDay date){
-        String day = date.getDay() + "";
-        String month = (date.getMonth() + 1) + "";
-        if(day.length() != 2)
-            day = "0" + day;
-        if(month.length() != 2)
-            month = "0" + month;
-
-        return date.getYear() + "-" + month + "-" + day;
-    }
-
-    //function to convert string to date
-    public Date StringToDate(String s){
-
-        Date result = null;
-        try{
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            result  = dateFormat.parse(s);
+          case R.id.map_nav:
+            //finish();
+            startActivity(new Intent(getApplicationContext()
+              , MapActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
         }
-        catch(ParseException e){
-            e.printStackTrace();
+        return false;
+      }
+    });
+  }
+
+  //function to format date
+  public String formatDate(CalendarDay date) {
+    String day = date.getDay() + "";
+    String month = (date.getMonth() + 1) + "";
+    if (day.length() != 2)
+      day = "0" + day;
+    if (month.length() != 2)
+      month = "0" + month;
+
+    return date.getYear() + "-" + month + "-" + day;
+  }
+
+  //function to convert string to date
+  public Date StringToDate(String s) {
+
+    Date result = null;
+    try {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      result = dateFormat.parse(s);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
+  public void getDateValues() {
+
+    Document filterDoc = new Document()
+      .append("User_id", User_id)
+      .append("Habit_id", Habit_id);
+
+    //find all documents
+    RemoteFindIterable<Document> results = coll.find(filterDoc)
+      .projection(
+        new Document()
+          .append("_id", 0)
+          .append("Habit_id", 0)
+          .append("User_id", 0));
+
+    //for each document in the collection
+    results.forEach(item -> {
+      try {
+        //convert document to json
+        JSONObject obj = new JSONObject(item.toJson());
+
+        //find days array
+        JSONArray days = obj.getJSONArray("Days");
+
+        //for indices in days array
+        for (int i = 0; i < days.length(); i++) {
+          //find date and status
+          JSONObject object = new JSONObject(days.get(i).toString());
+          String date = object.getString("Date");
+          boolean stat = object.getBoolean("Status");
+
+          //convert date into a CalendarDay
+          CalendarDay day = CalendarDay.from(StringToDate(date));
+
+          //based on status, add to hashset to make red or green highlight circles
+          if (stat) {
+            didDoHabitDates.add(day);
+          } else {
+            didNotDoHabitDates.add(day);
+          }
         }
-        return result ;
-    }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    });
+  }
 
-    public void getDateValues(){
-
-        Document filterDoc = new Document()
-                .append("User_id", User_id)
-                .append("Habit_id", Habit_id);
-
-        //find all documents
-        RemoteFindIterable<Document> results = coll.find(filterDoc)
-                .projection(
-                        new Document()
-                                .append("_id", 0)
-                                .append("Habit_id", 0)
-                                .append("User_id", 0));
-
-        //for each document in the collection
-        results.forEach(item -> {
-            try {
-                //convert document to json
-                JSONObject obj = new JSONObject(item.toJson());
-
-                //find days array
-                JSONArray days = obj.getJSONArray("Days");
-
-                //for indices in days array
-                for (int i = 0; i < days.length(); i++)
-                {
-                    //find date and status
-                    JSONObject object = new JSONObject(days.get(i).toString());
-                    String date = object.getString("Date");
-                    boolean stat = object.getBoolean("Status");
-
-                    //convert date into a CalendarDay
-                    CalendarDay day = CalendarDay.from(StringToDate(date));
-
-                    //based on status, add to hashset to make red or green highlight circles
-                    if(stat){
-                        didDoHabitDates.add(day);
-                    }
-                    else{
-                        didNotDoHabitDates.add(day);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    //function to open add habit occurance
-    public void openAddHabitOccurrenceActivity() {
-        Intent intent = new Intent(this, AddHabitOccurrenceActivity.class);
-        startActivity(intent);
-    }
+  //function to open add habit occurance
+  public void openAddHabitOccurrenceActivity() {
+    Intent intent = new Intent(this, AddHabitOccurrenceActivity.class);
+    startActivity(intent);
+  }
 }

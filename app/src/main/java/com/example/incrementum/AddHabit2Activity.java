@@ -30,6 +30,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     boolean timeEvening = false;
     boolean timeAfternoon = false;
     boolean timeNight = false;
+
     //From previous activity
    String name;
    int length;
@@ -67,17 +68,20 @@ public class AddHabit2Activity extends AppCompatActivity {
         final ToggleButton af = findViewById(R.id.noon);
         final ToggleButton evening = findViewById(R.id.evening);
 
+      int red = Color.rgb(237, 177, 162);
+      int blue = Color.rgb(216, 242, 243);
+
 //time buttons
         {
             morning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        morning.setBackgroundColor(Color.rgb(209, 101, 75));
+                        morning.setBackgroundColor(red);
                         timesSelected++;
                         timeMorning = true;
                     } else {
-                        morning.setBackgroundColor(Color.rgb(241, 226, 134));
+                        morning.setBackgroundColor(blue);
                         timesSelected--;
                         timeMorning = false;
                     }
@@ -88,11 +92,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        evening.setBackgroundColor(Color.rgb(209, 101, 75));
+                        evening.setBackgroundColor(red);
                         timesSelected++;
                         timeEvening = true;
                     } else {
-                        evening.setBackgroundColor(Color.rgb(241, 226, 134));
+                        evening.setBackgroundColor(blue);
                         timesSelected--;
                         timeEvening = false;
                     }
@@ -103,11 +107,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        af.setBackgroundColor(Color.rgb(209, 101, 75));
+                        af.setBackgroundColor(red);
                         timesSelected++;
                         timeAfternoon = true;
                     } else {
-                        af.setBackgroundColor(Color.rgb(241, 226, 134));
+                        af.setBackgroundColor(blue);
                         timesSelected--;
                         timeAfternoon = false;
                     }
@@ -118,11 +122,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        night.setBackgroundColor(Color.rgb(209, 101, 75));
+                        night.setBackgroundColor(red);
                         timesSelected++;
                         timeNight = true;
                     } else {
-                        night.setBackgroundColor(Color.rgb(241, 226, 134));
+                        night.setBackgroundColor(blue);
                         timesSelected--;
                         timeNight = false;
                     }
@@ -136,11 +140,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        pe.setBackgroundColor(Color.rgb(207, 80, 80));
+                        pe.setBackgroundColor(red);
                         optionsSelected++;
                         triggerpe = true;
                     } else {
-                        pe.setBackgroundColor(Color.rgb(80, 183, 235));
+                        pe.setBackgroundColor(blue);
                         optionsSelected--;
                         triggerpe = false;
                     }
@@ -150,11 +154,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        es.setBackgroundColor(Color.rgb(207, 80, 80));
+                        es.setBackgroundColor(red);
                         optionsSelected++;
                         triggeres = true;
                     } else {
-                        es.setBackgroundColor(Color.rgb(80, 183, 235));
+                        es.setBackgroundColor(blue);
                         optionsSelected--;
                         triggerpe = false;
                     }
@@ -164,11 +168,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        otherpeople.setBackgroundColor(Color.rgb(207, 80, 80));
+                        otherpeople.setBackgroundColor(red);
                         optionsSelected++;
                         triggerop = true;
                     } else {
-                        otherpeople.setBackgroundColor(Color.rgb(80, 183, 235));
+                        otherpeople.setBackgroundColor(blue);
                         optionsSelected--;
                         triggerop = false;
                     }
@@ -178,11 +182,11 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        time.setBackgroundColor(Color.rgb(207, 80, 80));
+                        time.setBackgroundColor(red);
                         optionsSelected++;
                         triggerTime = true;
                     } else {
-                        time.setBackgroundColor(Color.rgb(80, 183, 235));
+                        time.setBackgroundColor(blue);
                         optionsSelected--;
                         triggerTime = false;
                     }
@@ -192,12 +196,12 @@ public class AddHabit2Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        location.setBackgroundColor(Color.rgb(207, 80, 80));
+                        location.setBackgroundColor(red);
                         optionsSelected++;
                         triggerLocation = true;
 
                     } else {
-                        location.setBackgroundColor(Color.rgb(80, 183, 235));
+                        location.setBackgroundColor(blue);
                         optionsSelected--;
                         triggerLocation = false;
                     }
