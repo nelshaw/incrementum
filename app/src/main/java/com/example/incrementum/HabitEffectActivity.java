@@ -8,10 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
@@ -19,9 +16,6 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
 
 
 public class HabitEffectActivity extends AppCompatActivity {
@@ -31,6 +25,8 @@ public class HabitEffectActivity extends AppCompatActivity {
     List<String> negQuotes;
     List<String> posQuotes;
 
+    final RemoteMongoCollection<Document> coll =
+            DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
     public enum Type{
         NEGATIVE,
@@ -105,14 +101,14 @@ public class HabitEffectActivity extends AppCompatActivity {
 
     public void getNegativeQuotes(){
 
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
+//        final StitchAppClient client =
+//                Stitch.getAppClient("incrementum-xjkms");
+//
+//        final RemoteMongoClient mongoClient =
+//                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Quotes");
+//        final RemoteMongoCollection<Document> coll =
+//                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
         Document filterDoc = new Document()
           .append("Type", "Negative");
@@ -137,14 +133,14 @@ public class HabitEffectActivity extends AppCompatActivity {
 
   public void getPositiveQuotes(){
 
-    final StitchAppClient client =
-      Stitch.getAppClient("incrementum-xjkms");
+//    final StitchAppClient client =
+//      Stitch.getAppClient("incrementum-xjkms");
+//
+//    final RemoteMongoClient mongoClient =
+//      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
-    final RemoteMongoClient mongoClient =
-      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-    final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("Quotes");
+//    final RemoteMongoCollection<Document> coll =
+//      DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Quotes");
 
     Document filterDoc = new Document()
       .append("Type", "Positive");
