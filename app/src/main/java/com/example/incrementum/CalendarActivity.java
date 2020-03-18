@@ -43,11 +43,11 @@ public class CalendarActivity extends AppCompatActivity {
   ImageButton didButton;
 
   //test values
-  String User_id = "5e587cbed6292c4d1074b5d8";
+  //String User_id = "5e587cbed6292c4d1074b5d8";
   //String Habit_id = "5e65ba9a1c9d440000d8a29d";
 
   //get user id from login
-  //String User = LoginActivity.user_id;
+  String User_id = LoginActivity.user_id;
   //get habit id from chosen habit
   String _getHabitId;
 
