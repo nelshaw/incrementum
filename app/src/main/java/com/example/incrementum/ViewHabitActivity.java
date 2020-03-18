@@ -15,10 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
@@ -111,14 +108,9 @@ public class ViewHabitActivity extends AppCompatActivity {
         RemoteFindIterable <Document>  results;
         @Override
         protected void onPreExecute() {
-            final StitchAppClient client =
-                    Stitch.getAppClient("incrementum-xjkms");
-
-            final RemoteMongoClient mongoClient =
-                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
             final RemoteMongoCollection<Document> coll =
-                    mongoClient.getDatabase("Incrementum").getCollection("Habits");
+                    DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
             Document filterDoc = new Document();
 
@@ -157,40 +149,6 @@ public class ViewHabitActivity extends AppCompatActivity {
         }
     }
 
-    public void getHabits(){
-
-        RemoteFindIterable <Document>  results;
-
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Habits");
-
-        Document filterDoc = new Document();
-
-        results = coll.find(filterDoc)
-                .projection(
-                        new Document());
-
-        results.forEach(item ->{
-            try{
-                JSONObject obj = new JSONObject(item.toJson());
-                String habit = obj.getString("name");
-                Log.d("*************",obj.toString());
-                habits.add(habit);
-                adapter.notifyDataSetChanged();
-                Log.d("*************",habit);
-            }
-            catch(JSONException e){
-                Log.d("JSON exception:",e.toString());
-            }
-        });
-    }
-
     public void openAddHabitActivity() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
@@ -201,7 +159,9 @@ public class ViewHabitActivity extends AppCompatActivity {
     }
     public void sendData(String name){
         Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
-        intent.putExtra("habit", name);
+        //get only habit id
+        String habitId = name.split(":")[1].split("\"")[1];
+        intent.putExtra("habit", habitId);
         startActivity(intent);
     }
 }
