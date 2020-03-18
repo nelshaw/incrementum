@@ -74,7 +74,7 @@
         android:text="@string/journal_habit_title"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:textStyle="bold"/>
 
       <LinearLayout
@@ -83,7 +83,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <ToggleButton
           android:id="@+id/otherPeople"
@@ -131,7 +131,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <ToggleButton
           android:id="@+id/location"
@@ -170,7 +170,7 @@
         android:text="@string/trigger_time"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:textStyle="bold" />
 
       <LinearLayout
@@ -179,7 +179,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <ToggleButton
           android:id="@+id/morning"
@@ -214,7 +214,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <ToggleButton
           android:id="@+id/evening"
