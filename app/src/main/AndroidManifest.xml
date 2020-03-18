@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ViewAHabit"></activity>
-        <activity android:name=".profileActivity1" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".AddHabitOccurrenceActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".Log_Habits_Hobbies_Time_Activity" />

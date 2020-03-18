@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profileActivity1"
+    tools:context=".ProfileActivity"
     android:background="@color/lightGreyTheme"
     android:fitsSystemWindows="true">
 

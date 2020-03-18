@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendData(String email)
     {
-        Intent intent = new Intent(getApplicationContext(), profileActivity1.class);
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.putExtra("email", email);
         startActivity(intent);
     }
@@ -226,7 +226,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void openProfileActivity() {
-        Intent intent = new Intent(this, profileActivity1.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 

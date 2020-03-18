@@ -90,7 +90,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                     case R.id.profile_nav:
                         finish();
                         startActivity(new Intent(getApplicationContext()
-                                ,profileActivity1.class));
+                                , ProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 

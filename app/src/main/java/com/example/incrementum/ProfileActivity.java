@@ -24,7 +24,7 @@ import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class profileActivity1 extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
   TextView _emailText;
   TextView _userText;
