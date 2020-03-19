@@ -31,39 +31,39 @@
       app:layout_constraintVertical_bias="0.368" />
 
     <ListView
-      android:id="@+id/list"
-      android:layout_width="fill_parent"
-      android:layout_height="513dp"
-      android:textIsSelectable="true"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Title" />
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="314dp"
+        android:textIsSelectable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:orientation="horizontal"
-      android:paddingTop="30dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="30dp">
 
       <Button
-        android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:background="@color/lightGreyTheme"
-        android:padding="10dp"
-        android:text="Refresh"
-        android:textColor="@color/darkGrey" />
+          android:id="@+id/refresh"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:background="@color/lightGreyTheme"
+          android:padding="10dp"
+          android:text="Refresh"
+          android:textColor="@color/darkGrey" />
 
       <Button
-        android:id="@+id/AddHabit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/button_red"
-        android:padding="12dp"
-        android:text="Add A Habit"
-        android:textColor="@color/cremeTheme" />
+          android:id="@+id/AddHabit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:background="@drawable/button_red"
+          android:padding="12dp"
+          android:text="Add A Habit"
+          android:textColor="@color/cremeTheme" />
     </LinearLayout>
   </LinearLayout>
 
