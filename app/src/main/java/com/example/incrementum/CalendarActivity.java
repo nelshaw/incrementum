@@ -47,7 +47,7 @@ public class CalendarActivity extends AppCompatActivity {
   //String Habit_id = "5e65ba9a1c9d440000d8a29d";
 
   //get user id from login
-  String User_id = LoginActivity.user_id;
+  String User_id;
   //get habit id from chosen habit
   String _getHabitId;
 
@@ -64,6 +64,10 @@ public class CalendarActivity extends AppCompatActivity {
 
     didNotDoHabitDates = new HashSet<>();
     didDoHabitDates = new HashSet<>();
+
+    User_id = LoginActivity.user_id;
+
+    Log.d("********userid****", User_id);
 
     //pull values from MongoDB
     DatabaseLoad load = new DatabaseLoad();
@@ -214,7 +218,7 @@ public class CalendarActivity extends AppCompatActivity {
 
   private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
     RemoteFindIterable<Document> results;
-    String User_id = "5e587cbed6292c4d1074b5d8";
+    //String User_id = "5e587cbed6292c4d1074b5d8";
 
     @Override
     protected void onPreExecute() {
