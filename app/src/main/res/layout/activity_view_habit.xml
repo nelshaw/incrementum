@@ -31,12 +31,12 @@
       app:layout_constraintVertical_bias="0.368" />
 
     <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="314dp"
-        android:textIsSelectable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+      android:id="@+id/list"
+      android:layout_width="fill_parent"
+      android:layout_height="416dp"
+      android:textIsSelectable="true"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/Title" />
 
     <LinearLayout
         android:layout_width="match_parent"
