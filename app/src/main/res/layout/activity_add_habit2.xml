@@ -48,7 +48,7 @@
         android:textOn="@string/other_people" />
 
       <ToggleButton
-        android:id="@+id/precedingEvent"
+        android:id="@+id/pe"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -63,7 +63,7 @@
         android:textOn="@string/preceding_event" />
 
       <ToggleButton
-        android:id="@+id/emotionalState"
+        android:id="@+id/es"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
         android:textSize="16sp" />
 
       <EditText
-        android:id="@+id/own"
+        android:id="@+id/triggerown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"

@@ -131,7 +131,6 @@ public class ViewHabitActivity extends AppCompatActivity {
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
-                    adapter.notifyDataSetChanged();
                     Log.d("*************",_id);
                 }
                 catch(JSONException e){

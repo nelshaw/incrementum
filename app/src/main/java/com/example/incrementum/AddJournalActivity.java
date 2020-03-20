@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,8 +45,8 @@ public class AddJournalActivity extends AppCompatActivity {
   @InjectView(R.id.time_2) LinearLayout time2Layout;
 
   @InjectView(R.id.otherPeople) ToggleButton otherPeople;
-  @InjectView(R.id.precedingEvent) ToggleButton precedingEvent;
-  @InjectView(R.id.emotionalState) ToggleButton emotionalState;
+  @InjectView(R.id.pe) ToggleButton precedingEvent;
+  @InjectView(R.id.es) ToggleButton emotionalState;
   @InjectView(R.id.location) ToggleButton location;
   @InjectView(R.id.time) ToggleButton time;
   @InjectView(R.id.morning) ToggleButton morning;
