@@ -171,7 +171,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         optionsSelected++;
                         triggerpe = true;
                     } else {
-                        pe.setBackgroundColor(Color.rgb(80, 183, 235));
+                        pe.setBackgroundColor(Color.rgb(216, 242, 243));
                         optionsSelected--;
                         triggerpe = false;
                     }
@@ -185,7 +185,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         optionsSelected++;
                         triggeres = true;
                     } else {
-                        es.setBackgroundColor(Color.rgb(80, 183, 235));
+                        es.setBackgroundColor(Color.rgb(216, 242, 243));
                         optionsSelected--;
                         triggerpe = false;
                     }
@@ -199,7 +199,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         optionsSelected++;
                         triggerop = true;
                     } else {
-                        otherpeople.setBackgroundColor(Color.rgb(80, 183, 235));
+                        otherpeople.setBackgroundColor(Color.rgb(216, 242, 243));
                         optionsSelected--;
                         triggerop = false;
                     }
@@ -213,7 +213,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         optionsSelected++;
                         triggerTime = true;
                     } else {
-                        time.setBackgroundColor(Color.rgb(80, 183, 235));
+                        time.setBackgroundColor(Color.rgb(216, 242, 243));
                         optionsSelected--;
                         triggerTime = false;
                     }
@@ -228,7 +228,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         triggerLocation = true;
 
                     } else {
-                        location.setBackgroundColor(Color.rgb(80, 183, 235));
+                        location.setBackgroundColor(Color.rgb(216, 242, 243));
                         optionsSelected--;
                         triggerLocation = false;
                     }
