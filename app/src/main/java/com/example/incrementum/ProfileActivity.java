@@ -39,6 +39,14 @@ public class ProfileActivity extends AppCompatActivity {
     _emailText = findViewById(R.id.emailText);
     _emailText.setText(email);
 
+    final Button analButton = findViewById(R.id.analbutton);
+
+    analButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        openAnalysis();
+      }
+    });
     refresh = findViewById(R.id.refresh);
     refresh.setOnClickListener(new View.OnClickListener() {
 
@@ -97,6 +105,11 @@ public class ProfileActivity extends AppCompatActivity {
     });
 
 
+  }
+
+  public void openAnalysis() {
+    Intent intent = new Intent(this, Hobby_Stats.class);
+    startActivity(intent);
   }
 
 

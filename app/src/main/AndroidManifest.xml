@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/incrementum_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewAHabit"></activity>
+        <activity android:name=".Hobby_Stats"></activity>
+        <activity android:name=".ViewAHabit" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddHabitOccurrenceActivity" />
         <activity android:name=".CalendarActivity" />
