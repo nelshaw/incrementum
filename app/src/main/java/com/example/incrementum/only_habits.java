@@ -4,9 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.mongodb.client.model.Filters;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+
+import org.bson.Document;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class only_habits extends AppCompatActivity {
 
@@ -24,6 +36,7 @@ public class only_habits extends AppCompatActivity {
 
         TextView userText = findViewById(R.id.usertext);
         userText.setText(completeString);
+
 
         final Button backButton = findViewById(R.id.mainbutton);
         final Button hobbyButton = findViewById(R.id.hobbybutton);
@@ -44,6 +57,7 @@ public class only_habits extends AppCompatActivity {
             }
         });
     }
+
 
     public void sendData(String username, int location)
     {
