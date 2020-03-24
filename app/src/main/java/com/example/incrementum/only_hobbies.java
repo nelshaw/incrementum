@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.core.Stitch;
@@ -40,15 +41,19 @@ public class only_hobbies extends AppCompatActivity {
         username = intent.getStringExtra("username");
         completeString = "Hobby Stats For " + username;
 
-        getData(username, 0);
 
         TextView userText = findViewById(R.id.usertext);
         userText.setText(completeString);
 
         h1 = findViewById(R.id.H1);
+        h1.setVisibility(View.INVISIBLE);
         h2 = findViewById(R.id.H2);
+        h2.setVisibility(View.INVISIBLE);
         h3 = findViewById(R.id.H3);
+        h3.setVisibility(View.INVISIBLE);
         th = findViewById(R.id.TH);
+
+        getData(username);
 
 
         final Button backButton = findViewById(R.id.mainbutton);
@@ -71,8 +76,9 @@ public class only_hobbies extends AppCompatActivity {
         });
     }
 
-    public void getData(String username, int curHobby) {
+    public void getData(String username) {
         RemoteFindIterable<Document> results;
+        Toast.makeText(getBaseContext(), username, Toast.LENGTH_LONG).show();
 
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
@@ -86,11 +92,18 @@ public class only_hobbies extends AppCompatActivity {
         results.forEach(item -> {
             try {
                 JSONObject obj = new JSONObject(item.toJson());
-                JSONArray hobbies = obj.getJSONArray("Hobbies");
+                JSONArray hobbies = obj.getJSONArray("hobbies");
                 for (int i = 0; i < hobbies.length(); i++) {
                     JSONObject object = new JSONObject(hobbies.get(i).toString());
                     String hobby = object.getString("name");
                     fillTextBox(hobby, i);
+
+                    JSONObject nextObject = new JSONObject(hobbies.get(i + 1).toString());
+                    String nexthobby = nextObject.getString("name");
+                    if(nexthobby == null)
+                    {
+                        return;
+                    }
                 }
             }catch (JSONException e) {
                 e.printStackTrace();
