@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.core.Stitch;
@@ -17,6 +18,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +26,19 @@ public class only_habits extends AppCompatActivity {
 
     String username;
     String completeString;
+    String userid;
+    int counter = 0;
+
+    TextView h1;
+    TextView t1;
+    TextView st1;
+    TextView h2;
+    TextView t2;
+    TextView st2;
+    TextView h3;
+    TextView t3;
+    TextView st3;
+    TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,29 @@ public class only_habits extends AppCompatActivity {
 
         TextView userText = findViewById(R.id.usertext);
         userText.setText(completeString);
+
+        h1 = findViewById(R.id.H1);
+        h1.setVisibility(View.INVISIBLE);
+        h2 = findViewById(R.id.H2);
+        h2.setVisibility(View.INVISIBLE);
+        h3 = findViewById(R.id.H3);
+        h3.setVisibility(View.INVISIBLE);
+
+        t1 = findViewById(R.id.T1);
+        t1.setVisibility(View.INVISIBLE);
+        t2 = findViewById(R.id.T2);
+        t2.setVisibility(View.INVISIBLE);
+        t3 = findViewById(R.id.T3);
+        t3.setVisibility(View.INVISIBLE);
+
+        st1 = findViewById(R.id.ST1);
+        st1.setVisibility(View.INVISIBLE);
+        st2 = findViewById(R.id.ST2);
+        st2.setVisibility(View.INVISIBLE);
+        st3 = findViewById(R.id.ST3);
+        st3.setVisibility(View.INVISIBLE);
+
+        total = findViewById(R.id.TTL);
 
 
         final Button backButton = findViewById(R.id.mainbutton);
@@ -58,6 +96,69 @@ public class only_habits extends AppCompatActivity {
         });
     }
 
+    public void getData(String username) {
+        RemoteFindIterable<Document> results;
+        RemoteFindIterable<Document> habitresults;
+        String[] triggArr = new String[0];
+        String[] timesArr = new String[0];
+
+        final StitchAppClient client =
+                Stitch.getAppClient("incrementum-xjkms");
+        final RemoteMongoClient mongoClient =
+                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+        final RemoteMongoCollection<Document> coll =
+                mongoClient.getDatabase("Incrementum").getCollection("Users");
+        results = coll.find(Filters.eq("username", username))
+                .projection(
+                        new Document());
+        results.forEach(item -> {
+            try {
+                JSONObject obj = new JSONObject(item.toJson());
+                userid = obj.getString("_id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+        final RemoteMongoCollection<Document> habitcoll =
+                mongoClient.getDatabase("Incrementum").getCollection("Habits");
+        habitresults = habitcoll.find(Filters.eq("userId", userid))
+                .projection(
+                        new Document());
+        habitresults.forEach(item -> {
+            String name = new String;
+            try {
+                Document doc = (Document) item;
+                name = (String) doc.get("name");
+                JSONObject obj = new JSONObject(item.toJson());
+                JSONArray triggers = obj.getJSONArray("Triggers");
+                for (int i = 0; i < triggers.length(); i++) {
+                    triggArr[i] = triggers.getString(i);
+                    if(triggers.getString(i + 1) == null)
+                    {
+                        break;
+                    }
+                }
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                JSONObject obj = new JSONObject(item.toJson());
+                JSONArray times = obj.getJSONArray("Times");
+                for (int i = 0; i < times.length(); i++) {
+                    timesArr[i] = times.getString(i);
+                    if(times.getString(i + 1) == null)
+                    {
+                        break;
+                    }
+                }
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            updateUI(name, triggArr, timesArr);
+
+        });
+    }
 
     public void sendData(String username, int location)
     {
@@ -70,6 +171,81 @@ public class only_habits extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), only_hobbies.class);
             intent.putExtra("username", username);
             startActivity(intent);
+        }
+    }
+
+    public void updateUI(String name, String[] triggArr, String[] timesArr)
+    {
+        String newString;
+        if(counter == 0) {
+            newString = "Habit One: " + name;
+            h1.setText(newString);
+            h1.setVisibility(View.VISIBLE);
+
+            newString = "Triggers: ";
+            for(int i = 0; i < triggArr.length; i++)
+            {
+                newString = newString + i + ": " + triggArr[i];
+            }
+            t1.setText(newString);
+            t1.setVisibility(View.VISIBLE);
+
+            newString = "Times: ";
+            for(int i = 0; i < timesArr.length; i++)
+            {
+                newString = newString + i + ": " + timesArr[i];
+            }
+            st1.setText(newString);
+            st1.setVisibility(View.VISIBLE);
+
+            total.setText("Total Habits: " + counter);
+            counter++;
+        } else if(counter == 1) {
+            newString = "Habit Two: " + name;
+            h2.setText(newString);
+            h2.setVisibility(View.VISIBLE);
+
+            newString = "Triggers: ";
+            for(int i = 0; i < triggArr.length; i++)
+            {
+                newString = newString + i + ": " + triggArr[i];
+            }
+            t2.setText(newString);
+            t2.setVisibility(View.VISIBLE);
+
+            newString = "Times: ";
+            for(int i = 0; i < timesArr.length; i++)
+            {
+                newString = newString + i + ": " + timesArr[i];
+            }
+            st2.setText(newString);
+            st2.setVisibility(View.VISIBLE);
+
+            total.setText("Total Habits: " + counter);
+            counter++;
+        } else if(counter == 2) {
+            newString = "Habit Three: " + name;
+            h3.setText(newString);
+            h3.setVisibility(View.VISIBLE);
+
+            newString = "Triggers: ";
+            for(int i = 0; i < triggArr.length; i++)
+            {
+                newString = newString + i + ": " + triggArr[i];
+            }
+            t3.setText(newString);
+            t3.setVisibility(View.VISIBLE);
+
+            newString = "Times: ";
+            for(int i = 0; i < timesArr.length; i++)
+            {
+                newString = newString + i + ": " + timesArr[i];
+            }
+            st3.setText(newString);
+            st3.setVisibility(View.VISIBLE);
+
+            total.setText("Total Habits: " + counter);
+            counter++;
         }
     }
 
