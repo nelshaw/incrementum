@@ -44,7 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
     analButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-          Toast.makeText(getBaseContext(), userName, Toast.LENGTH_LONG).show();
           userName = _userText.getText().toString();
         openAnalysis();
         sendData(userName);

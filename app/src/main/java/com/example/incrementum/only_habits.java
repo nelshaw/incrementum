@@ -80,7 +80,7 @@ public class only_habits extends AppCompatActivity {
 
         total = findViewById(R.id.TTL);
 
-        getData(username);
+        getData(email);
 
 
         final Button backButton = findViewById(R.id.mainbutton);
@@ -103,7 +103,7 @@ public class only_habits extends AppCompatActivity {
         });
     }
 
-    public void getData(String username) {
+    public void getData(String email) {
         RemoteFindIterable<Document> results;
         RemoteFindIterable<Document> habitresults;
 
@@ -126,6 +126,7 @@ public class only_habits extends AppCompatActivity {
                 JSONObject obj = new JSONObject(item.toJson());
                 Log.d("**********",obj.toString());
                 name = obj.getString("name");
+                Toast.makeText(getBaseContext(), name, Toast.LENGTH_LONG).show();
                 JSONArray triggArr = new JSONArray();
                 triggArr = obj.getJSONArray("Triggers");
                 JSONArray timesArr = new JSONArray();
