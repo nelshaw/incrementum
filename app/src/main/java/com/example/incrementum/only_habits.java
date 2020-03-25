@@ -18,6 +18,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ public class only_habits extends AppCompatActivity {
     String username;
     String completeString;
     String userid;
+    ObjectId useroid;
     int counter = 0;
 
     TextView h1;
@@ -75,6 +77,8 @@ public class only_habits extends AppCompatActivity {
 
         total = findViewById(R.id.TTL);
 
+        getData(username);
+
 
         final Button backButton = findViewById(R.id.mainbutton);
         final Button hobbyButton = findViewById(R.id.hobbybutton);
@@ -112,12 +116,8 @@ public class only_habits extends AppCompatActivity {
                 .projection(
                         new Document());
         results.forEach(item -> {
-            try {
-                JSONObject obj = new JSONObject(item.toJson());
-                userid = obj.getString("_id");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                Document doc = (Document) item;
+                userid = doc.getObjectId("_id").toString();
         });
         final RemoteMongoCollection<Document> habitcoll =
                 mongoClient.getDatabase("Incrementum").getCollection("Habits");
@@ -125,11 +125,10 @@ public class only_habits extends AppCompatActivity {
                 .projection(
                         new Document());
         habitresults.forEach(item -> {
-            String name = new String;
+            String name = "";
             try {
-                Document doc = (Document) item;
-                name = (String) doc.get("name");
                 JSONObject obj = new JSONObject(item.toJson());
+                name = obj.getString("name");
                 JSONArray triggers = obj.getJSONArray("Triggers");
                 for (int i = 0; i < triggers.length(); i++) {
                     triggArr[i] = triggers.getString(i);

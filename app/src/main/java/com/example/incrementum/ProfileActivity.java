@@ -70,7 +70,6 @@ public class ProfileActivity extends AppCompatActivity {
     _userText.setText("");
     Intent intent = getIntent();
     email = intent.getStringExtra("email");
-    Toast.makeText(getBaseContext(), email, Toast.LENGTH_LONG).show();
     _emailText.setText(email);
     getData();
     if (_userText.length() == 0) {
