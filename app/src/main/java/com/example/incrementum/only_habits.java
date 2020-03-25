@@ -23,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class only_habits extends AppCompatActivity {
 
     String username;
@@ -103,8 +105,6 @@ public class only_habits extends AppCompatActivity {
     public void getData(String username) {
         RemoteFindIterable<Document> results;
         RemoteFindIterable<Document> habitresults;
-        String[] triggArr = new String[0];
-        String[] timesArr = new String[0];
 
         final StitchAppClient client =
                 Stitch.getAppClient("incrementum-xjkms");
@@ -129,33 +129,28 @@ public class only_habits extends AppCompatActivity {
             try {
                 JSONObject obj = new JSONObject(item.toJson());
                 name = obj.getString("name");
-                JSONArray triggers = obj.getJSONArray("Triggers");
-                for (int i = 0; i < triggers.length(); i++) {
-                    triggArr[i] = triggers.getString(i);
-                    if(triggers.getString(i + 1) == null)
-                    {
-                        break;
-                    }
+                JSONArray triggArr = new JSONArray();
+                triggArr = obj.getJSONArray("Triggers");
+                JSONArray timesArr = new JSONArray();
+
+                ArrayList<String> trigList = new ArrayList();
+                for(int i = 0; i < triggArr.length(); i++)
+                {
+                    trigList.add(triggArr.get(i).toString());
                 }
-            }catch (JSONException e) {
+
+                ArrayList<String> timeList = new ArrayList();
+                for(int i = 0; i < timesArr.length(); i++)
+                {
+                    timeList.add(timesArr.get(i).toString());
+                }
+
+
+            updateUI(name, trigList, timeList);
+
+        } catch (JSONException e) {
                 e.printStackTrace();
             }
-            try {
-                JSONObject obj = new JSONObject(item.toJson());
-                JSONArray times = obj.getJSONArray("Times");
-                for (int i = 0; i < times.length(); i++) {
-                    timesArr[i] = times.getString(i);
-                    if(times.getString(i + 1) == null)
-                    {
-                        break;
-                    }
-                }
-            }catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            updateUI(name, triggArr, timesArr);
-
         });
     }
 
@@ -173,7 +168,7 @@ public class only_habits extends AppCompatActivity {
         }
     }
 
-    public void updateUI(String name, String[] triggArr, String[] timesArr)
+    public void updateUI(String name, ArrayList triggArr, ArrayList timesArr)
     {
         String newString;
         if(counter == 0) {
@@ -182,17 +177,17 @@ public class only_habits extends AppCompatActivity {
             h1.setVisibility(View.VISIBLE);
 
             newString = "Triggers: ";
-            for(int i = 0; i < triggArr.length; i++)
+            for(int i = 0; i < triggArr.size(); i++)
             {
-                newString = newString + i + ": " + triggArr[i];
+                newString = newString + i + ": " + triggArr.get(i);
             }
             t1.setText(newString);
             t1.setVisibility(View.VISIBLE);
 
             newString = "Times: ";
-            for(int i = 0; i < timesArr.length; i++)
+            for(int i = 0; i < timesArr.size(); i++)
             {
-                newString = newString + i + ": " + timesArr[i];
+                newString = newString + i + ": " + timesArr.get(i);
             }
             st1.setText(newString);
             st1.setVisibility(View.VISIBLE);
@@ -205,17 +200,17 @@ public class only_habits extends AppCompatActivity {
             h2.setVisibility(View.VISIBLE);
 
             newString = "Triggers: ";
-            for(int i = 0; i < triggArr.length; i++)
+            for(int i = 0; i < triggArr.size(); i++)
             {
-                newString = newString + i + ": " + triggArr[i];
+                newString = newString + i + ": " + triggArr.get(i);
             }
             t2.setText(newString);
             t2.setVisibility(View.VISIBLE);
 
             newString = "Times: ";
-            for(int i = 0; i < timesArr.length; i++)
+            for(int i = 0; i < timesArr.size(); i++)
             {
-                newString = newString + i + ": " + timesArr[i];
+                newString = newString + i + ": " + timesArr.get(i);
             }
             st2.setText(newString);
             st2.setVisibility(View.VISIBLE);
@@ -228,17 +223,17 @@ public class only_habits extends AppCompatActivity {
             h3.setVisibility(View.VISIBLE);
 
             newString = "Triggers: ";
-            for(int i = 0; i < triggArr.length; i++)
+            for(int i = 0; i < triggArr.size(); i++)
             {
-                newString = newString + i + ": " + triggArr[i];
+                newString = newString + i + ": " + triggArr.get(i);
             }
             t3.setText(newString);
             t3.setVisibility(View.VISIBLE);
 
             newString = "Times: ";
-            for(int i = 0; i < timesArr.length; i++)
+            for(int i = 0; i < timesArr.size(); i++)
             {
-                newString = newString + i + ": " + timesArr[i];
+                newString = newString + i + ": " + timesArr.get(i);
             }
             st3.setText(newString);
             st3.setVisibility(View.VISIBLE);
