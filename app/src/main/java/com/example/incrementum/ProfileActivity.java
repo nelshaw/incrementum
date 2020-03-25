@@ -51,6 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
       }
     });
+
+
     refresh = findViewById(R.id.refresh);
     refresh.setOnClickListener(new View.OnClickListener() {
 
@@ -68,8 +70,10 @@ public class ProfileActivity extends AppCompatActivity {
     _emailText = findViewById(R.id.emailText);
     _userText = findViewById(R.id.usernameText);
     _userText.setText("");
-    Intent intent = getIntent();
-    email = intent.getStringExtra("email");
+
+    UserInfo user = (UserInfo) getApplication();
+    email = user.getEmail();
+
     _emailText.setText(email);
     getData();
     if (_userText.length() == 0) {
@@ -107,7 +111,6 @@ public class ProfileActivity extends AppCompatActivity {
       }
     });
 
-
   }
 
   public void openAnalysis() {
@@ -117,11 +120,9 @@ public class ProfileActivity extends AppCompatActivity {
 
   public void sendData(String username)
   {
-    Intent intent = new Intent(getApplicationContext(), Hobby_Stats.class);
-    intent.putExtra("username", username);
-    startActivity(intent);
+    UserInfo user = (UserInfo) getApplication();
+    user.setUserName(username);
   }
-
 
   public void getData() {
     RemoteFindIterable<Document> results;

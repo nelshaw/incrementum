@@ -66,6 +66,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     String HabitId;
     String ownTrigger;
     /**************PARAMETERS OF HABIT***************/
+    String email;
 
     @Override
     public void onBackPressed() {
@@ -80,6 +81,11 @@ public class AddHabit2Activity extends AppCompatActivity {
         length = Integer.valueOf(intent.getStringExtra("length"));
         description = intent.getStringExtra("description");
 
+
+        UserInfo user = (UserInfo) getApplication();
+
+        email = user.getEmail();
+        Toast.makeText(this.getBaseContext(),email, Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
@@ -351,7 +357,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                 .append("description",description)
                 .append("Triggers",triggerList)
                 .append("Times",timeList)
-                .append("userId","5e52b0dc1c9d440000a2a03a");
+                .append("email",email);
 
         final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
         ObjectId id = doc.getObjectId("_id");

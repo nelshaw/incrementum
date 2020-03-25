@@ -37,8 +37,11 @@ public class only_hobbies extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_only_hobbies);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+
+
+        UserInfo user = (UserInfo) getApplication();
+
+        username = user.getUserName();
         completeString = "Hobby Stats For " + username;
 
 

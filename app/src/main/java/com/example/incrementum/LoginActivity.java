@@ -147,6 +147,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendData(String email)
     {
+        UserInfo user = (UserInfo) getApplication();
+        user.setEmail(email);
+
+
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.putExtra("email", email);
         startActivity(intent);

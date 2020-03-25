@@ -10,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
@@ -30,12 +32,20 @@ public class ViewHabitActivity extends AppCompatActivity {
     ArrayList<String> habitsId;
     ArrayAdapter<String> adapter;
     Button refresh;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
         ListView list = findViewById(R.id.list);
         habits = new ArrayList<>();
+        Intent intent = getIntent();
+
+        UserInfo user = (UserInfo) getApplication();
+
+        email = user.getEmail();
+
+        Toast.makeText(this.getBaseContext(),email, Toast.LENGTH_LONG).show();
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
@@ -112,9 +122,8 @@ public class ViewHabitActivity extends AppCompatActivity {
             final RemoteMongoCollection<Document> coll =
                     DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
-            Document filterDoc = new Document();
 
-            results = coll.find(filterDoc)
+            results = coll.find(Filters.eq("email", email))
                     .projection(
                             new Document());
 

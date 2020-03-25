@@ -29,8 +29,7 @@ public class only_habits extends AppCompatActivity {
 
     String username;
     String completeString;
-    String userid;
-    ObjectId useroid;
+    String email;
     int counter = 0;
 
     TextView h1;
@@ -49,8 +48,10 @@ public class only_habits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_only_habits);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        UserInfo user = (UserInfo) getApplication();
+        username = user.getUserName();
+        email = user.getEmail();
+
         completeString = "Habit Stats For " + username;
 
         TextView userText = findViewById(R.id.usertext);
@@ -110,24 +111,20 @@ public class only_habits extends AppCompatActivity {
                 Stitch.getAppClient("incrementum-xjkms");
         final RemoteMongoClient mongoClient =
                 client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Users");
-        results = coll.find(Filters.eq("username", username))
-                .projection(
-                        new Document());
-        results.forEach(item -> {
-                Document doc = (Document) item;
-                userid = doc.getObjectId("_id").toString();
-        });
+
+
+
         final RemoteMongoCollection<Document> habitcoll =
                 mongoClient.getDatabase("Incrementum").getCollection("Habits");
-        habitresults = habitcoll.find(Filters.eq("userId", userid))
+        habitresults = habitcoll.find(Filters.eq("email",email))
                 .projection(
                         new Document());
         habitresults.forEach(item -> {
             String name = "";
             try {
+
                 JSONObject obj = new JSONObject(item.toJson());
+                Log.d("**********",obj.toString());
                 name = obj.getString("name");
                 JSONArray triggArr = new JSONArray();
                 triggArr = obj.getJSONArray("Triggers");
@@ -158,12 +155,10 @@ public class only_habits extends AppCompatActivity {
     {
         if(location == 1) {
             Intent intent = new Intent(getApplicationContext(), Hobby_Stats.class);
-            intent.putExtra("username", username);
             startActivity(intent);
         }
         else if(location == 2) {
             Intent intent = new Intent(getApplicationContext(), only_hobbies.class);
-            intent.putExtra("username", username);
             startActivity(intent);
         }
     }

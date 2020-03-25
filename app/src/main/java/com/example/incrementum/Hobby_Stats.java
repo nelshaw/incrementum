@@ -18,9 +18,9 @@ public class Hobby_Stats extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hobby__stats);
 
+        UserInfo user = (UserInfo) getApplication();
+        username = user.getUserName();
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
         completeString = "For " + username;
 
         TextView userText = findViewById(R.id.usertext);
