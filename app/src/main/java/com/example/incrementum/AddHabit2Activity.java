@@ -241,7 +241,9 @@ public class AddHabit2Activity extends AppCompatActivity {
         if(Validate()) {
             Back();
             addHabit();
-            addEmptyCalendarEntry();
+//            addEmptyCalendarEntry();
+//            MyAsyncTask task = new MyAsyncTask();
+//            task.execute();
         }
     }
     public Boolean Validate(){
@@ -262,7 +264,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     //returns user to main menu
     public void Back(){
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
 
@@ -350,10 +352,15 @@ public class AddHabit2Activity extends AppCompatActivity {
         insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
             @Override
             public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                Log.d("before sucess", "mesg");
                 if (task.isSuccessful()){
                     Log.d("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
-                    HabitId = task.getResult().getInsertedId().toString();
+                    String id = task.getResult().getInsertedId().toString();
+                    String id1 = id.split("=")[1];
+                    HabitId = id1.substring(0, id1.length() - 1);
+                    Log.d("Habit id ********", HabitId);
+                    addEmptyCalendarEntry();
                 }
                 else{
                     Log.d("STITCH", "Unsuccessful");
@@ -366,6 +373,8 @@ public class AddHabit2Activity extends AppCompatActivity {
         //connect to collection
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+        Log.d("habit id from calendar", HabitId);
 
         List<String> Days = new ArrayList<>();
 
@@ -389,5 +398,20 @@ public class AddHabit2Activity extends AppCompatActivity {
             }
         });
     }
+
+//    private class MyAsyncTask extends AsyncTask<Void, Void, Void>
+//    {
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            Log.d("in background", "yee");
+//            addHabit();
+//            return null;
+//        }
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            Log.d("in post execute", "hyaaa");
+//            addEmptyCalendarEntry();
+//        }
+//    }
 
 }
