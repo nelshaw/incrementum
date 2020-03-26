@@ -36,57 +36,59 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="388dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="36dp"
         android:gravity="start"
         android:text="Username"
         android:textColor="@color/darkGrey"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
         android:id="@+id/usernameText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="382dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="start"
         android:text="User's_Username_Placeholder"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_width="387dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="60dp"
         android:gravity="start"
         android:text="Email Address"
         android:textColor="@color/darkGrey"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
     <TextView
         android:id="@+id/emailText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="User's_email_placeholder"
         android:textColor="@color/darkGrey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 

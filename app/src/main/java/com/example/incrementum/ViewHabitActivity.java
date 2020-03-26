@@ -31,9 +31,9 @@ public class ViewHabitActivity extends AppCompatActivity {
     ArrayList<String> habits;
     ArrayList<String> habitsId;
     ArrayAdapter<String> adapter;
-    Button refresh;
     String email;
     String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +49,13 @@ public class ViewHabitActivity extends AppCompatActivity {
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sendData(habitsId.get(position));
             }
         });
-
 
         Button addButton = findViewById(R.id.AddHabit);
 

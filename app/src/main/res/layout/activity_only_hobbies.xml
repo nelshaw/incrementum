@@ -20,78 +20,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/mainbutton"
+        android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="44dp"
-        android:text="To Main"
+        android:layout_marginStart="152dp"
+        android:layout_marginBottom="48dp"
+        android:text="to profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/habitbutton"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="44dp"
-        android:text="To Habits"
+        android:layout_marginEnd="292dp"
+        android:layout_marginBottom="192dp"
+        android:text="Add Hobby"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/H1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="96dp"
-        android:text="TextView"
-        android:textColor="#101B04"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="409dp"
+        android:layout_height="276dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="37dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usertext"
-        tools:text="Hobby One: "
-        tools:visibility="invisible" />
+        app:layout_constraintTop_toBottomOf="@+id/usertext" />
 
-    <TextView
-        android:id="@+id/H2"
+    <EditText
+        android:id="@+id/newh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="49dp"
         android:layout_marginTop="60dp"
-        android:text="Hobby Two:"
-        android:textColor="#101B04"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/H1"
-        tools:visibility="invisible" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="i.e. Running"
+        app:layout_constraintStart_toEndOf="@+id/add"
+        app:layout_constraintTop_toBottomOf="@+id/list" />
 
-    <TextView
-        android:id="@+id/H3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:text="Hobby Three:"
-        android:textColor="#101B04"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/H2"
-        tools:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/TH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="84dp"
-        android:text="Total Hobbies:"
-        android:textColor="#101B04"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/H3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
