@@ -194,9 +194,9 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void sendData(String name){
         Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
         //get only habit id
-        String habitId = name.split(":")[1].split("\"")[1];
-        intent.putExtra("habit", habitId);
-        user.setHabitId(habitId);
+//        String habitId = name.split(":")[1].split("\"")[1];
+//        intent.putExtra("habit", habitId);
+        user.setHabitId(name);
         startActivity(intent);
     }
 
