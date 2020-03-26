@@ -1,5 +1,6 @@
 package com.example.incrementum;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +23,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,12 +53,43 @@ public class ViewHabitActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
 
+        Boolean isclick = false;
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sendData(habitsId.get(position));
+
+                    sendData(habitsId.get(position));
             }
         });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getBaseContext(), "want to remove", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ViewHabitActivity.this);
+                dialog.setMessage("Are you sure you want to delete this habit?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    delete(habitsId.get(position));
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                dialog.show();
+                return true;
+            }
+        });
+
 
         Button addButton = findViewById(R.id.AddHabit);
 
@@ -122,7 +156,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                 try{
                     JSONObject obj = new JSONObject(item.toJson());
                     String habit = obj.getString("name");
-                    String _id = obj.getString("_id");
+                    String _id = obj.getJSONObject("_id").getString("$oid");
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
@@ -147,6 +181,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                 {
                     adapter.notifyDataSetChanged();
                 }
+
                 adapter.notifyDataSetChanged();
             });
             super.onPostExecute(aVoid);
@@ -167,5 +202,21 @@ public class ViewHabitActivity extends AppCompatActivity {
         String habitId = name.split(":")[1].split("\"")[1];
         intent.putExtra("habit", habitId);
         startActivity(intent);
+    }
+
+    public void delete(String id) throws InterruptedException {
+
+
+//collection.deleteOne(new Document("_id", new ObjectId("57a49c6c33b10927ff09623e")));
+
+        final RemoteMongoCollection<Document> coll =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
+        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+        coll.deleteOne(new Document("_id",new ObjectId(id)));
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        Thread.sleep(100);
     }
 }
