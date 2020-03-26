@@ -36,6 +36,8 @@ public class ViewHabitActivity extends AppCompatActivity {
     String email;
     String id;
     ListView list;
+    UserInfo user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
         habits = new ArrayList<>();
 
-        UserInfo user = (UserInfo) getApplication();
+        user = (UserInfo) getApplication();
 
         email = user.getEmail();
         id = user.getUserId();
@@ -149,7 +151,6 @@ public class ViewHabitActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(item.toJson());
                     String habit = obj.getString("name");
                     String _id = obj.getJSONObject("_id").getString("$oid");
-                   // String _id = obj.getString("_id");
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
@@ -193,8 +194,9 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void sendData(String name){
         Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
         //get only habit id
-        // habitId = name.split(":")[1].split("\"")[1];
-        intent.putExtra("habit", name);
+        String habitId = name.split(":")[1].split("\"")[1];
+        intent.putExtra("habit", habitId);
+        user.setHabitId(habitId);
         startActivity(intent);
     }
 
@@ -206,7 +208,12 @@ public class ViewHabitActivity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
+        final RemoteMongoCollection<Document> collCalendar =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+        String str = new ObjectId(id).toString();
         coll.deleteOne(new Document("_id",new ObjectId(id)));
+        collCalendar.deleteOne(Filters.eq("Habit_id", str));
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());

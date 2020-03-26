@@ -50,6 +50,7 @@ public class CalendarActivity extends AppCompatActivity {
   String User_id;
   //get habit id from chosen habit
   String _getHabitId;
+  UserInfo user;
 
   static Date dateSelected;
 
@@ -64,8 +65,8 @@ public class CalendarActivity extends AppCompatActivity {
 
     didNotDoHabitDates = new HashSet<>();
     didDoHabitDates = new HashSet<>();
-
-    User_id = LoginActivity.user_id;
+    user = (UserInfo) getApplication();
+    User_id = user.getUserId();
 
     Log.d("********userid****", User_id);
 
@@ -110,6 +111,8 @@ public class CalendarActivity extends AppCompatActivity {
           }
         });
         finish();
+//        Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
+//        intent.putExtra("habit", _getHabitId);
         startActivity(getIntent());
       }
     });
@@ -150,7 +153,6 @@ public class CalendarActivity extends AppCompatActivity {
         } catch (ParseException e) {
           e.printStackTrace();
         }
-
         openAddHabitOccurrenceActivity();
         Log.d("CALENDAR", "date added " + dateSelected);
       }
@@ -226,7 +228,8 @@ public class CalendarActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
 
-      _getHabitId = intent.getStringExtra("habit");
+      //_getHabitId = intent.getStringExtra("habit");
+      _getHabitId = user.getHabitId();
 
       while(true){
         if(_getHabitId != null && !_getHabitId.equals(""))

@@ -7,6 +7,7 @@ public class UserInfo  extends Application {
     private String email;
     private String userName;
     private String userId;
+    private String habitId;
 
 
     public String getUserName() {
@@ -31,5 +32,13 @@ public class UserInfo  extends Application {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getHabitId() {
+        return habitId;
+    }
+
+    public void setHabitId(String habitId) {
+        this.habitId = habitId;
     }
 }

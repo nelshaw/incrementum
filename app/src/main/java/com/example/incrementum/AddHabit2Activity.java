@@ -1,8 +1,5 @@
 package com.example.incrementum;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,35 +8,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.Continuation;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchUser;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateOptions;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class AddHabit2Activity extends AppCompatActivity {
 
@@ -254,6 +241,9 @@ public class AddHabit2Activity extends AppCompatActivity {
         if(Validate()) {
             Back();
             addHabit();
+//            addEmptyCalendarEntry();
+//            MyAsyncTask task = new MyAsyncTask();
+//            task.execute();
         }
     }
     public Boolean Validate(){
@@ -274,7 +264,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     //returns user to main menu
     public void Back(){
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
 
@@ -362,10 +352,45 @@ public class AddHabit2Activity extends AppCompatActivity {
         insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
             @Override
             public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                Log.d("before sucess", "mesg");
                 if (task.isSuccessful()){
                     Log.d("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
-                    HabitId = task.getResult().getInsertedId().toString();
+                    String id = task.getResult().getInsertedId().toString();
+                    String id1 = id.split("=")[1];
+                    HabitId = id1.substring(0, id1.length() - 1);
+                    Log.d("Habit id ********", HabitId);
+                    addEmptyCalendarEntry();
+                }
+                else{
+                    Log.d("STITCH", "Unsuccessful");
+                }
+            }
+        });
+    }
+
+    public void addEmptyCalendarEntry(){
+        //connect to collection
+        final RemoteMongoCollection<Document> coll =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+        Log.d("habit id from calendar", HabitId);
+
+        List<String> Days = new ArrayList<>();
+
+        Document doc = new Document()
+                .append("User_id", id)
+                .append("Habit_id", HabitId)
+                .append("Days", Days);
+
+        final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+        ObjectId id = doc.getObjectId("_id");
+        insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
+            @Override
+            public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                if (task.isSuccessful()){
+                    Log.d("STITCH", String.format("success inserting: %s",
+                            task.getResult().getInsertedId()));
                 }
                 else{
                     Log.d("STITCH", "Unsuccessful");
