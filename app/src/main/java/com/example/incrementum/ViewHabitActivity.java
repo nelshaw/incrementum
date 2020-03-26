@@ -36,6 +36,8 @@ public class ViewHabitActivity extends AppCompatActivity {
     String email;
     String id;
     ListView list;
+    UserInfo user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
         habits = new ArrayList<>();
 
-        UserInfo user = (UserInfo) getApplication();
+        user = (UserInfo) getApplication();
 
         email = user.getEmail();
         id = user.getUserId();
@@ -194,6 +196,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         //get only habit id
         String habitId = name.split(":")[1].split("\"")[1];
         intent.putExtra("habit", habitId);
+        user.setHabitId(habitId);
         startActivity(intent);
     }
 

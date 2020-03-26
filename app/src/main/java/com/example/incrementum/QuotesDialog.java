@@ -27,6 +27,7 @@ public class QuotesDialog extends AppCompatDialogFragment {
 
     // open habits
     public void openHabitActivity(){
+        //Intent intent = new Intent(getActivity(), CalendarActivity.class);
         Intent intent = new Intent(getActivity(), ViewHabitActivity.class);
         startActivity(intent);
     }
