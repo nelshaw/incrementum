@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -48,7 +47,7 @@ public class ViewHabitActivity extends AppCompatActivity {
 
         email = user.getEmail();
         id = user.getUserId();
-        Toast.makeText(this.getBaseContext(),id, Toast.LENGTH_LONG).show();
+
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
@@ -66,7 +65,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), "want to remove", Toast.LENGTH_SHORT).show();
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ViewHabitActivity.this);
                 dialog.setMessage("Are you sure you want to delete this habit?").setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -211,7 +210,7 @@ public class ViewHabitActivity extends AppCompatActivity {
 
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+
         coll.deleteOne(new Document("_id",new ObjectId(id)));
         finish();
         overridePendingTransition(0, 0);
