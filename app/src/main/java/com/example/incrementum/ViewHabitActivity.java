@@ -33,6 +33,7 @@ public class ViewHabitActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     Button refresh;
     String email;
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class ViewHabitActivity extends AppCompatActivity {
         UserInfo user = (UserInfo) getApplication();
 
         email = user.getEmail();
-
+        id = user.getUserId();
         Toast.makeText(this.getBaseContext(),email, Toast.LENGTH_LONG).show();
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
@@ -122,7 +123,7 @@ public class ViewHabitActivity extends AppCompatActivity {
             final RemoteMongoCollection<Document> coll =
                     DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
-            results = coll.find(Filters.eq("email", email))
+            results = coll.find(Filters.eq("userId", id))
                     .projection(
                             new Document());
             super.onPreExecute();

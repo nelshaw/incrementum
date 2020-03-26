@@ -96,8 +96,15 @@ public class LoginActivity extends AppCompatActivity {
                                            public void onComplete(@NonNull final Task<StitchUser> task) {
                                                if (task.isSuccessful()) {
                                                    Log.d("stitch", "Successfully logged in as user " + task.getResult().getId());
+                                                   user_id = task.getResult().getId();
+                                                   UserInfo user = (UserInfo) getApplication();
+                                                   user.setUserId(task.getResult().getId());
+                                                   user_id = task.getResult().getId();
                                                    onLoginSuccess(email);
                                                    user_id = task.getResult().getId();
+
+                                                   user.setUserId(task.getResult().getId());
+
                                                } else {
                                                    Log.e("stitch", "Error logging in with email/password auth:", task.getException());
                                                    progressDialog.dismiss();
@@ -149,11 +156,8 @@ public class LoginActivity extends AppCompatActivity {
     {
         UserInfo user = (UserInfo) getApplication();
         user.setEmail(email);
-
-
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.putExtra("email", email);
-        startActivity(intent);
+        user.setUserId(user_id);
+        Toast.makeText(this.getBaseContext(),user_id, Toast.LENGTH_LONG).show();
     }
 
     public void onLoginFailed() {
