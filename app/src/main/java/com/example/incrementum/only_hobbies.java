@@ -1,7 +1,9 @@
 package com.example.incrementum;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -65,17 +67,39 @@ public class only_hobbies extends AppCompatActivity {
 
         TextView userText = findViewById(R.id.usertext);
         userText.setText(completeString);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                try {
-                    delete(hobbies.get(position));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(only_hobbies.this);
+                dialog.setMessage("Are you sure you want to delete this hobby?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    delete(hobbies.get(position));
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                dialog.show();
+                return true;
             }
         });
+
+
+
+
+
+
 
 
         final Button backButton = findViewById(R.id.profile);

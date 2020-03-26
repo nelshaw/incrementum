@@ -85,7 +85,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                 return true;
             }
         });
-        
+
         Button addButton = findViewById(R.id.AddHabit);
 
         addButton.setOnClickListener(new View.OnClickListener() {
