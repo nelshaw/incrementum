@@ -52,12 +52,9 @@ public class ViewHabitActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
 
-        Boolean isclick = false;
-
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                     sendData(habitsId.get(position));
             }
         });
@@ -88,8 +85,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
+        
         Button addButton = findViewById(R.id.AddHabit);
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -98,11 +94,8 @@ public class ViewHabitActivity extends AppCompatActivity {
                 openAddHabitActivity();
             }
         });
-
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
-        //getHabits();
-
         //Initalize and Assign Value
         BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
 
