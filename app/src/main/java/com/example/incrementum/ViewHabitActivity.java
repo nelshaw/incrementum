@@ -149,6 +149,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(item.toJson());
                     String habit = obj.getString("name");
                     String _id = obj.getJSONObject("_id").getString("$oid");
+                   // String _id = obj.getString("_id");
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
@@ -192,8 +193,8 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void sendData(String name){
         Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
         //get only habit id
-        String habitId = name.split(":")[1].split("\"")[1];
-        intent.putExtra("habit", habitId);
+        // habitId = name.split(":")[1].split("\"")[1];
+        intent.putExtra("habit", name);
         startActivity(intent);
     }
 
