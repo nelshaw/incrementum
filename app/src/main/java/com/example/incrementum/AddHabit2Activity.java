@@ -73,6 +73,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

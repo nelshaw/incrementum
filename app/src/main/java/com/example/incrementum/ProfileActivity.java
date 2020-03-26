@@ -32,6 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
   String email;
   Button refresh;
 
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,21 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         openAnalysis();
         sendData(userName);
         finish();
-      }
-    });
-
-
-    refresh = findViewById(R.id.refresh);
-    refresh.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
       }
     });
 
@@ -113,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
   }
 
   public void openAnalysis() {
-    Intent intent = new Intent(this, Hobby_Stats.class);
+    Intent intent = new Intent(this, only_hobbies.class);
     startActivity(intent);
   }
 
