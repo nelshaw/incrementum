@@ -38,7 +38,6 @@ public class only_hobbies extends AppCompatActivity {
         setContentView(R.layout.activity_only_hobbies);
 
 
-
         UserInfo user = (UserInfo) getApplication();
 
         username = user.getUserName();

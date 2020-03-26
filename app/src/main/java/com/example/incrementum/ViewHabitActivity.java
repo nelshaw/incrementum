@@ -122,11 +122,9 @@ public class ViewHabitActivity extends AppCompatActivity {
             final RemoteMongoCollection<Document> coll =
                     DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
-
             results = coll.find(Filters.eq("email", email))
                     .projection(
                             new Document());
-
             super.onPreExecute();
         }
         @Override
