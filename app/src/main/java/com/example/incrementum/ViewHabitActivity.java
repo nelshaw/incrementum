@@ -40,13 +40,12 @@ public class ViewHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_habit);
         ListView list = findViewById(R.id.list);
         habits = new ArrayList<>();
-        Intent intent = getIntent();
 
         UserInfo user = (UserInfo) getApplication();
 
         email = user.getEmail();
         id = user.getUserId();
-        Toast.makeText(this.getBaseContext(),email, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getBaseContext(),id, Toast.LENGTH_LONG).show();
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
