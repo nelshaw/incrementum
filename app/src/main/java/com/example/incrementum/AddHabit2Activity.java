@@ -116,7 +116,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeMorning = true;
                     } else {
-                        morning.setBackgroundColor(Color.rgb(241, 226, 134));
+                        morning.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeMorning = false;
                     }
@@ -131,7 +131,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeEvening = true;
                     } else {
-                        evening.setBackgroundColor(Color.rgb(241, 226, 134));
+                        evening.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeEvening = false;
                     }
@@ -146,7 +146,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeAfternoon = true;
                     } else {
-                        af.setBackgroundColor(Color.rgb(241, 226, 134));
+                        af.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeAfternoon = false;
                     }

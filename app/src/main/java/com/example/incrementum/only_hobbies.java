@@ -68,7 +68,7 @@ public class only_hobbies extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),hobbies.get(position), Toast.LENGTH_LONG).show();
+
                 try {
                     delete(hobbies.get(position));
                 } catch (InterruptedException e) {
