@@ -169,10 +169,11 @@ public class ViewHabitActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                while(list.getItemAtPosition(0)==null)
-                {
-                    adapter.notifyDataSetChanged();
-                }
+//                while(list.getItemAtPosition(0)==null)
+//                {
+//                    adapter.notifyDataSetChanged();
+//
+//                }
 
                 adapter.notifyDataSetChanged();
             });

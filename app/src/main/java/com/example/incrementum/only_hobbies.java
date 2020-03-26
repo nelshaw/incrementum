@@ -95,13 +95,6 @@ public class only_hobbies extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
         final Button backButton = findViewById(R.id.profile);
         final Button addButton = findViewById(R.id.add);
 
