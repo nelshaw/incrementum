@@ -33,12 +33,12 @@ public class ViewHabitActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String email;
     String id;
-
+    ListView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
-        ListView list = findViewById(R.id.list);
+        list = findViewById(R.id.list);
         habits = new ArrayList<>();
 
         UserInfo user = (UserInfo) getApplication();
@@ -141,6 +141,11 @@ public class ViewHabitActivity extends AppCompatActivity {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+
+                while(list.getItemAtPosition(0)==null)
+                {
+                    adapter.notifyDataSetChanged();
                 }
                 adapter.notifyDataSetChanged();
             });
