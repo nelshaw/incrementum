@@ -355,7 +355,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                 .append("description",description)
                 .append("Triggers",triggerList)
                 .append("Times",timeList)
-                .append("id",id);
+                .append("userId",id);
         final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
         ObjectId id = doc.getObjectId("_id");
         insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
