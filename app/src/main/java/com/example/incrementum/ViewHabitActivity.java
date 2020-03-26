@@ -213,7 +213,7 @@ public class ViewHabitActivity extends AppCompatActivity {
 
         String str = new ObjectId(id).toString();
         coll.deleteOne(new Document("_id",new ObjectId(id)));
-        collCalendar.deleteOne(Filters.eq("Habit_id", "str"));
+        collCalendar.deleteOne(Filters.eq("Habit_id", str));
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
