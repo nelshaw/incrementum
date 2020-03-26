@@ -208,7 +208,12 @@ public class ViewHabitActivity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
+        final RemoteMongoCollection<Document> collCalendar =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+        String str = new ObjectId(id).toString();
         coll.deleteOne(new Document("_id",new ObjectId(id)));
+        collCalendar.deleteOne(Filters.eq("Habit_id", "str"));
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
