@@ -198,13 +198,8 @@ public class only_hobbies extends AppCompatActivity {
 
         Hobby temp = new Hobby(hobby.getText().toString(),0);
 
-
-
         Document update = new Document().append("$push",new Document()
         .append("hobbies",hobby.getText().toString()));
-
-
-
 
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Users");

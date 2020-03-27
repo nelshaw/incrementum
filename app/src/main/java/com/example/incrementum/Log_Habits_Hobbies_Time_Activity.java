@@ -20,10 +20,12 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
 
 import java.security.Key;
+import java.util.ArrayList;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -42,7 +44,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
     String email;
     String username;
     String password;
-
+    ArrayList<String> empty = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +55,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         email = intent.getStringExtra("email");
         password = intent.getStringExtra("password");
 
-        insertUser(username, email, password);
-
-
-
-
+        
         EnterButton = findViewById(R.id.addHabitsHobbiesTimeButton);
         HobbyText = findViewById(R.id.editText5);
         startTimeText = findViewById(R.id.start);
@@ -68,12 +66,12 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
                 openHabitActivity();
             }
         });
-
     }
 
     public void openHabitActivity(){
-        Intent intent = new Intent(this, AddHabitActivity.class);
-        getAllEntries();
+        Intent intent = new Intent(this, LoginActivity.class);
+        Toast.makeText(this.getBaseContext(),"Please verify the email " + email, Toast.LENGTH_LONG).show();
+        insertUser(username, email, password);
         startActivity(intent);
     }
 
@@ -96,10 +94,15 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        empty.add(HobbyText.getText().toString());
+
         Document doc = new Document()
                 .append("username", user_name)
                 .append("email", e_mail)
-                .append("password", pass_word);
+                .append("password", pass_word)
+                .append("hobbies", empty)
+                .append("sensitive_time_start",startTimeText.getText().toString())
+                .append("sensitive_time_end",endTimeText.getText().toString());
 
         final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
 
@@ -109,6 +112,9 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.i("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
+                    UserInfo user = (UserInfo) getApplication();
+                    user.setUserId(task.getResult().getInsertedId().toString().split("=")[1].replace('}',' ').trim());
+                    Log.d("**S*DS*J*SJD*",user.getUserId());
                 }
             }
         });
@@ -145,33 +151,5 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         return key;
     }
 
-    public void getAllEntries(){
-
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Users");
-
-        Document doc = new Document()
-                .append("sensitive_time_start", startTimeText.getText().toString())
-                .append("sensitive_time_end", endTimeText.getText().toString())
-                .append("hobbies", HobbyText.getText().toString());
-
-    final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
-
-    insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
-      @Override
-      public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
-        if (task.isSuccessful()){
-          Log.d("STITCH", String.format("success inserting: %s",
-            task.getResult().getInsertedId()));
-        }
-      }
-    });
-    }
 
 }

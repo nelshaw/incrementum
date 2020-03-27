@@ -29,29 +29,21 @@ public class MapActivity extends AppCompatActivity {
   String User_id;
   String _getHabitId;
   JSONArray days;
-final RemoteMongoCollection<Document> coll = DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+  UserInfo user;
+  final RemoteMongoCollection<Document> coll = DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
 
 private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
         RemoteFindIterable<Document> results;
 
-        String User_id = "5e6abd7138934479544899f8";
-//        String _getHabitId = "5e65ba9a1c9d440000d8a29d";
-
         @Override
         protected void onPreExecute() {
             Log.d("PRE","************************************");
-
-            Intent intent = getIntent();
-
-            _getHabitId = "5e65ba9a1c9d440000d8a29d";//intent.getStringExtra("habit");
-
-//            while(true){
-//                if(_getHabitId != null && !_getHabitId.equals(""))
-//                    break;
-//            }
-
+            _getHabitId = user.getHabitId();
+            while(true){
+                if(_getHabitId != null && !_getHabitId.equals(""))
+                    break;
+            }
             Log.d("Habit id*****", _getHabitId);
-
             super.onPreExecute();
         }
         @Override
@@ -64,7 +56,7 @@ private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
                     .append("Habit_id", _getHabitId);
 
             //find all documents
-            results = coll.find(new Document())
+            results = coll.find(filterDoc)
                     .projection(
                             new Document()
                                     .append("_id", 0)
@@ -163,9 +155,8 @@ private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
     map = findViewById(R.id.map);
 
     nDays = 1;
-//    map.setImageDrawable(getResources().getDrawable(R.drawable.map1));
-//    User_id = "5e587cbed6292c4d1074b5d8"; //LoginActivity.user_id;
-//    _getHabitId = "5e65ba9a1c9d440000d8a29d";
+    user = (UserInfo) getApplication();
+    User_id = user.getUserId();//    _getHabitId = "5e65ba9a1c9d440000d8a29d";
 //
     //connect to collection
     DatabaseLoad load = new DatabaseLoad();
