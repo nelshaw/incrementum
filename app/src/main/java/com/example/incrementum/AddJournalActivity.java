@@ -1,5 +1,6 @@
 package com.example.incrementum;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -175,7 +177,13 @@ public class AddJournalActivity extends AppCompatActivity {
     saveBtn.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-          openViewJournalActivity();
+          if(!isEntryEmpty()) openViewJournalActivity();
+          else{
+            CharSequence text = "Unable to add an empty journal entry... \nTry again.";
+
+            Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+            toast.show();
+          }
         }
       });
 
@@ -255,5 +263,13 @@ public class AddJournalActivity extends AppCompatActivity {
         }
       }
     });
+  }
+
+  public boolean isEntryEmpty(){
+    if(entry.getText().toString().isEmpty() || entry.getText().toString().equals("")){
+      Log.d("JOURNAL", "Unable to add an empty journal");
+      return true;
+    }
+    return false;
   }
 }
