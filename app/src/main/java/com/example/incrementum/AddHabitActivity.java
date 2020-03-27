@@ -27,6 +27,12 @@ public class AddHabitActivity extends AppCompatActivity {
     private EditText description;
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewHabitActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);

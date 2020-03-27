@@ -32,6 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
   String email;
   Button refresh;
 
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -39,26 +41,25 @@ public class ProfileActivity extends AppCompatActivity {
     _emailText = findViewById(R.id.emailText);
     _emailText.setText(email);
 
-    refresh = findViewById(R.id.refresh);
-    refresh.setOnClickListener(new View.OnClickListener() {
+    final Button analButton = findViewById(R.id.analbutton);
 
+    analButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+          userName = _userText.getText().toString();
+        openAnalysis();
+        sendData(userName);
         finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
       }
     });
 
     _emailText = findViewById(R.id.emailText);
     _userText = findViewById(R.id.usernameText);
     _userText.setText("");
-    Intent intent = getIntent();
-    email = intent.getStringExtra("email");
-    Toast.makeText(getBaseContext(), email, Toast.LENGTH_LONG).show();
+
+    UserInfo user = (UserInfo) getApplication();
+    email = user.getEmail();
+
     _emailText.setText(email);
     getData();
     if (_userText.length() == 0) {
@@ -96,9 +97,18 @@ public class ProfileActivity extends AppCompatActivity {
       }
     });
 
-
   }
 
+  public void openAnalysis() {
+    Intent intent = new Intent(this, only_hobbies.class);
+    startActivity(intent);
+  }
+
+  public void sendData(String username)
+  {
+    UserInfo user = (UserInfo) getApplication();
+    user.setUserName(username);
+  }
 
   public void getData() {
     RemoteFindIterable<Document> results;

@@ -3,13 +3,17 @@
     package="com.example.incrementum">
 
     <application
+        android:name=".UserInfo"
         android:allowBackup="true"
         android:icon="@mipmap/incrementum"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/incrementum_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewAHabit"></activity>
+        <activity android:name=".only_habits" />
+        <activity android:name=".only_hobbies" />
+        <activity android:name=".ViewAHabit" />
+        <activity android:name=".Hobby_Stats" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddHabitOccurrenceActivity" />
         <activity android:name=".CalendarActivity" />

@@ -15,11 +15,21 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mongodb.client.model.Filters;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.auth.StitchUser;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.userpassword.UserPasswordCredential;
 import com.mongodb.stitch.android.core.auth.providers.userpassword.UserPasswordAuthProviderClient;
+
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -95,9 +105,29 @@ public class LoginActivity extends AppCompatActivity {
                                            @Override
                                            public void onComplete(@NonNull final Task<StitchUser> task) {
                                                if (task.isSuccessful()) {
-                                                   Log.d("stitch", "Successfully logged in as user " + task.getResult().getId());
+                                                   RemoteFindIterable<Document> results;
+                                                   final StitchAppClient client =
+                                                           Stitch.getAppClient("incrementum-xjkms");
+                                                   final RemoteMongoClient mongoClient =
+                                                           client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+                                                   final RemoteMongoCollection<Document> coll =
+                                                           mongoClient.getDatabase("Incrementum").getCollection("Users");
+                                                   results = coll.find(Filters.eq("email", email))
+                                                           .projection(
+                                                                   new Document());
+                                                   results.forEach(item -> {
+                                                       try {
+                                                           JSONObject obj = new JSONObject(item.toJson());
+                                                           UserInfo user = (UserInfo) getApplication();
+                                                           user_id =  obj.getJSONObject("_id").getString("$oid");
+                                                           user.setUserId(user_id);
+                                                           Log.d("*******",user_id);
+                                                       } catch (JSONException e) {
+                                                           Log.d("JSON exception:", e.toString());
+                                                       }
+                                                   });
+
                                                    onLoginSuccess(email);
-                                                   user_id = task.getResult().getId();
                                                } else {
                                                    Log.e("stitch", "Error logging in with email/password auth:", task.getException());
                                                    progressDialog.dismiss();
@@ -147,9 +177,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendData(String email)
     {
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.putExtra("email", email);
-        startActivity(intent);
+        UserInfo user = (UserInfo) getApplication();
+        user.setEmail(email);
+        user.setUserId(user_id);
+        Toast.makeText(this.getBaseContext(),user_id, Toast.LENGTH_LONG).show();
     }
 
     public void onLoginFailed() {
