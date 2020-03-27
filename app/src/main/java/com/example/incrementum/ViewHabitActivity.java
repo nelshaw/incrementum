@@ -64,26 +64,9 @@ public class ViewHabitActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                AlertDialog.Builder dialog = new AlertDialog.Builder(ViewHabitActivity.this);
-                dialog.setMessage("Are you sure you want to delete this habit?").setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    delete(habitsId.get(position));
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                dialog.show();
+                user.setHabitId(habitsId.get(position));
+                Intent intent = new Intent(getBaseContext(), ViewAHabit.class);
+                startActivity(intent);
                 return true;
             }
         });
@@ -154,6 +137,7 @@ public class ViewHabitActivity extends AppCompatActivity {
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
+
                     Log.d("*************",_id);
                 }
                 catch(JSONException e){
@@ -170,13 +154,10 @@ public class ViewHabitActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-//                while(list.getItemAtPosition(0)==null)
+//               while(list.getItemAtPosition(0)==null)
 //                {
 //                    adapter.notifyDataSetChanged();
-//
 //                }
-
                 adapter.notifyDataSetChanged();
             });
             super.onPostExecute(aVoid);
@@ -203,19 +184,24 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void delete(String id) throws InterruptedException {
 
 
-        final RemoteMongoCollection<Document> coll =
-                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
+//        final RemoteMongoCollection<Document> coll =
+//                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
+//
+//        final RemoteMongoCollection<Document> collCalendar =
+//                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+//
+//
+//
+//        String str = new ObjectId(id).toString();
+//        coll.deleteOne(new Document("_id",new ObjectId(id)));
+//        collCalendar.deleteOne(Filters.eq("Habit_id", str));
+//        finish();
+//        overridePendingTransition(0, 0);
+//        startActivity(getIntent());
+//        overridePendingTransition(0, 0);
+//        Thread.sleep(100);
+        Intent intent = new Intent(this, ViewAHabit.class);
+        startActivity(intent);
 
-        final RemoteMongoCollection<Document> collCalendar =
-                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
-
-        String str = new ObjectId(id).toString();
-        coll.deleteOne(new Document("_id",new ObjectId(id)));
-        collCalendar.deleteOne(Filters.eq("Habit_id", str));
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-        Thread.sleep(100);
     }
 }

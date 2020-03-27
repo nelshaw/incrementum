@@ -10,11 +10,10 @@
         android:roundIcon="@mipmap/incrementum_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        android:theme="@style/Theme.AppCompat.Light"
-        <activity android:name=".only_habits"></activity>
+        <activity android:name=".only_habits" />
         <activity android:name=".only_hobbies" />
-        <activity android:name=".Hobby_Stats" />
         <activity android:name=".ViewAHabit" />
+        <activity android:name=".Hobby_Stats" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddHabitOccurrenceActivity" />
         <activity android:name=".CalendarActivity" />
