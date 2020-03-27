@@ -78,7 +78,6 @@ public class AddHabit2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
-        userIn = findViewById(R.id.triggerown);
         ownTrigger = userIn.getText().toString();
         //trigger buttons
         final ToggleButton location = findViewById(R.id.location);
@@ -313,10 +312,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         {
             triggerList.add("Location");
         }
-        if(ownTrigger!="")
-        {
-            triggerList.add(userIn.toString());
-        }
+
         //times
 //        boolean timeMorning = false;
 //        boolean timeEvening = false;
@@ -342,7 +338,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         }
         Document doc = new Document()
                 .append("name", name)
-                .append("length",length)
+                .append("length",length*14)
                 .append("description",description)
                 .append("Triggers",triggerList)
                 .append("Times",timeList)
