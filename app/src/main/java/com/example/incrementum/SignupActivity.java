@@ -133,34 +133,6 @@ public class SignupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void insertUser(String user_name, String e_mail, String pass_word) {
-
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-        final RemoteMongoCollection<Document> coll =
-                mongoClient.getDatabase("Incrementum").getCollection("Users");
-
-        Document doc = new Document()
-                .append("username", user_name)
-                .append("email", e_mail)
-                .append("password", pass_word);
-
-        final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
-
-        insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
-            @Override
-            public void onComplete(@androidx.annotation.NonNull Task<RemoteInsertOneResult> task) {
-                if (task.isSuccessful()){
-                    Log.i("STITCH", String.format("success inserting: %s",
-                            task.getResult().getInsertedId()));
-                }
-            }
-        });
-    }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();

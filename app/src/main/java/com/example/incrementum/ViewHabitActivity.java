@@ -203,8 +203,6 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void delete(String id) throws InterruptedException {
 
 
-//collection.deleteOne(new Document("_id", new ObjectId("57a49c6c33b10927ff09623e")));
-
         final RemoteMongoCollection<Document> coll =
                 DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
