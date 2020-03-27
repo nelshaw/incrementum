@@ -78,7 +78,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
-        ownTrigger = userIn.getText().toString();
+        
         //trigger buttons
         final ToggleButton location = findViewById(R.id.location);
         final ToggleButton pe = findViewById(R.id.pe);
