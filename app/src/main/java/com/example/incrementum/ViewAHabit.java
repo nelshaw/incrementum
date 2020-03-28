@@ -67,11 +67,16 @@ public class ViewAHabit extends AppCompatActivity {
     String id;
     TextView descriptionText;
     String description;
-
+    int length;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_a_habit);
         UserInfo user = (UserInfo) getApplication();
@@ -97,7 +102,19 @@ public class ViewAHabit extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getBaseContext(),"Cannot delete habit because minimum tracking length has not been met.", Toast.LENGTH_LONG).show();
+                                if(length==0)
+                                {
+
+                                    try {
+                                        delete(id);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                else{
+                                    Toast.makeText(getBaseContext(),"Cannot delete habit because minimum tracking length has not been met.", Toast.LENGTH_LONG).show();
+                                }
+
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -148,6 +165,7 @@ public class ViewAHabit extends AppCompatActivity {
                     name.setText(habitName);
                     description = obj.getString("description");
                     descriptionText.setText(description);
+                    length = Integer.parseInt(obj.getString("length"));
                     ArrayList<String> tempTriggers = new ArrayList<String>();
                     for(int i =0;i<triggerlist.length();i++)
                     {
@@ -178,10 +196,41 @@ public class ViewAHabit extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             runOnUiThread(() -> {   Log.d("POST","************************************");
+
                 name.setText(habitName);
                 descriptionText.setText(description);
             });
             super.onPostExecute(aVoid);
         }
     }
+
+    public void delete(String id) throws InterruptedException {
+
+
+        final RemoteMongoCollection<Document> coll =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
+
+        final RemoteMongoCollection<Document> collCalendar =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+
+        String str = new ObjectId(id).toString();
+        coll.deleteOne(new Document("_id",new ObjectId(id)));
+        collCalendar.deleteOne(Filters.eq("Habit_id", str));
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        Thread.sleep(100);
+        Intent intent = new Intent(this, ViewHabitActivity.class);
+        startActivity(intent);
+
+    }
+
+
+
+
+
+
+
 }
