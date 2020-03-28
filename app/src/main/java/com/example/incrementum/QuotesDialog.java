@@ -5,22 +5,29 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class QuotesDialog extends AppCompatDialogFragment {
 
-    private String quote;
-    HabitEffectActivity.Type type;
+  public enum Type{
+    NEGATIVE,
+    POSITIVE,
+    CALENDAR
+  }
+
+  private String quote;
+  public Type type;
     //HabitEffectActivity habit;
 
-    QuotesDialog(HabitEffectActivity.Type type, String quote){
+    QuotesDialog(Type type, String quote){
         this.quote = quote;
         this.type = type;
     }
 
     // open journal
-    public void openJournalActivity(){
+    public void openAddJournalActivity(){
         Intent intent = new Intent(getActivity(), AddJournalActivity.class);
         startActivity(intent);
     }
@@ -32,7 +39,13 @@ public class QuotesDialog extends AppCompatDialogFragment {
         startActivity(intent);
     }
 
-    @Override
+  // open calendar
+  public void openCalendarActivity() {
+    Intent intent = new Intent(getActivity(), CalendarActivity.class);
+    startActivity(intent);
+  }
+
+  @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
         //habit = new HabitEffectActivity();
@@ -47,10 +60,17 @@ public class QuotesDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        if(type == HabitEffectActivity.Type.NEGATIVE)
-                            openJournalActivity();
-                        else
-                            openHabitActivity();
+                      switch(type){
+                        case NEGATIVE:
+                          openAddJournalActivity();
+                          break;
+                        case POSITIVE:
+                          openHabitActivity();
+                          break;
+                        case CALENDAR:
+                          Log.d("DIALOG", "calendar opened");
+                          break;
+                      }
                     }
                 });
 
