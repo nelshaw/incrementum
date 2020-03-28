@@ -41,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
     _emailText = findViewById(R.id.emailText);
     _emailText.setText(email);
 
+    final Button logout = findViewById(R.id.logout_b);
+
     final Button analButton = findViewById(R.id.analbutton);
 
     analButton.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,16 @@ public class ProfileActivity extends AppCompatActivity {
         openAnalysis();
         sendData(userName);
         finish();
+      }
+    });
+
+    logout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        UserInfo user2 = (UserInfo) getApplication();
+        user2.clear();
+        startActivity(new Intent(getApplicationContext()
+                , LoginActivity.class));
       }
     });
 
