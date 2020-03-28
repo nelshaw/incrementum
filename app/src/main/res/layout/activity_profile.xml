@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true">
 
   <LinearLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/linearLayout"
       android:layout_width="fill_parent"
       android:layout_height="674dp"
@@ -37,6 +38,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:text="User's Profile"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -70,6 +81,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="388dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="36dp"
         android:gravity="start"
         android:text="Username"
         android:textColor="@color/darkGrey"
@@ -92,6 +114,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="382dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:gravity="start"
+        android:text="User's_Username_Placeholder"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="387dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="60dp"
         android:gravity="start"
         android:text="Email Address"
         android:textColor="@color/darkGrey"
@@ -108,8 +155,47 @@
         android:textColor="@color/darkGrey"
         android:textSize="16sp" />
 
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
-  </LinearLayout>
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_width="385dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="User's_email_placeholder"
+        android:textColor="@color/darkGrey"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <Button
+        android:id="@+id/analbutton"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="92dp"
+        android:text="View Hobbies and Stats"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logout_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="92dp"
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/analbutton" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_navigation2"

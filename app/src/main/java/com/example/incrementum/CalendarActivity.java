@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.incrementum.QuotesDialog.Type;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,15 +44,18 @@ public class CalendarActivity extends AppCompatActivity {
   ImageButton didButton;
 
   //test values
-  //String User_id = "5e587cbed6292c4d1074b5d8";
-  //String Habit_id = "5e65ba9a1c9d440000d8a29d";
+//  String User_id = "5e587cbed6292c4d1074b5d8";
+//  String Habit_id = "5e65ba9a1c9d440000d8a29d";
 
   //get user id from login
   String User_id;
   //get habit id from chosen habit
   String _getHabitId;
+  UserInfo user;
 
   static Date dateSelected;
+
+  Type type = Type.POSITIVE;
 
   //connect to collection
   final RemoteMongoCollection<Document> coll =
@@ -64,8 +68,8 @@ public class CalendarActivity extends AppCompatActivity {
 
     didNotDoHabitDates = new HashSet<>();
     didDoHabitDates = new HashSet<>();
-
-    User_id = LoginActivity.user_id;
+    user = (UserInfo) getApplication();
+    User_id = user.getUserId();
 
     Log.d("********userid****", User_id);
 
@@ -90,6 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         Document query = new Document()
           .append("User_id", User_id)
+//          .append("Habit_id", Habit_id);
           .append("Habit_id", _getHabitId);
 
         Document dayStatus = new Document()
@@ -110,6 +115,8 @@ public class CalendarActivity extends AppCompatActivity {
           }
         });
         finish();
+//        Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
+//        intent.putExtra("habit", _getHabitId);
         startActivity(getIntent());
       }
     });
@@ -123,6 +130,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         Document query = new Document()
           .append("User_id", User_id)
+//          .append("Habit_id", Habit_id);
           .append("Habit_id", _getHabitId);
 
         Document dayStatus = new Document()
@@ -150,11 +158,11 @@ public class CalendarActivity extends AppCompatActivity {
         } catch (ParseException e) {
           e.printStackTrace();
         }
-
         openAddHabitOccurrenceActivity();
         Log.d("CALENDAR", "date added " + dateSelected);
       }
     });
+
     //Initalize and Assign Value
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -226,9 +234,11 @@ public class CalendarActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
 
-      _getHabitId = intent.getStringExtra("habit");
+      //_getHabitId = intent.getStringExtra("habit");
+      _getHabitId = user.getHabitId();
 
       while(true){
+//        if(Habit_id != null && !Habit_id.equals(""))
         if(_getHabitId != null && !_getHabitId.equals(""))
           break;
       }
@@ -243,6 +253,7 @@ public class CalendarActivity extends AppCompatActivity {
 
       Document filterDoc = new Document()
               .append("User_id", User_id)
+//              .append("Habit_id", Habit_id);
               .append("Habit_id", _getHabitId);
 
       //find all documents
@@ -296,6 +307,9 @@ public class CalendarActivity extends AppCompatActivity {
 
       calendarView.setSelectedDate(CalendarDay.today());
 
+      // check if today has an entry
+      entryForTodayExists();
+
       super.onPostExecute(aVoid);
     }
   }
@@ -304,5 +318,23 @@ public class CalendarActivity extends AppCompatActivity {
   public void openAddHabitOccurrenceActivity() {
     Intent intent = new Intent(this, AddHabitOccurrenceActivity.class);
     startActivity(intent);
+  }
+
+  public void openDialog(Type type, String quote){
+    QuotesDialog dialog = new QuotesDialog(type, quote);
+    dialog.show(getSupportFragmentManager(), "exampleDialog");
+    dialog.setCancelable(false);
+  }
+
+  public void entryForTodayExists(){
+    CalendarDay date = CalendarDay.today();
+
+    if(didDoHabitDates.contains(date) || didNotDoHabitDates.contains(date)){
+      // do not do anything
+    }
+    else {
+      openDialog(Type.CALENDAR, "You have not filled out an entry for today. \nPress ok to add an entry.");
+    }
+
   }
 }

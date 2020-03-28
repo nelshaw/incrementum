@@ -47,6 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
 
   private static final int PERMISSION_REQUEST = 0;
   private static final int RESULT_LOAD_IMAGE = 1;
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -75,26 +77,37 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    refresh = findViewById(R.id.refresh);
-    refresh.setOnClickListener(new View.OnClickListener() {
+    final Button logout = findViewById(R.id.logout_b);
 
+    final Button analButton = findViewById(R.id.analbutton);
+
+    analButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        userName = _userText.getText().toString();
+        openAnalysis();
+        sendData(userName);
         finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
+      }
+    });
+
+    logout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        UserInfo user2 = (UserInfo) getApplication();
+        user2.clear();
+        startActivity(new Intent(getApplicationContext()
+                , LoginActivity.class));
       }
     });
 
     _emailText = findViewById(R.id.emailText);
     _userText = findViewById(R.id.usernameText);
     _userText.setText("");
-    Intent intent = getIntent();
-    email = intent.getStringExtra("email");
-    Toast.makeText(getBaseContext(), email, Toast.LENGTH_LONG).show();
+
+    UserInfo user = (UserInfo) getApplication();
+    email = user.getEmail();
+
     _emailText.setText(email);
     getData();
     if (_userText.length() == 0) {
@@ -132,9 +145,18 @@ public class ProfileActivity extends AppCompatActivity {
       }
     });
 
-
   }
 
+  public void openAnalysis() {
+    Intent intent = new Intent(this, only_hobbies.class);
+    startActivity(intent);
+  }
+
+  public void sendData(String username)
+  {
+    UserInfo user = (UserInfo) getApplication();
+    user.setUserName(username);
+  }
 
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -188,6 +210,7 @@ public class ProfileActivity extends AppCompatActivity {
         userName = obj.getString("username");
         Log.d("USERNAMEEEEEEEEEEEEEE", userName);
         _userText.setText(userName);
+        sendData(userName);
       } catch (JSONException e) {
         Log.d("JSON exception:", e.toString());
       }

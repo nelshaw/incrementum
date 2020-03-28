@@ -1,5 +1,6 @@
 package com.example.incrementum;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,13 +13,16 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,33 +33,41 @@ public class ViewHabitActivity extends AppCompatActivity {
     ArrayList<String> habits;
     ArrayList<String> habitsId;
     ArrayAdapter<String> adapter;
-    Button refresh;
+    String email;
+    String id;
+    ListView list;
+    UserInfo user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_habit);
-        ListView list = findViewById(R.id.list);
+        list = findViewById(R.id.list);
         habits = new ArrayList<>();
+
+        user = (UserInfo) getApplication();
+
+        email = user.getEmail();
+        id = user.getUserId();
+
         habitsId = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,habits);
         list.setAdapter(adapter);
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sendData(habitsId.get(position));
+                    sendData(habitsId.get(position));
             }
         });
-        refresh = findViewById(R.id.refresh);
-        refresh.setOnClickListener(new View.OnClickListener() {
 
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                overridePendingTransition(0, 0);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-                overridePendingTransition(0, 0);
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                user.setHabitId(habitsId.get(position));
+                Intent intent = new Intent(getBaseContext(), ViewAHabit.class);
                 startActivity(intent);
+                return true;
             }
         });
 
@@ -67,11 +79,8 @@ public class ViewHabitActivity extends AppCompatActivity {
                 openAddHabitActivity();
             }
         });
-
         DatabaseLoad load = new DatabaseLoad();
         load.execute();
-        //getHabits();
-
         //Initalize and Assign Value
         BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
 
@@ -112,12 +121,9 @@ public class ViewHabitActivity extends AppCompatActivity {
             final RemoteMongoCollection<Document> coll =
                     DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
 
-            Document filterDoc = new Document();
-
-            results = coll.find(filterDoc)
+            results = coll.find(Filters.eq("userId", id))
                     .projection(
                             new Document());
-
             super.onPreExecute();
         }
         @Override
@@ -127,10 +133,11 @@ public class ViewHabitActivity extends AppCompatActivity {
                 try{
                     JSONObject obj = new JSONObject(item.toJson());
                     String habit = obj.getString("name");
-                    String _id = obj.getString("_id");
+                    String _id = obj.getJSONObject("_id").getString("$oid");
                     Log.d("*************",obj.toString());
                     habits.add(habit);
                     habitsId.add(_id);
+
                     Log.d("*************",_id);
                 }
                 catch(JSONException e){
@@ -142,6 +149,15 @@ public class ViewHabitActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             runOnUiThread(() -> {   Log.d("POST","************************************");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//               while(list.getItemAtPosition(0)==null)
+//                {
+//                    adapter.notifyDataSetChanged();
+//                }
                 adapter.notifyDataSetChanged();
             });
             super.onPostExecute(aVoid);
@@ -159,8 +175,33 @@ public class ViewHabitActivity extends AppCompatActivity {
     public void sendData(String name){
         Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
         //get only habit id
-        String habitId = name.split(":")[1].split("\"")[1];
-        intent.putExtra("habit", habitId);
+//        String habitId = name.split(":")[1].split("\"")[1];
+//        intent.putExtra("habit", habitId);
+        user.setHabitId(name);
         startActivity(intent);
+    }
+
+    public void delete(String id) throws InterruptedException {
+
+
+//        final RemoteMongoCollection<Document> coll =
+//                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Habits");
+//
+//        final RemoteMongoCollection<Document> collCalendar =
+//                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+//
+//
+//
+//        String str = new ObjectId(id).toString();
+//        coll.deleteOne(new Document("_id",new ObjectId(id)));
+//        collCalendar.deleteOne(Filters.eq("Habit_id", str));
+//        finish();
+//        overridePendingTransition(0, 0);
+//        startActivity(getIntent());
+//        overridePendingTransition(0, 0);
+//        Thread.sleep(100);
+        Intent intent = new Intent(this, ViewAHabit.class);
+        startActivity(intent);
+
     }
 }

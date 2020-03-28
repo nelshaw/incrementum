@@ -1,8 +1,5 @@
 package com.example.incrementum;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,35 +8,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.Continuation;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchUser;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
-import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateOptions;
-import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class AddHabit2Activity extends AppCompatActivity {
 
@@ -66,12 +53,14 @@ public class AddHabit2Activity extends AppCompatActivity {
     String HabitId;
     String ownTrigger;
     /**************PARAMETERS OF HABIT***************/
-
+    String email;
+    String id;
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, AddHabitActivity.class);
         startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -80,11 +69,16 @@ public class AddHabit2Activity extends AppCompatActivity {
         length = Integer.valueOf(intent.getStringExtra("length"));
         description = intent.getStringExtra("description");
 
+
+        UserInfo user = (UserInfo) getApplication();
+
+        email = user.getEmail();
+        id = user.getUserId();
+        Toast.makeText(this.getBaseContext(),email, Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
-        userIn = findViewById(R.id.triggerown);
-        ownTrigger = userIn.getText().toString();
+
         //trigger buttons
         final ToggleButton location = findViewById(R.id.location);
         final ToggleButton pe = findViewById(R.id.pe);
@@ -108,7 +102,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeMorning = true;
                     } else {
-                        morning.setBackgroundColor(Color.rgb(241, 226, 134));
+                        morning.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeMorning = false;
                     }
@@ -123,7 +117,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeEvening = true;
                     } else {
-                        evening.setBackgroundColor(Color.rgb(241, 226, 134));
+                        evening.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeEvening = false;
                     }
@@ -138,7 +132,7 @@ public class AddHabit2Activity extends AppCompatActivity {
                         timesSelected++;
                         timeAfternoon = true;
                     } else {
-                        af.setBackgroundColor(Color.rgb(241, 226, 134));
+                        af.setBackgroundColor(Color.rgb(216, 242, 243));
                         timesSelected--;
                         timeAfternoon = false;
                     }
@@ -240,14 +234,15 @@ public class AddHabit2Activity extends AppCompatActivity {
                     Continue();
                 }
             });
-
-
         }
     }
     public void Continue(){
         if(Validate()) {
             Back();
             addHabit();
+//            addEmptyCalendarEntry();
+//            MyAsyncTask task = new MyAsyncTask();
+//            task.execute();
         }
     }
     public Boolean Validate(){
@@ -268,7 +263,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     }
     //returns user to main menu
     public void Back(){
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, ViewHabitActivity.class);
         startActivity(intent);
     }
 
@@ -317,10 +312,7 @@ public class AddHabit2Activity extends AppCompatActivity {
         {
             triggerList.add("Location");
         }
-        if(ownTrigger!="")
-        {
-            triggerList.add(userIn.toString());
-        }
+
         //times
 //        boolean timeMorning = false;
 //        boolean timeEvening = false;
@@ -344,14 +336,48 @@ public class AddHabit2Activity extends AppCompatActivity {
         {
             timeList.add("Night");
         }
-
         Document doc = new Document()
                 .append("name", name)
-                .append("length",length)
+                .append("length",length*14)
                 .append("description",description)
                 .append("Triggers",triggerList)
                 .append("Times",timeList)
-                .append("userId","5e52b0dc1c9d440000a2a03a");
+                .append("userId",id);
+        final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+        ObjectId id = doc.getObjectId("_id");
+        insert.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
+            @Override
+            public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                Log.d("before sucess", "mesg");
+                if (task.isSuccessful()){
+                    Log.d("STITCH", String.format("success inserting: %s",
+                            task.getResult().getInsertedId()));
+                    String id = task.getResult().getInsertedId().toString();
+                    String id1 = id.split("=")[1];
+                    HabitId = id1.substring(0, id1.length() - 1);
+                    Log.d("Habit id ********", HabitId);
+                    addEmptyCalendarEntry();
+                }
+                else{
+                    Log.d("STITCH", "Unsuccessful");
+                }
+            }
+        });
+    }
+
+    public void addEmptyCalendarEntry(){
+        //connect to collection
+        final RemoteMongoCollection<Document> coll =
+                DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
+
+        Log.d("habit id from calendar", HabitId);
+
+        List<String> Days = new ArrayList<>();
+
+        Document doc = new Document()
+                .append("User_id", id)
+                .append("Habit_id", HabitId)
+                .append("Days", Days);
 
         final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
         ObjectId id = doc.getObjectId("_id");
@@ -361,7 +387,6 @@ public class AddHabit2Activity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Log.d("STITCH", String.format("success inserting: %s",
                             task.getResult().getInsertedId()));
-                    HabitId = task.getResult().getInsertedId().toString();
                 }
                 else{
                     Log.d("STITCH", "Unsuccessful");
