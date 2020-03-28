@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                                                    });
 
                                                    onLoginSuccess(email);
+                                                   progressDialog.dismiss();
                                                } else {
                                                    Log.e("stitch", "Error logging in with email/password auth:", task.getException());
                                                    progressDialog.dismiss();
@@ -257,6 +258,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void openProfileActivity() {
+
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
