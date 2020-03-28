@@ -41,4 +41,11 @@ public class UserInfo  extends Application {
     public void setHabitId(String habitId) {
         this.habitId = habitId;
     }
+
+    public void clear(){
+        setUserId("");
+        setEmail("");
+        setUserName("");
+        setHabitId("");
+    }
 }
