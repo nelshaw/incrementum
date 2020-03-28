@@ -24,6 +24,8 @@ import org.bson.Document;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.example.incrementum.DatabaseHelper.mongoClient;
+
 public class AddHabitOccurrenceActivity extends AppCompatActivity {
 
   @InjectView(R.id.moodSeekBar)  SeekBar seekBar;
@@ -83,12 +85,6 @@ public class AddHabitOccurrenceActivity extends AppCompatActivity {
   public void addEntry(){
 
     // Connect to MongoDB client
-    final StitchAppClient client =
-      Stitch.getAppClient("incrementum-xjkms");
-
-    final RemoteMongoClient mongoClient =
-      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
     final RemoteMongoCollection<Document> coll =
       mongoClient.getDatabase("Incrementum").getCollection("Reflection");
 

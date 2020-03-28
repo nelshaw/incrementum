@@ -52,6 +52,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.example.incrementum.DatabaseHelper.mongoClient;
+
 public class ViewAHabit extends AppCompatActivity {
 
     @Override
@@ -123,10 +126,7 @@ public class ViewAHabit extends AppCompatActivity {
         RemoteFindIterable <Document>  results;
         @Override
         protected void onPreExecute() {
-            final StitchAppClient client =
-                    Stitch.getAppClient("incrementum-xjkms");
-            final RemoteMongoClient mongoClient =
-                    client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+            //Connect to MongoDB Client
             final RemoteMongoCollection<Document> coll =
                     mongoClient.getDatabase("Incrementum").getCollection("Habits");
             results = coll.find(Filters.eq("_id",new ObjectId(id)))

@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import static com.example.incrementum.DatabaseHelper.mongoClient;
+
 public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
     private static final String ALGORITHM = "AES";
@@ -55,7 +57,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         email = intent.getStringExtra("email");
         password = intent.getStringExtra("password");
 
-        
+
         EnterButton = findViewById(R.id.addHabitsHobbiesTimeButton);
         HobbyText = findViewById(R.id.editText5);
         startTimeText = findViewById(R.id.start);
@@ -77,12 +79,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
     public void insertUser(String user_name, String e_mail, String pass_word) {
 
-        final StitchAppClient client =
-                Stitch.getAppClient("incrementum-xjkms");
-
-        final RemoteMongoClient mongoClient =
-                client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
+      // Connect to MongoDB client
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Users");
 

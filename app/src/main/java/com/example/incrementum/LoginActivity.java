@@ -31,6 +31,8 @@ import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.incrementum.DatabaseHelper.mongoClient;
+
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -106,10 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                            public void onComplete(@NonNull final Task<StitchUser> task) {
                                                if (task.isSuccessful()) {
                                                    RemoteFindIterable<Document> results;
-                                                   final StitchAppClient client =
-                                                           Stitch.getAppClient("incrementum-xjkms");
-                                                   final RemoteMongoClient mongoClient =
-                                                           client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+                                                   // Connect to MongoDB Client
                                                    final RemoteMongoCollection<Document> coll =
                                                            mongoClient.getDatabase("Incrementum").getCollection("Users");
                                                    results = coll.find(Filters.eq("email", email))
