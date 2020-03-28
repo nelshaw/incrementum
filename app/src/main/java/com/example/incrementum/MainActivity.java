@@ -29,114 +29,117 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    //Initalize and Assign Value
-    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+    Intent intent = new Intent(this, LoginActivity.class);
+    startActivity(intent);
 
-    //Set home selected
-    bottomNavigationView.setSelectedItemId(R.id.map_nav);
-
-    //Perform ItemSelectedList
-    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-          case R.id.calendar_nav:
-            finish();
-            startActivity(new Intent(getApplicationContext()
-                    ,CalendarActivity.class));
-            overridePendingTransition(0,0);
-            return true;
-
-          case R.id.journal_nav:
-            finish();
-            startActivity(new Intent(getApplicationContext()
-                    ,ViewJournalActivity.class));
-            overridePendingTransition(0,0);
-            return true;
-
-          case R.id.habit_nav:
-            startActivity(new Intent(getApplicationContext()
-              ,ViewHabitActivity.class));
-            overridePendingTransition(0,0);
-            finish();
-            return true;
-
-          case R.id.map_nav:
-            startActivity(new Intent(getApplicationContext()
-                    ,MapActivity.class));
-            overridePendingTransition(0,0);
-            finish();
-            return true;
-        }
-        return false;
-      }
-    });
-
-    title = findViewById(R.id.title);
-
-    Button log = findViewById(R.id.logs);
-    log.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openlogs();
-      }
-    });
-
-    Button habit = findViewById(R.id.habit);
-    habit.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openHabitActivity();
-      }
-    });
-
-    final StitchAppClient client =
-            Stitch.initializeDefaultAppClient("incrementum-xjkms");
-
-    final RemoteMongoClient mongoClient =
-            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
-    // find button by id
-    button = findViewById(R.id.button);
-    goto_login_button = findViewById(R.id.goto_login_button);
-    journal = findViewById(R.id.journal);
-    calendarButton = findViewById(R.id.calendarButton);
-    Button addHabitBtn = findViewById(R.id.button2);
-
-    addHabitBtn.setOnClickListener( v -> {
-      Intent intent = new Intent(this, AddHabitActivity.class);
-      startActivity(intent);
-    });
-
-
-    // on click function
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openHabitEffectActivity();
-      }
-    });
-    // on click function
-    goto_login_button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openLoginActivity();
-      }
-    });
-
-    journal.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        openJournalActivity();
-      }
-    });
-
-    calendarButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v){
-        openCalendarActivity();
-      }
-    });
+//    //Initalize and Assign Value
+//    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//
+//    //Set home selected
+//    bottomNavigationView.setSelectedItemId(R.id.map_nav);
+//
+//    //Perform ItemSelectedList
+//    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//      @Override
+//      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//        switch (menuItem.getItemId()){
+//          case R.id.calendar_nav:
+//            finish();
+//            startActivity(new Intent(getApplicationContext()
+//                    ,CalendarActivity.class));
+//            overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.journal_nav:
+//            finish();
+//            startActivity(new Intent(getApplicationContext()
+//                    ,ViewJournalActivity.class));
+//            overridePendingTransition(0,0);
+//            return true;
+//
+//          case R.id.habit_nav:
+//            startActivity(new Intent(getApplicationContext()
+//              ,ViewHabitActivity.class));
+//            overridePendingTransition(0,0);
+//            finish();
+//            return true;
+//
+//          case R.id.map_nav:
+//            startActivity(new Intent(getApplicationContext()
+//                    ,MapActivity.class));
+//            overridePendingTransition(0,0);
+//            finish();
+//            return true;
+//        }
+//        return false;
+//      }
+//    });
+//
+//    title = findViewById(R.id.title);
+//
+//    Button log = findViewById(R.id.logs);
+//    log.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        openlogs();
+//      }
+//    });
+//
+//    Button habit = findViewById(R.id.habit);
+//    habit.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        openHabitActivity();
+//      }
+//    });
+//
+//    final StitchAppClient client =
+//            Stitch.initializeDefaultAppClient("incrementum-xjkms");
+//
+//    final RemoteMongoClient mongoClient =
+//            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+//
+//    // find button by id
+//    button = findViewById(R.id.button);
+//    goto_login_button = findViewById(R.id.goto_login_button);
+//    journal = findViewById(R.id.journal);
+//    calendarButton = findViewById(R.id.calendarButton);
+//    Button addHabitBtn = findViewById(R.id.button2);
+//
+//    addHabitBtn.setOnClickListener( v -> {
+//      Intent intent = new Intent(this, AddHabitActivity.class);
+//      startActivity(intent);
+//    });
+//
+//
+//    // on click function
+//    button.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        openHabitEffectActivity();
+//      }
+//    });
+//    // on click function
+//    goto_login_button.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        openLoginActivity();
+//      }
+//    });
+//
+//    journal.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        openJournalActivity();
+//      }
+//    });
+//
+//    calendarButton.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v){
+//        openCalendarActivity();
+//      }
+//    });
   }
 
   // open habit effect
