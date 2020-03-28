@@ -72,6 +72,11 @@ public class ViewAHabit extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_a_habit);
         UserInfo user = (UserInfo) getApplication();
@@ -178,6 +183,7 @@ public class ViewAHabit extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             runOnUiThread(() -> {   Log.d("POST","************************************");
+
                 name.setText(habitName);
                 descriptionText.setText(description);
             });
