@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mongodb.client.model.Filters;
 import com.mongodb.stitch.android.core.Stitch;
@@ -30,8 +31,10 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
   TextView _userText;
   String userName;
   String email;
+  String userPath;
   Button refresh;
   ImageView profilePicture;
   Button addNewProfilePicture;
@@ -157,6 +161,34 @@ public class ProfileActivity extends AppCompatActivity {
   public void setProfilePic() {
     UserInfo user = (UserInfo) getApplication();
     String path = user.getPicturePath();
+    String uemail = user.getEmail();
+    RemoteFindIterable<Document> results;
+    
+
+    final StitchAppClient client =
+            Stitch.getAppClient("incrementum-xjkms");
+    final RemoteMongoClient mongoClient =
+            client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+    final RemoteMongoCollection<Document> coll =
+            mongoClient.getDatabase("Incrementum").getCollection("Users");
+    results = coll.find(Filters.eq("email", uemail))
+            .projection(
+                    new Document());
+    results.forEach(item -> {
+      try {
+        JSONObject obj = new JSONObject(item.toJson());
+        String up = obj.getString("path").toString();
+        userPath = up;
+      } catch (JSONException e) {
+        Log.d("JSON exception:", e.toString());
+      }
+    });
+
+
+    if(userPath != "")
+    {
+      profilePicture.setImageBitmap(BitmapFactory.decodeFile(userPath));
+    }
     if(path != null)
     {
       profilePicture.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -187,9 +219,10 @@ public class ProfileActivity extends AppCompatActivity {
   @RequiresApi(api = Build.VERSION_CODES.O)
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    switch (requestCode){
+    RemoteFindIterable<Document> results;
+    switch (requestCode) {
       case RESULT_LOAD_IMAGE:
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
           Uri selectedImage = data.getData();
           String[] filePathColumn = {MediaStore.Images.Media.DATA};
           Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null);
@@ -198,11 +231,27 @@ public class ProfileActivity extends AppCompatActivity {
           String picturePath = cursor.getString(columnIndex);
           UserInfo user = (UserInfo) getApplication();
           user.setPicturePath(picturePath);
-          cursor.close();
+
+          final StitchAppClient client =
+                  Stitch.getAppClient("incrementum-xjkms");
+          final RemoteMongoClient mongoClient =
+                  client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+          final RemoteMongoCollection<Document> coll =
+                  mongoClient.getDatabase("Incrementum").getCollection("Users");
+
+          String email = user.getEmail();
+          Document query = new Document().append("email", email);
+
+          Document update = new Document().append("$push", new Document().append("path", picturePath.toString()));
+
+          final Task<RemoteUpdateResult> updateTask = coll.updateOne(query, update);
+
           profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
-  }
+
+};
+
 
   public void getData() {
     RemoteFindIterable<Document> results;
