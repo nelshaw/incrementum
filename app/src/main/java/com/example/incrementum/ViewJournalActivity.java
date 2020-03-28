@@ -133,7 +133,7 @@ public class ViewJournalActivity extends AppCompatActivity {
             return true;
 
           case R.id.habit_nav:
-            finish();
+           // finish();
             startActivity(new Intent(getApplicationContext()
               , ViewHabitActivity.class));
             overridePendingTransition(0, 0);
