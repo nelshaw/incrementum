@@ -29,14 +29,15 @@ public class DatabaseHelper {
   final static RemoteMongoClient mongoClient =
     client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
 
-  public static void getAllJournals(List<String> journals, HashMap<Integer, Date> entriesInformation) {
+  public static void getAllJournals(List<String> journals, HashMap<Integer, Date> entriesInformation, String user_id, String habit_id) {
 
     final RemoteMongoCollection<Document> collection =
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     // Only get journal entries from current user who is logged in
-    Document filterDoc = new Document();
-//      .append("user_id", user_id);
+    Document filterDoc = new Document()
+      .append("user_id", user_id)
+      .append("habit_id", habit_id);
 
     // Get all entries with the criteria from filterDoc
     RemoteFindIterable results = collection.find(filterDoc);
@@ -95,41 +96,4 @@ public class DatabaseHelper {
       }
     });
   };
-
-  public static String getFirstName(String user_id){
-
-    final RemoteMongoCollection<Document> coll =
-      mongoClient.getDatabase("Incrementum").getCollection("Users");
-
-    // Only get journal entries from current user who is logged in
-    Document filterDoc = new Document()
-      .append("userid", user_id);
-
-    // Get all entries with the criteria from filterDoc
-    RemoteFindIterable results = coll.find(filterDoc);
-
-    // Log all journal entries that are found in the logger
-    Log.d("USER", String.valueOf(results));
-
-    final String[] firstName = new String[1];
-
-    results.forEach(item -> {
-        Document doc = (Document) item;
-        String fName = (String) doc.get("fname");
-
-        if(fName != null){
-          firstName[0] = fName;
-        }
-
-        Log.d("USER", fName);
-      }
-    );
-
-    if(firstName[0] != null){
-      return firstName[0];
-    }
-
-    return "John Smith";
-  }
-
 }

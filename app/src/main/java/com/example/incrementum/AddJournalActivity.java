@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +25,19 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static com.example.incrementum.DatabaseHelper.mongoClient;
 
 public class AddJournalActivity extends AppCompatActivity {
 
@@ -56,14 +63,19 @@ public class AddJournalActivity extends AppCompatActivity {
   @InjectView(R.id.evening) ToggleButton evening;
   @InjectView(R.id.night) ToggleButton night;
 
-  String user_id;
+  // Get user information
+  UserInfo user;
+  String user_id, habit_id;
   Date date;
 
   // Trigger values
-  boolean triggerLoc= false, triggerPEvent = false, triggerEState = false, triggerOPeople = false,
+  boolean triggerLoc = false, triggerPEvent = false, triggerEState = false, triggerOPeople = false,
     triggerTime = false;
   // Time values
   boolean timeMorn = false, timeEve = false, timeAft = false, timeNight = false;
+
+  int red = Color.rgb(237, 177, 162);
+  int blue = Color.rgb(216, 242, 243);
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,106 +83,33 @@ public class AddJournalActivity extends AppCompatActivity {
     setContentView(R.layout.activity_add_journal);
     ButterKnife.inject(this);
 
+    // Get user
+    user = (UserInfo) getApplication();
+
     // Get user id from user who logged in successfully
-    user_id = LoginActivity.user_id;
+    user_id = user.getUserId();
+
+    // Get habit_id from habit page to view journal entries for that habit
+    habit_id = user.getHabitId();
 
     // Get date from calendar
     date = CalendarActivity.dateSelected;
+    if(date == null){
+      date = new Date();
+    }
 
-    int red = Color.rgb(237, 177, 162);
-    int blue = Color.rgb(216, 242, 243);
-    
     // Time buttons
-    morning.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        morning.setBackgroundColor(red);
-        timeMorn = true;
-      } else {
-        morning.setBackgroundColor(blue);
-        timeMorn = false;
-      }
-    });
-
-    evening.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        evening.setBackgroundColor(red);
-        timeEve = true;
-      } else {
-        evening.setBackgroundColor(blue);
-        timeEve = false;
-      }
-    });
-
-    afternoon.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        afternoon.setBackgroundColor(red);
-        timeAft = true;
-      } else {
-        afternoon.setBackgroundColor(blue);
-        timeAft = false;
-      }
-    });
-
-    night.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        night.setBackgroundColor(red);
-        timeNight = true;
-      } else {
-        night.setBackgroundColor(blue);
-        timeNight = false;
-      }
-    });
+    setListener(morning);
+    setListener(afternoon);
+    setListener(evening);
+    setListener(night);
 
     // Trigger buttons
-    precedingEvent.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        precedingEvent.setBackgroundColor(red);
-        triggerPEvent = true;
-      } else {
-        precedingEvent.setBackgroundColor(blue);
-        triggerPEvent = false;
-      }
-    });
-
-    emotionalState.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        emotionalState.setBackgroundColor(red);
-        triggerEState = true;
-      } else {
-        emotionalState.setBackgroundColor(blue);
-        triggerEState = false;
-      }
-    });
-
-    otherPeople.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        otherPeople.setBackgroundColor(red);
-        triggerOPeople = true;
-      } else {
-        otherPeople.setBackgroundColor(blue);
-        triggerOPeople = false;
-      }
-    });
-
-    time.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        time.setBackgroundColor(red);
-        triggerTime = true;
-      } else {
-        time.setBackgroundColor(blue);
-        triggerTime = false;
-      }
-    });
-
-    location.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      if (isChecked) {
-        location.setBackgroundColor(red);
-        triggerLoc = true;
-      } else {
-        location.setBackgroundColor(blue);
-        triggerLoc = false;
-      }
-    });
+    setListener(precedingEvent);
+    setListener(emotionalState);
+    setListener(otherPeople);
+    setListener(time);
+    setListener(location);
 
     // Save entry and direct to view all journals
     saveBtn.setOnClickListener(new View.OnClickListener(){
@@ -231,21 +170,15 @@ public class AddJournalActivity extends AppCompatActivity {
   public void addEntry(){
 
     // Connect to MongoDB client
-    final StitchAppClient client =
-      Stitch.getAppClient("incrementum-xjkms");
-
-    final RemoteMongoClient mongoClient =
-      client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-
     final RemoteMongoCollection<Document> coll =
       mongoClient.getDatabase("Incrementum").getCollection("Journals");
 
     // Create new document from information and entry submitted
-    // Add triggers to database
     Document doc = new Document()
       .append("user_id", user_id)
       .append("date", date)
-      .append("entry", entry.getText().toString());
+      .append("entry", entry.getText().toString())
+      .append("habit_id", habit_id);
 
     // Insert document
     final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
@@ -262,6 +195,87 @@ public class AddJournalActivity extends AppCompatActivity {
         }
       }
     });
+
+    // if new trigger, add them to habit database
+    if(newTriggerCheck.isChecked()) {
+      addHabit();
+    }
+  }
+
+  public void addHabit(){
+
+    // Connect to MongoDB
+    final RemoteMongoCollection<Document> coll =
+      mongoClient.getDatabase("Incrementum").getCollection("Habits");
+
+    ArrayList<String> triggerList = new ArrayList<>();
+    ArrayList<String> timeList = new ArrayList<>();
+
+    // check what triggers are added
+    if(triggerEState)
+    {
+      triggerList.add("Emotional State");
+    }
+    if(triggerPEvent)
+    {
+      triggerList.add("Preceding Event");
+    }
+    if(triggerOPeople)
+    {
+      triggerList.add("Other People");
+    }
+    if(triggerTime)
+    {
+      triggerList.add("Time");
+    }
+    if(triggerLoc)
+    {
+      triggerList.add("Location");
+    }
+
+    // check what times are added
+    if(timeAft)
+    {
+      timeList.add("Afternoon");
+    }
+    if(timeEve)
+    {
+      timeList.add("Evening");
+    }
+    if(timeMorn)
+    {
+      timeList.add("Morning");
+    }
+    if(timeNight)
+    {
+      timeList.add("Night");
+    }
+
+    ObjectId habit = new ObjectId(habit_id);
+
+    // Create document
+    Document filterDoc = new Document()
+      .append("userId", user_id)
+      .append("_id", habit);
+
+    Document updateDoc = new Document()
+      .append("$addToSet", new Document()
+        .append("Triggers", new Document().append("$each", triggerList))
+        .append("Times", new Document().append("$each", timeList))
+      );
+
+    final Task<RemoteUpdateResult> updateTask = coll.updateOne(filterDoc, updateDoc);
+
+    updateTask.addOnCompleteListener(task -> {
+      if (task.isSuccessful()) {
+        long numMatched = task.getResult().getMatchedCount();
+        long numModified = task.getResult().getModifiedCount();
+        Log.d("app", String.format("successfully matched %d and modified %d documents",
+          numMatched, numModified));
+      } else {
+        Log.e("app", "failed to update document with: ", task.getException());
+      }
+    });
   }
 
   public boolean isEntryEmpty(){
@@ -270,5 +284,73 @@ public class AddJournalActivity extends AppCompatActivity {
       return true;
     }
     return false;
+  }
+
+  public void setListener(ToggleButton button){
+    button.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+      if(isChecked){
+        button.setBackgroundColor(red);
+        switch(button.getTextOn().toString()){
+          case "Location":
+            triggerLoc = true;
+            break;
+          case "Time":
+            triggerTime = true;
+            break;
+          case "Other People":
+            triggerOPeople = true;
+            break;
+          case "Preceding Event":
+            triggerPEvent = true;
+            break;
+          case "Emotional State":
+            triggerEState = true;
+            break;
+          case "morning":
+            timeMorn = true;
+            break;
+          case "Afternoon":
+            timeAft = true;
+            break;
+          case "evening":
+            timeEve = true;
+            break;
+          case "night":
+            timeNight = true;
+            break;
+        }
+      } else {
+        button.setBackgroundColor(blue);
+        switch(button.getTextOn().toString()){
+          case "Location":
+            triggerLoc = false;
+            break;
+          case "Time":
+            triggerTime = false;
+            break;
+          case "Other People":
+            triggerOPeople = false;
+            break;
+          case "Preceding Event":
+            triggerPEvent = false;
+            break;
+          case "Emotional State":
+            triggerEState = false;
+            break;
+          case "morning":
+            timeMorn = false;
+            break;
+          case "Afternoon":
+            timeAft = false;
+            break;
+          case "evening":
+            timeEve = false;
+            break;
+          case "night":
+            timeNight = false;
+            break;
+        }
+      }
+    }));
   }
 }

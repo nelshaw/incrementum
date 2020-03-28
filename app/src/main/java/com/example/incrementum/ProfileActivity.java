@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     analButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-          userName = _userText.getText().toString();
+        userName = _userText.getText().toString();
         openAnalysis();
         sendData(userName);
         finish();
@@ -129,6 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
         userName = obj.getString("username");
         Log.d("USERNAMEEEEEEEEEEEEEE", userName);
         _userText.setText(userName);
+        sendData(userName);
       } catch (JSONException e) {
         Log.d("JSON exception:", e.toString());
       }

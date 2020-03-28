@@ -1,6 +1,8 @@
 package com.example.incrementum;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -22,8 +24,12 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,9 +52,13 @@ public class ViewJournalActivity extends AppCompatActivity {
   @InjectView(R.id.updateBtn)
   Button updateBtn;
 
-  String user_id;
-  List<String> journals;
-  ListAdapter listAdapter;
+  // User information
+  UserInfo user;
+  String user_id, habit_id;
+
+  // Variables to display journals
+  ArrayList<String> journalEntries;
+  ArrayAdapter<String> arrayAdapter;
   HashMap<Integer, Date> entriesInformation;
   boolean isUpdateVisible;
 
@@ -58,29 +68,31 @@ public class ViewJournalActivity extends AppCompatActivity {
     setContentView(R.layout.activity_view_journal);
     ButterKnife.inject(this);
 
-    journals = new ArrayList<>();
+    journalEntries = new ArrayList<>();
     entriesInformation = new HashMap<>();
+
+    arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, journalEntries);
+    listView.setAdapter(arrayAdapter);
 
     updateJournal.setVisibility(View.INVISIBLE);
     updateBtn.setVisibility(View.INVISIBLE);
     isUpdateVisible = false;
 
+    // Get user information
+    user = (UserInfo) getApplication();
+
     // Get user_id from login to view journal entries for that user
-    user_id = LoginActivity.user_id;
-
-    getAllEntries();
-
-    // wait until journals list is filled
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    user_id = user.getUserId();
 
     // Add user's name to title
-    // This will grab from database once dummy data has been inserted
-    title.append(" " + DatabaseHelper.getFirstName(user_id));
+    // This will grab from database
+    title.append(" " + user.getUserName());
 
+    // pull values from MongoDB
+    DatabaseLoad load = new DatabaseLoad();
+    load.execute();
+
+    // by clicking listView entry, allow user to edit a journal on click
     listView.setOnItemClickListener((parent, view, position, id) -> {
       if (!isUpdateVisible) {
         updateJournal.setVisibility(View.VISIBLE);
@@ -148,16 +160,6 @@ public class ViewJournalActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
-  public void getAllEntries() {
-
-    DatabaseHelper.getAllJournals(journals, entriesInformation);
-
-    listAdapter = new ArrayAdapter<>(this, R.layout.simplerow, journals);
-
-    //attach adapter to ListView
-    listView.setAdapter(listAdapter);
-  }
-
   public void updateEntry(int position) {
 
     updateBtn.setOnClickListener(v -> {
@@ -169,5 +171,44 @@ public class ViewJournalActivity extends AppCompatActivity {
       Intent intent = new Intent(this, ViewJournalActivity.class);
       startActivity(intent);
     });
+  }
+
+  private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
+    RemoteFindIterable<Document> results;
+
+    @Override
+    protected void onPreExecute() {
+      Log.d("PRE","************************************");
+
+      // Get habit_id from habit page to view journal entries for that habit
+      habit_id = user.getHabitId();
+
+      while(true){
+        if(habit_id != null && !habit_id.equals(""))
+          break;
+      }
+
+      Log.d("Habit id*****", habit_id);
+
+      super.onPreExecute();
+    }
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+      Log.d("BACKGROUND","************************************");
+
+      DatabaseHelper.getAllJournals(journalEntries, entriesInformation, user_id, habit_id);
+
+      return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      runOnUiThread(() -> {Log.d("POST","************************************");});
+
+      arrayAdapter.notifyDataSetChanged();
+
+      super.onPostExecute(aVoid);
+    }
   }
 }
