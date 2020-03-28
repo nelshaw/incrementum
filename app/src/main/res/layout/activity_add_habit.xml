@@ -103,14 +103,14 @@
       android:layout_marginBottom="30dp">
 
       <TextView
-        android:id="@+id/textView3"
-        android:layout_width="198dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:textSize="16sp"
-        android:textColor="@color/darkGrey"
-        android:textStyle="bold"
-        android:text="How do you think this habit affects your life style?" />
+          android:id="@+id/textView3"
+          android:layout_width="214dp"
+          android:layout_height="77dp"
+          android:layout_marginTop="0dp"
+          android:text="How do you think this habit affects your life style?"
+          android:textColor="@color/darkGrey"
+          android:textSize="16sp"
+          android:textStyle="bold" />
 
       <EditText
         android:id="@+id/description"
