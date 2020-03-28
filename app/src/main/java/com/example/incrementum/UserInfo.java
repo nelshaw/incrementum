@@ -8,11 +8,16 @@ public class UserInfo  extends Application {
     private String userName;
     private String userId;
     private String habitId;
+    private String picturePath;
 
 
     public String getUserName() {
         return userName;
     }
+
+    public void setPicturePath(String picturePath) { this.picturePath = picturePath; }
+
+    public String getPicturePath() { return picturePath;}
 
     public String getUserId() {
         return userId;

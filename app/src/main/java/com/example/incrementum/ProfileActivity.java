@@ -145,11 +145,22 @@ public class ProfileActivity extends AppCompatActivity {
       }
     });
 
+    setProfilePic();
+
   }
 
   public void openAnalysis() {
     Intent intent = new Intent(this, only_hobbies.class);
     startActivity(intent);
+  }
+
+  public void setProfilePic() {
+    UserInfo user = (UserInfo) getApplication();
+    String path = user.getPicturePath();
+    if(path != null)
+    {
+      profilePicture.setImageBitmap(BitmapFactory.decodeFile(path));
+    }
   }
 
   public void sendData(String username)
@@ -185,6 +196,8 @@ public class ProfileActivity extends AppCompatActivity {
           cursor.moveToFirst();
           int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
           String picturePath = cursor.getString(columnIndex);
+          UserInfo user = (UserInfo) getApplication();
+          user.setPicturePath(picturePath);
           cursor.close();
           profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
