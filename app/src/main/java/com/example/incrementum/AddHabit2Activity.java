@@ -51,7 +51,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     int length;
     String description;
     String HabitId;
-    String ownTrigger;
+
     /**************PARAMETERS OF HABIT***************/
     String email;
     String id;
@@ -78,7 +78,14 @@ public class AddHabit2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit2);
         final Button saveButton = findViewById(R.id.save);
-
+        Button cancel = findViewById(R.id.backBtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ViewHabitActivity.class);
+                startActivity(intent);
+            }
+        });
         //trigger buttons
         final ToggleButton location = findViewById(R.id.location);
         final ToggleButton pe = findViewById(R.id.pe);

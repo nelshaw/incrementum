@@ -187,6 +187,13 @@ public class CalendarActivity extends AppCompatActivity {
             overridePendingTransition(0, 0);
             return true;
 
+          case R.id.habit_nav:
+            // finish();
+            startActivity(new Intent(getApplicationContext()
+                    , ViewHabitActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
+
           case R.id.map_nav:
             //finish();
             startActivity(new Intent(getApplicationContext()
