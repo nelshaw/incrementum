@@ -232,8 +232,6 @@ public class CalendarActivity extends AppCompatActivity {
   }
 
   private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
-    RemoteFindIterable<Document> results;
-    //String User_id = "5e587cbed6292c4d1074b5d8";
 
     @Override
     protected void onPreExecute() {
@@ -241,7 +239,6 @@ public class CalendarActivity extends AppCompatActivity {
 
       Intent intent = getIntent();
 
-      //_getHabitId = intent.getStringExtra("habit");
       _getHabitId = user.getHabitId();
 
       while(true){
@@ -257,49 +254,7 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected Void doInBackground(Void... voids) {
       Log.d("BACKGROUND","************************************");
-
-      Document filterDoc = new Document()
-              .append("User_id", User_id)
-//              .append("Habit_id", Habit_id);
-              .append("Habit_id", _getHabitId);
-
-      //find all documents
-      results = coll.find(filterDoc)
-              .projection(
-                      new Document()
-                              .append("_id", 0)
-                              .append("Habit_id", 0)
-                              .append("User_id", 0));
-      //for each document in the collection
-      results.forEach(item -> {
-        try {
-          //convert document to json
-          JSONObject obj = new JSONObject(item.toJson());
-
-          //find days array
-          JSONArray days = obj.getJSONArray("Days");
-
-          //for indices in days array
-          for (int i = 0; i < days.length(); i++) {
-            //find date and status
-            JSONObject object = new JSONObject(days.get(i).toString());
-            String date = object.getString("Date");
-            boolean stat = object.getBoolean("Status");
-
-            //convert date into a CalendarDay
-            CalendarDay day = CalendarDay.from(StringToDate(date));
-
-            //based on status, add to hashset to make red or green highlight circles
-            if (stat) {
-              didDoHabitDates.add(day);
-            } else {
-              didNotDoHabitDates.add(day);
-            }
-          }
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-      });
+      getAllCalendarEntries(User_id, _getHabitId, didDoHabitDates, didNotDoHabitDates);
       return null;
     }
     @Override
@@ -343,5 +298,51 @@ public class CalendarActivity extends AppCompatActivity {
       openDialog(Type.CALENDAR, "You have not filled out an entry for today. \nPress ok to add an entry.");
     }
 
+  }
+
+  public void getAllCalendarEntries(String User_id, String _getHabitId, HashSet<CalendarDay> didDoHabitDates, HashSet<CalendarDay> didNotDoHabitDates){
+
+    Document filterDoc = new Document()
+            .append("User_id", User_id)
+//              .append("Habit_id", Habit_id);
+            .append("Habit_id", _getHabitId);
+
+    //find all documents
+    RemoteFindIterable<Document> results = coll.find(filterDoc)
+            .projection(
+                    new Document()
+                            .append("_id", 0)
+                            .append("Habit_id", 0)
+                            .append("User_id", 0));
+    //for each document in the collection
+    results.forEach(item -> {
+      try {
+        //convert document to json
+        JSONObject obj = new JSONObject(item.toJson());
+
+        //find days array
+        JSONArray days = obj.getJSONArray("Days");
+
+        //for indices in days array
+        for (int i = 0; i < days.length(); i++) {
+          //find date and status
+          JSONObject object = new JSONObject(days.get(i).toString());
+          String date = object.getString("Date");
+          boolean stat = object.getBoolean("Status");
+
+          //convert date into a CalendarDay
+          CalendarDay day = CalendarDay.from(StringToDate(date));
+
+          //based on status, add to hashset to make red or green highlight circles
+          if (stat) {
+            didDoHabitDates.add(day);
+          } else {
+            didNotDoHabitDates.add(day);
+          }
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    });
   }
 }
