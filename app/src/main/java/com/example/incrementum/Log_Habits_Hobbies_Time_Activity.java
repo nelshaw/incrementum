@@ -73,7 +73,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
     public void openHabitActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
         Toast.makeText(this.getBaseContext(),"Please verify the email " + email, Toast.LENGTH_LONG).show();
-        insertUser(username, email, password);
+        insertUser(username, email.toLowerCase(), password);
         startActivity(intent);
     }
 
