@@ -20,7 +20,6 @@
       android:layout_gravity="center_horizontal"
       android:layout_marginBottom="24dp"
       android:contentDescription="@string/app_name"
-      android:src="@drawable/logo"
       app:srcCompat="@drawable/wide_no_bg" />
 
     <EditText
