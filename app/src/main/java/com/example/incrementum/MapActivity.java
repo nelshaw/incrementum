@@ -75,11 +75,15 @@ private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
                             JSONObject object = new JSONObject(days.get(i).toString());
                             boolean stat = object.getBoolean("Status");
                             Log.d("DAY " + i + ":", String.valueOf(stat));
+                            if(i == days.length() - 1 && stat){
+                                nDays = 1;
+                                break;
+                            }
                             if (streakStart) {
-                                if (stat) nDays++;
+                                if (!stat) nDays++;
                                 else break;
                             } else {
-                                if (stat) streakStart = true;
+                                if (!stat) streakStart = true;
                             }
                             i--;
                         }
@@ -129,6 +133,34 @@ private class DatabaseLoad extends AsyncTask<Void,Void,Void> {
                     map.setImageDrawable(getResources().getDrawable(R.drawable.map13));
                 else if(nDays ==  14)
                     map.setImageDrawable(getResources().getDrawable(R.drawable.map14));
+                else if(nDays ==  15)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map15));
+                else if(nDays ==  16)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map16));
+                else if(nDays ==  17)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map17));
+                else if(nDays ==  18)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map18));
+                else if(nDays ==  19)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map19));
+                else if(nDays ==  20)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map20));
+                else if(nDays ==  21)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map21));
+                else if(nDays ==  22)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map22));
+                else if(nDays ==  23)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map23));
+                else if(nDays ==  24)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map24));
+                else if(nDays ==  25)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map25));
+                else if(nDays ==  26)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map26));
+                else if(nDays ==  27)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map27));
+                else if(nDays ==  28)
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.map28));
                 else
                     map.setImageDrawable(getResources().getDrawable(R.drawable.logo));
                 finish();
