@@ -83,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         String name = nameInput.getText().toString();
-        String email = emailInput.getText().toString();
+        String email = emailInput.getText().toString().toLowerCase();
         String password = passwordInput.getText().toString();
 
         UserPasswordAuthProviderClient emailPassClient = Stitch.getDefaultAppClient().getAuth().getProviderClient(

@@ -54,7 +54,7 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        email = intent.getStringExtra("email");
+        email = intent.getStringExtra("email").toLowerCase();
         password = intent.getStringExtra("password");
 
 
@@ -82,8 +82,6 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
       // Connect to MongoDB client
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Users");
-
-
 
         try {
             pass_word = encrypt(pass_word);
