@@ -34,8 +34,8 @@ public class HabitEffectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_effect);
-        getNegativeQuotes();
-        getPositiveQuotes();
+        getNegativeQuotes(negQuotes);
+        getPositiveQuotes(posQuotes);
 
         // find button by id
         nButton = findViewById(R.id.negative_button);
@@ -96,7 +96,7 @@ public class HabitEffectActivity extends AppCompatActivity {
         dialog.setCancelable(false);
     }
 
-    public void getNegativeQuotes(){
+    public void getNegativeQuotes(List<String> negQuotes){
 
         Document filterDoc = new Document()
           .append("Type", "Negative");
@@ -119,7 +119,7 @@ public class HabitEffectActivity extends AppCompatActivity {
 
     }
 
-  public void getPositiveQuotes(){
+  public void getPositiveQuotes(List<String> posQuotes){
 
     Document filterDoc = new Document()
       .append("Type", "Positive");
