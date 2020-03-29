@@ -9,9 +9,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
-import org.bson.Document;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -19,12 +17,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -118,4 +114,31 @@ public class HabitEffectActivityTest {
     // Test that posQuotes is not empty and has at least one entry
     assertEquals(5, negQuotes.size());
   }
+
+  @Test
+  public void getPositiveQuotes_nullList_doesNotReturnFiveQuotes() throws InterruptedException {
+    List<String> posQuotes = null;
+
+    activity.getPositiveQuotes(posQuotes);
+
+    // wait for database call to be completed
+    Thread.sleep(2500);
+
+    // Test that posQuotes is null
+    assertNull(posQuotes);
+  }
+
+  @Test
+  public void getNegativeQuotes_nullList_doesNotReturnFiveQuotes() throws InterruptedException {
+    List<String> negQuotes = null;
+
+    activity.getPositiveQuotes(negQuotes);
+
+    // wait for database call to be completed
+    Thread.sleep(2500);
+
+    // Test that posQuotes is null
+    assertNull(negQuotes);
+  }
+
 }
