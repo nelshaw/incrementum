@@ -83,8 +83,6 @@ public class Log_Habits_Hobbies_Time_Activity extends AppCompatActivity {
         final RemoteMongoCollection<Document> coll =
                 mongoClient.getDatabase("Incrementum").getCollection("Users");
 
-
-
         try {
             pass_word = encrypt(pass_word);
         } catch (Exception e) {
