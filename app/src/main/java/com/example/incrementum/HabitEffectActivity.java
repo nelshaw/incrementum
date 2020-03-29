@@ -34,14 +34,15 @@ public class HabitEffectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_effect);
-        getNegativeQuotes(negQuotes);
-        getPositiveQuotes(posQuotes);
 
         // find button by id
         nButton = findViewById(R.id.negative_button);
         pButton = findViewById(R.id.positive_button);
         negQuotes = new ArrayList<>();
         posQuotes = new ArrayList<>();
+
+        getNegativeQuotes(negQuotes);
+        getPositiveQuotes(posQuotes);
 
         // on click function negative button
         nButton.setOnClickListener(new View.OnClickListener(){
