@@ -93,4 +93,15 @@ public class DatabaseHelper {
       }
     });
   };
+
+  public static String getProfilePicturePath (String user_id){
+    final RemoteMongoCollection<Document> collection =
+            mongoClient.getDatabase("Incrementum").getCollection("Users");
+    String path = "";
+    // Only get journal entries from current user who is logged in
+    Document filterDoc = new Document()
+            .append("user_id", user_id)
+            .append("path", path);
+    return path;
+  }
 }
