@@ -87,13 +87,14 @@
         android:scaleType="centerInside" />
 
       <Button
-        android:id="@+id/addProfilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@color/lightGreyTheme"
-        android:text="Add Profile Picture"
-        android:textColor="@color/darkGrey" />
+          android:id="@+id/addProfilePicture"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:background="@color/lightGreyTheme"
+          android:text="Add Profile Picture"
+          android:textColor="@color/darkGrey" />
+
     </LinearLayout>
 
     <LinearLayout

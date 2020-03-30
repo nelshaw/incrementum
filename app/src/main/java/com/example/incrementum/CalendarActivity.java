@@ -219,7 +219,7 @@ public class CalendarActivity extends AppCompatActivity {
   }
 
   //function to convert string to date
-  public Date StringToDate(String s) {
+  public static Date StringToDate(String s) {
 
     Date result = null;
     try {
@@ -300,7 +300,10 @@ public class CalendarActivity extends AppCompatActivity {
 
   }
 
-  public void getAllCalendarEntries(String User_id, String _getHabitId, HashSet<CalendarDay> didDoHabitDates, HashSet<CalendarDay> didNotDoHabitDates){
+  public static void getAllCalendarEntries(String User_id, String _getHabitId, HashSet<CalendarDay> didDoHabitDates, HashSet<CalendarDay> didNotDoHabitDates){
+
+    final RemoteMongoCollection<Document> coll =
+            DatabaseHelper.mongoClient.getDatabase("Incrementum").getCollection("Calendar");
 
     Document filterDoc = new Document()
             .append("User_id", User_id)
