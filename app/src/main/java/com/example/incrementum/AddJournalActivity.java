@@ -115,7 +115,7 @@ public class AddJournalActivity extends AppCompatActivity {
     saveBtn.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-          if(!isEntryEmpty()) openViewJournalActivity();
+          if(!isEntryEmpty(entry.getText().toString())) openViewJournalActivity();
           else{
             CharSequence text = "Unable to add an empty journal entry... \nTry again.";
 
@@ -278,8 +278,8 @@ public class AddJournalActivity extends AppCompatActivity {
     });
   }
 
-  public boolean isEntryEmpty(){
-    if(entry.getText().toString().isEmpty() || entry.getText().toString().equals("")){
+  public boolean isEntryEmpty(String entry){
+    if(entry.isEmpty() || entry.equals("")){
       Log.d("JOURNAL", "Unable to add an empty journal");
       return true;
     }
