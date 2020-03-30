@@ -1,13 +1,20 @@
 package com.example.incrementum;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
 
+import org.bson.Document;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.incrementum.DatabaseHelper.mongoClient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -231,14 +239,61 @@ public class DatabaseHelperTest {
   @Test
   public void updateJournal_validInformation_updatesJournal() throws InterruptedException {
 
+    List<String> journalsList = new ArrayList<>();
     HashMap<Integer, Date> entriesInformation = new HashMap<>();
-    int position = 1;
+    int position = 3;
     String updatedText = "updated entry";
     String originalText = "original entry";
+    String fakeUserId = "FAKEUSERID";
+    String fakeHabitId = "FAKEHABITID";
 
     // Insert entry
+    // Connect to MongoDB client
+    final RemoteMongoCollection<Document> coll =
+      mongoClient.getDatabase("Incrementum").getCollection("Journals");
+
+    // Create new document from information and entry submitted
+    Document doc = new Document()
+      .append("user_id", fakeUserId)
+      .append("date", new Date(10))
+      .append("entry", originalText)
+      .append("habit_id", fakeHabitId);
+
+    // Insert document
+    final Task<RemoteInsertOneResult> insert = coll.insertOne(doc);
+
+    insert.addOnCompleteListener(task -> {
+      if (task.isSuccessful()){
+        Log.d("STITCH", String.format("success inserting: %s",
+          task.getResult().getInsertedId()));
+      }
+      else{
+        Log.d("STITCH", "Unsuccessful adding journal entry");
+      }
+    });
+
+    Thread.sleep(2500);
+
+    // Check entry is the inserted
+    // Get all journals
+    DatabaseHelper.getAllJournals(journalsList, entriesInformation, fakeUserId, fakeHabitId);
+    // wait for database call to be completed
+    Thread.sleep(2500);
+    // Verify original size
+    int size = journalsList.size();
+
     // Update entry by calling function
-    // Check updated entry is the same
+    DatabaseHelper.updateJournal(entriesInformation, position, updatedText);
+
+    // Clear list to avoid counting repeated journals
+    journalsList.clear();
+    // Get all journals again
+    DatabaseHelper.getAllJournals(journalsList, entriesInformation, fakeUserId, fakeHabitId);
+    // wait for query to be completed
+    Thread.sleep(2500);
+
+    // check size is the same
+    assertEquals(size, journalsList.size());
 
   }
 
