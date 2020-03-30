@@ -286,6 +286,27 @@ public class AddJournalActivity extends AppCompatActivity {
     return false;
   }
 
+  public void setEntry(String newEntry){
+    entry.setText(newEntry);
+  }
+
+  public void setUserId(String userId){
+    user_id = userId;
+  }
+
+  public void setHabitId(String habitId){
+    habit_id = habitId;
+  }
+
+  public void setNewTriggerCheck(boolean isChecked){
+    newTriggerCheck.setChecked(isChecked);
+  }
+
+  public void setTriggers(boolean values){
+    timeMorn = values;
+    triggerEState = values;
+  }
+
   public void setListener(ToggleButton button){
     button.setOnCheckedChangeListener(((buttonView, isChecked) -> {
       if(isChecked){
