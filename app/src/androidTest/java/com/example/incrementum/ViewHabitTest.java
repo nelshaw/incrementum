@@ -141,6 +141,6 @@ public class ViewHabitTest {
                 Log.d("JSON exception:",e.toString());
             }
         });
-        
+
     }
 }

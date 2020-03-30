@@ -133,7 +133,7 @@ public void InvalidAddHabit()
             .append("Times",times)
             .append("userId",userId);
 
-    //nothing will be sent to database, but user will be notified information must be entered.
+    assert(true);
 }
 
 }
