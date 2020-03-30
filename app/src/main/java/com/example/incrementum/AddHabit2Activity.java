@@ -255,7 +255,7 @@ public class AddHabit2Activity extends AppCompatActivity {
     public Boolean Validate(){
 
         //checks if no options selected
-        if(optionsSelected==0 && userIn.getText().toString().length()== 0)
+        if(optionsSelected==0)
         {
             Toast.makeText(getBaseContext(), "Please select at least one trigger.", Toast.LENGTH_LONG).show();
             return false;
