@@ -1,10 +1,8 @@
 package com.example.incrementum;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
@@ -30,7 +25,6 @@ import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -115,7 +109,7 @@ public class AddJournalActivity extends AppCompatActivity {
     saveBtn.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-          if(!isEntryEmpty()) openViewJournalActivity();
+          if(!isEntryEmpty(entry.getText().toString())) openViewJournalActivity();
           else{
             CharSequence text = "Unable to add an empty journal entry... \nTry again.";
 
@@ -278,12 +272,33 @@ public class AddJournalActivity extends AppCompatActivity {
     });
   }
 
-  public boolean isEntryEmpty(){
-    if(entry.getText().toString().isEmpty() || entry.getText().toString().equals("")){
+  public boolean isEntryEmpty(String entry){
+    if(entry.isEmpty() || entry.equals("")){
       Log.d("JOURNAL", "Unable to add an empty journal");
       return true;
     }
     return false;
+  }
+
+  public void setEntry(String newEntry){
+    entry.setText(newEntry);
+  }
+
+  public void setUserId(String userId){
+    user_id = userId;
+  }
+
+  public void setHabitId(String habitId){
+    habit_id = habitId;
+  }
+
+  public void setNewTriggerCheck(boolean isChecked){
+    newTriggerCheck.setChecked(isChecked);
+  }
+
+  public void setTriggers(boolean values){
+    timeMorn = values;
+    triggerEState = values;
   }
 
   public void setListener(ToggleButton button){
