@@ -1,5 +1,4 @@
 package com.example.incrementum;
-
 import android.content.Context;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -19,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -242,4 +242,11 @@ public class DatabaseHelperTest {
 
   }
 
+  @Test
+  public void checkProfilePictureNotNull() throws InterruptedException {
+
+    String profilePicturePath = DatabaseHelper.getProfilePicturePath(user_id);
+    assertNotNull(profilePicturePath);
+
+  }
 }
